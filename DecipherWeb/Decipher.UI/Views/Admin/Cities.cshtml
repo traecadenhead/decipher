@@ -1,0 +1,18 @@
+﻿@model List<City>
+
+@{
+    ViewBag.Title = "Cities";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+@Html.Raw(TempData["Messages"])
+
+<table cellpadding="8">
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Name (@item.Status)</td>
+        <td>@Html.ActionLink("Edit", "CityEdit", new { id = item.CityID })</td>
+    </tr>
+}
+</table>

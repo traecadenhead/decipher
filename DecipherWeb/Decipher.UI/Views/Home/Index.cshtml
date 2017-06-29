@@ -1,0 +1,215 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron" id="primaryHold">
+    @*<h1>How do you identify?</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+</div>
+
+@*<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>*@
+
+@section Scripts{
+    <script type="text/javascript">
+        var reviewID = 0;
+        var placeID;
+
+        $(document).ready(function () {
+            if (amplify.store("UserID") == null) {
+                LoadIdentify();
+            }
+            else {
+                LoadFind();
+            }
+
+            $("#primaryHold").on("click", ".tagList div.descriptor", function () {
+                var sel = $(this).attr("selectedItem");
+                if (sel == "True") {
+                    $(this).attr("selectedItem", "False");
+                }
+                else {
+                    $(this).attr("selectedItem", "True");
+                }
+            });
+
+            $("#primaryHold").on("submit", "#identifyForm", function () {
+                var userID = $(this).find("#UserID").val();
+                var data = {
+                    UserID: userID,
+                    Descriptors: []
+                }
+                $(this).find(".descriptor").each(function () {
+                    var selected = false;
+                    if ($(this).attr("selectedItem") == "True") {
+                        selected = true;
+                    }
+                    var item = { DescriptorID: $(this).attr("descriptorID"), DescriptorType: "Profile", Selected: selected };
+                    data.Descriptors.push(item);
+                });
+                $.post($(this).attr("action"), data, function (result) {
+                    if (result > 0) {
+                        // got our user ID - save it in the browser
+                        amplify.store("UserID", result);
+                        LoadFind();
+                    }
+                    else {
+                        alert("Sorry, a problem occurred when saving.");
+                    }
+                });
+                return false;
+            });
+
+            $("#primaryHold").on("submit", "#findForm", function () {
+                var typeID = $(this).find("#TypeID").val();
+                if (typeID == undefined || typeID == null || typeID == '') {
+                    alert("You must select the type of place in order to search.");
+                    return false;
+                }
+                var action = $(this).attr("action");
+                var diversity = $(this).find("#Diversity").val();
+                var distance = $(this).find("#Distance").val();
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        function (location) {
+                            var loc = {
+                                Latitude: location.coords.latitude,
+                                Longitude: location.coords.longitude
+                            };
+                            var search = {
+                                Location: loc,
+                                TypeID: typeID,
+                                Diversity: diversity,
+                                Distance: distance
+                            }
+                            Loading();
+                            $.post(action, search, function (data) {
+                                $("#primaryHold").html(data);
+                            });
+                        }
+                    );
+                }
+                else {
+                    alert("Sorry, we couldn't determine your current location. Make sure you have location services turned on.");
+                }
+                return false;
+            });
+
+            $("#primaryHold").on("submit", ".questionHold form", function () {
+                var data = {
+                    UserID: amplify.store("UserID"),
+                    PlaceID: placeID,
+                    ReviewID: reviewID,
+                    Responses: []
+                };
+                var index = parseInt($(this).find("#Index").val());
+                var questionID = parseInt($(this).find("#QuestionID").val());
+                var detail = $(this).find("#Detail").val();
+                $(this).find(".descriptor").each(function () {
+                    if ($(this).attr("selectedItem") == "True") {
+                        var descriptorID = $(this).attr("descriptorID");
+                        var item = {
+                            DescriptorID: descriptorID,
+                            QuestionID: questionID,
+                            Detail: detail
+                        };
+                        data.Responses.push(item);
+                    }
+                });
+                $.post($(this).attr("action"), data, function (result) {
+                    if (result > 0) {
+                        reviewID = result;
+                        ShowNextQuestion(index);
+                    }
+                });
+                return false;
+            });
+        });
+
+        function LoadIntro() {
+            Loading();
+            $.get('@Url.Action("Intro", "Home")', null, function (data) {
+                $("#primaryHold").html(data);
+            });
+        }
+
+        function LoadAbout() {
+            Loading();
+            $.get('@Url.Action("About", "Home")', null, function (data) {
+                $("#primaryHold").html(data);
+            });
+        }
+
+        function LoadIdentify() {
+            Loading();
+            var userID = amplify.store("UserID");
+            if (userID == null) {
+                userID = 0;
+            }
+            $.get('@Url.Action("Identify", "Home")/' + userID, null, function (data) {
+                $("#primaryHold").html(data);
+            });
+        }
+
+        function LoadFind() {
+            Loading();
+            $.get('@Url.Action("Find", "Home")', null, function (data) {
+                $("#primaryHold").html(data);
+            });
+        }
+
+        function LoadReview(id) {
+            Loading();
+            placeID = id;
+            $.get('@Url.Action("Review", "Home")/' + placeID, null, function (data) {
+                $("#primaryHold").html(data);
+                ShowNextQuestion();
+            });
+        }
+
+        function ShowNextQuestion(currentIndex) {
+            var index = 0;
+            if (currentIndex != undefined && currentIndex != null) {
+                index = currentIndex + 1;
+            }
+            if (index < $(".questionHold").length) {
+                // there's another question to go to
+                $(".questionHold").hide();
+                $(".questionHold[index=" + index + "]").show();
+            }
+            else {
+                // go to thanks screen
+                $.get('@Url.Action("Thanks", "Home")', null, function (data) {
+                    $("#primaryHold").html(data);
+                });
+            }
+        }
+
+        function Loading() {
+            $(".navbar-collapse.in").addClass("collapse");
+            $(".navbar-collapse.in").removeClass("in");
+            $("#primaryHold").html("<div class='loading'>Loading...</div>");
+        }
+    </script>
+}

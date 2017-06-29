@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Admins>
+  <Admin>
+    <Username>traecadenhead</Username>
+    <Password>ztM9NCqIDQqLvClG71c7+5bvd0tEXF9c80iySesfc23uPuJugUR5R/W1uZ1BhyobtoTpms0tW+l1r+5kUOS6+A==</Password>
+    <Roles>
+      <Role>Tech</Role>
+      <Role>Basic</Role>
+    </Roles>
+  </Admin>
+  <Admin>
+    <Username>jamie</Username>
+    <Password>lf2nLdYeo7tWcwx7QQqCvkNWwEiCfDs1o2rICVlFCuviyiBqmk5gp72T4Yw6YOcu3BfL1SNnT1QaxkzrO2VY6A==</Password>
+    <Roles>
+      <Role>Basic</Role>
+    </Roles>
+  </Admin>
+  <Admin>
+    <Username>jonathan</Username>
+    <Password>PMPKQUVdnrKy4VHkbtQrVYQS+bCb+cqZQwaFRGnRB6DfX5NOA+HSze9PNm1DAHz29c2evZg+3FqbjgI2kgmc4A==</Password>
+    <Roles>
+      <Role>Basic</Role>
+    </Roles>
+  </Admin>
+  <Admin>
+    <Username>stephanie</Username>
+    <Password>zGlFUAW0l8EiFUa5wa8FT7h0ye2MuXyGxgq6WzFJsjxPYNM4UFatQ5CWoJ2bUwcHKj85ssa/y8QQkyOt8De+fA==</Password>
+    <Roles>
+      <Role>Basic</Role>
+    </Roles>
+  </Admin>
+</Admins>

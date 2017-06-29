@@ -1,0 +1,27 @@
+﻿@model Place
+
+<h1>Review @Model.Name</h1>
+
+@{int i = 0;}
+@foreach (var question in Model.Questions)
+{
+    <div class="questionHold" index="@i">
+        @using (Html.BeginForm("SaveReviewResponses", "Home"))
+        {
+            <div class="question">
+                @question.Text
+            </div>
+            <ul class="tagList">
+                @foreach (var item in question.Descriptors)
+                {
+                    <li><div class="descriptor" selectedItem="@item.Selected.ToString()" descriptorID="@item.DescriptorID">@item.Name</div></li>
+                }          
+            </ul>
+            <textarea placeholder="Additional Details (optional)" id="Detail"></textarea>
+            @Html.Hidden("QuestionID", question.QuestionID)
+            @Html.Hidden("Index", i)
+            <input type="submit" class="btn btn-default" value="Next" />
+        }
+    </div>
+    { i++; }
+}

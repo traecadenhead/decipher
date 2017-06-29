@@ -1,0 +1,61 @@
+﻿<div ng-controller="DataIndex">
+    <div class="filters">
+        <div class="topFilterNav">
+            <ul class="navList">
+                <li ng-repeat="filter in filterViews" ng-if="filter.Available" ng-class="{'selected': filter.ID == filterView}">
+                    <a ng-click="NextFilter(filter.Index)">{{filter.Title}}</a>
+                </li>
+            </ul>
+        </div>
+        <div ng-if="filterView == 'city'" class="filter">
+            <ul class="tagList">
+                <li ng-repeat="item in filters.Cities" class="descriptor" ng-click="Select(item)" ng-class="{'selected': item.Selected == true}">
+                    {{item.Name}}
+                </li>
+            </ul>
+        </div>
+        <div ng-if="filterView == 'zip'" class="filter">
+            <ul class="tagList">
+                <li ng-repeat="item in filters.Zips" class="descriptor" ng-click="Select(item)" ng-class="{'selected': item.Selected == true}">
+                    {{item.Zip1}}
+                </li>
+            </ul>
+        </div>
+        <div ng-if="filterView == 'places'" class="filter">
+            <ul class="tagList">
+                <li ng-repeat="item in filters.Places" class="descriptor" ng-click="Select(item)" ng-class="{'selected': item.Selected == true}">
+                    {{item.Name}}
+                </li>
+            </ul>
+        </div>
+        <div ng-if="filterView == 'identifiers'" class="filter">
+            <ul class="tagList">
+                <li ng-repeat="item in filters.Descriptors" class="descriptor" ng-click="Select(item)" ng-class="{'selected': item.Selected == true}">
+                    {{item.Name}}
+                </li>
+            </ul>
+            <p>Note: if no filters are selected, by default all reviews are shown.</p>
+        </div>
+        <div class="bottomFilterNav">
+            <ul class="navList">
+                <li ng-if="mayGenerate">
+                    <a ng-click="GenerateReport()">Generate Report</a>
+                </li>
+                <li ng-if="filterViewNext">
+                    <a ng-click="NextFilter()">Next</a>
+                </li>                
+            </ul>
+        </div>
+    </div>
+    <div ng-if="entity != null && entity.Name != null">
+        <p>{{entity.Reviews.length}} reviews found.</p>
+        <div ng-repeat="question in entity.Questions" class="questionHold">
+            <h2>{{question.Text}}</h2>
+            <ul class="tagList resizable">
+                <li ng-repeat="item in question.Descriptors" class="descriptor" ng-style="{'font-size': item.NumPct + '%'}">
+                    {{item.Name}} ({{item.NumSelected}})
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

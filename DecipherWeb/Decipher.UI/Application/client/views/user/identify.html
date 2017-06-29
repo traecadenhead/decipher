@@ -1,0 +1,11 @@
+﻿<div ng-controller="UserIdentify">
+    <h1>How do you identify?</h1>
+    <form ng-submit="Submit()">
+        <ul class="tagList" id="profileTagList">
+            <li ng-repeat="item in user.Descriptors" class="descriptor" ng-click="Select(item)" ng-class="{'selected': item.Selected == true}">
+                {{item.Name}}
+            </li>
+        </ul>
+        <input type="submit" class="btn btn-default" value="Next" />
+    </form>
+</div>

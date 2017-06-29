@@ -1,0 +1,47 @@
+﻿@model Decipher.Model.Entities.Page
+
+@{
+    if (Model.PageID > 0)
+    {
+        ViewBag.Title = "Edit Page";
+    }
+    else
+    {
+        ViewBag.Title = "Add Page";
+    }
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+@Html.Raw(TempData["Messages"])
+@Html.Raw(ViewBag.Messages)
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td class="label">Title:</td>
+            <td class="field">
+                @Html.TextBox("Title", Model.Title)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Content:</td>
+            <td class="field">
+                @Html.TextArea("Content")
+            </td>
+        </tr>
+        <tr>
+            <td class="label">&nbsp;</td>
+            <td class="field">
+                @Html.Hidden("PageID")
+                @Html.Hidden("Ordinal")
+                @Html.Hidden("DateCreated")
+                <input type="submit" value="Save" />
+            </td>
+        </tr>
+    </table>
+}
+
+@section Scripts{
+    <script>tinymce.init({selector:'textarea'})</script>
+}

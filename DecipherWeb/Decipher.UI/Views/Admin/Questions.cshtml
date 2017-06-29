@@ -1,0 +1,58 @@
+﻿@model List<Question>
+
+@{
+    ViewBag.Title = "Review Questions";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+@Html.Raw(TempData["Messages"])
+
+<p>@Html.ActionLink("Add Question", "QuestionEdit", new { id = 0 })</p>
+
+<ul id="Arrange">
+    @foreach (var item in Model)
+    {
+        <li id="@item.QuestionID">
+            <table cellpadding="8">
+                <tr>
+                    <td>@item.Text</td>
+                    <td>@Html.ActionLink("Edit", "QuestionEdit", new { id = item.QuestionID })</td>
+                    <td>
+                        @using (Html.BeginForm("QuestionRemove", "Admin", FormMethod.Post, new { @class = "remove" }))
+                        {
+                            @Html.Hidden("QuestionID", item.QuestionID)
+                            <input type="submit" value="Remove" />
+                        }
+                    </td>
+                </tr>
+            </table>
+        </li>
+    }
+</ul>
+
+@section Scripts{ 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".remove").submit(function () {
+                return confirm("Are you sure you want to remove this item?");
+            });
+
+            $("#Arrange").sortable({});
+
+            $("#Arrange").bind('sortstop', function(event, ui) {
+                var items = $('#Arrange').sortable('toArray');
+                var serialized = "";
+                for (currentItem = 0; currentItem < items.length; currentItem++) {
+                    var id = items[currentItem];
+                    if (currentItem > 0) {
+                        serialized += "~";
+                    }
+                    serialized += id + "-" + (currentItem + 1);
+                }
+                var url = "@Url.Action("QuestionsOrder", "Admin")";
+                $.post(url, { data: serialized}, function(data){
+                });
+            });
+        });
+    </script>
+}

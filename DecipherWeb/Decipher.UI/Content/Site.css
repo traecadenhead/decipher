@@ -1,0 +1,160 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+ul.tagList{
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
+    overflow: auto;
+}
+
+ul.tagList li{
+    float: left;
+    margin-left: 0px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding-left: 0px; 
+}
+
+ul.tagList li .descriptor {
+    padding: 5px;
+    background-color: lightgray;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+ul.tagList li .descriptor[selectedItem="True"] {
+    background-color: dodgerblue;
+}
+
+.btn-default{
+    font-size: 20pt;
+    margin-top: 20px;
+    background-color: darkblue;
+    color: #ffffff;
+    border-radius: 15px;
+}
+
+#primaryHold .loading{
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+.categoryItem .label{
+    color: #000000;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    margin-left: 0px;
+    padding-left: 0px;
+    height: auto;
+}
+
+.categoryItem .field{
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+ul.findResults{
+    margin-left: 0px;
+    padding-left: 0px;
+    list-style: none;
+}
+
+ul.findResults li{
+    margin-left: 0px;
+    background-color: #ffffff;
+    padding: 10px;
+}
+
+ul.findResults li:nth-child(even){
+    background-color: lightblue;
+}
+
+ul.findResults li .name{
+    display: block;
+}
+
+ul.findResults li .types{
+    display: inline;
+    font-size: 65%;
+    font-style: italic;
+    padding-right: 10px;
+}
+
+ul.findResults li .diversity{
+    display: inline;
+    font-size: 65%;
+    padding-right: 10px;
+}
+
+ul.findResults li .diversity::after{
+    content: " Area Diversity";
+}
+
+ul.findResults li .distance{
+    display: inline;
+    font-size: 65%;
+    padding-right: 10px;
+}
+
+ul.findResults li .distance::after{
+    content: " Away";
+}
+
+a.reviewBtn{
+    padding: 5px;
+    background-color: lightgray;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+td.label{
+    color: #000000;
+}
+
+.questionHold{
+    display: none;
+}
+
+.questionHold textarea{
+    display: block;
+    width: 100%;
+    font-size: 60%;
+}
+
+@media (max-width: 767px) {
+    ul.findResults li .types{
+        display: block;
+    }
+
+    ul.findResults li .diversity{
+        display: block;
+    }
+
+    ul.findResults li .distance{
+        display: block;
+    }
+}

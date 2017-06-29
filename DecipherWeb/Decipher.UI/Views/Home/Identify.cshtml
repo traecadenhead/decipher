@@ -1,0 +1,14 @@
+﻿@model User
+
+<h1>How do you identify?</h1>
+@using (Html.BeginForm("SaveIdentify", "Home", FormMethod.Post, new { id = "identifyForm" }))
+{
+    <ul class="tagList" id="profileTagList">
+        @foreach (var item in Model.Descriptors)
+        {
+            <li><div class="descriptor" selectedItem="@item.Selected.ToString()" descriptorID="@item.DescriptorID">@item.Name</div></li>
+        }        
+    </ul>
+    @Html.Hidden("UserID")
+    <input type="submit" class="btn btn-default" value="Next" />
+}

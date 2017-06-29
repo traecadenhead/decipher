@@ -1,0 +1,58 @@
+﻿@model List<Decipher.Model.Entities.Page>
+
+@{
+    ViewBag.Title = "Pages";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+@Html.Raw(TempData["Messages"])
+
+<p>@Html.ActionLink("Add Page", "PageEdit", new { id = 0 })</p>
+
+<ul id="Arrange">
+    @foreach (var item in Model)
+    {
+        <li id="@item.PageID">
+            <table cellpadding="8">
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@Html.ActionLink("Edit", "PageEdit", new { id = item.PageID })</td>
+                    <td>
+                        @using (Html.BeginForm("PageRemove", "Admin", FormMethod.Post, new { @class = "remove" }))
+                        {
+                            @Html.Hidden("PageID", item.PageID)
+                            <input type="submit" value="Remove" />
+                        }
+                    </td>
+                </tr>
+            </table>
+        </li>
+    }
+</ul>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".remove").submit(function () {
+                return confirm("Are you sure you want to remove this item?");
+            });
+
+            $("#Arrange").sortable({});
+
+            $("#Arrange").bind('sortstop', function(event, ui) {
+                var items = $('#Arrange').sortable('toArray');
+                var serialized = "";
+                for (currentItem = 0; currentItem < items.length; currentItem++) {
+                    var id = items[currentItem];
+                    if (currentItem > 0) {
+                        serialized += "~";
+                    }
+                    serialized += id + "-" + (currentItem + 1);
+                }
+                var url = "@Url.Action("PagesOrder", "Admin")";
+                $.post(url, { data: serialized}, function(data){
+                });
+            });
+        });
+    </script>
+}

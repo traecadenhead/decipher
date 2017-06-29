@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8a7515a7adee4c30ab4c5d23f05fdb35" Name="Diagram1">
+        <EntityTypeShape EntityType="Decipher.Model.Entities.City" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.Demographic" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.Descriptor" Width="1.5" PointX="10.5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.Page" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.Place" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.PlaceType" Width="1.5" PointX="7.5" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.Question" Width="1.5" PointX="10.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.ReviewResponse" Width="1.5" PointX="12.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.Review" Width="1.5" PointX="10.5" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.Type" Width="1.5" PointX="5.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.UserDescriptor" Width="1.5" PointX="12.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.User" Width="1.5" PointX="8.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.ZipDemographic" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.Zip" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.ZipType" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_Zips_Cities" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_ZipDemographics_Demographics" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_ReviewResponses_Descriptors" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_UserDescriptors_Descriptors" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_Places_Zips" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_PlaceTypes_Places" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_Reviews_Places" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_PlaceTypes_Types" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_ReviewResponses_Questions" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_ReviewResponses_Reviews" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_Reviews_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_ZipTypes_Types" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_UserDescriptors_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_ZipDemographics_Zips" ManuallyRouted="false" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_ZipTypes_Zips" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

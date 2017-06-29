@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DecipherModelEntitiesStoreContainer" CdmEntityContainer="DecipherEntities">
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.City">
+        <MappingFragment StoreEntitySet="Cities">
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="CenterZip" ColumnName="CenterZip" />
+          <ScalarProperty Name="Radius" ColumnName="Radius" />
+          <ScalarProperty Name="ZipsAssociated" ColumnName="ZipsAssociated" />
+          <ScalarProperty Name="ReportEmail" ColumnName="ReportEmail" />
+          <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Demographics">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.Demographic">
+        <MappingFragment StoreEntitySet="Demographics">
+          <ScalarProperty Name="DemographicID" ColumnName="DemographicID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Descriptors">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.Descriptor">
+        <MappingFragment StoreEntitySet="Descriptors">
+          <ScalarProperty Name="DescriptorID" ColumnName="DescriptorID" />
+          <ScalarProperty Name="DescriptorType" ColumnName="DescriptorType" />
+          <ScalarProperty Name="AssociatedID" ColumnName="AssociatedID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pages">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.Page">
+        <MappingFragment StoreEntitySet="Pages">
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Places">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.Place">
+        <MappingFragment StoreEntitySet="Places">
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="GoogleRating" ColumnName="GoogleRating" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlaceTypes">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.PlaceType">
+        <MappingFragment StoreEntitySet="PlaceTypes">
+          <ScalarProperty Name="PlaceTypeID" ColumnName="PlaceTypeID" />
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.Question">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReviewResponses">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.ReviewResponse">
+        <MappingFragment StoreEntitySet="ReviewResponses">
+          <ScalarProperty Name="ReviewResponseID" ColumnName="ReviewResponseID" />
+          <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="DescriptorID" ColumnName="DescriptorID" />
+          <ScalarProperty Name="Detail" ColumnName="Detail" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reviews">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.Review">
+        <MappingFragment StoreEntitySet="Reviews">
+          <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+          <ScalarProperty Name="VisitDate" ColumnName="VisitDate" />
+          <ScalarProperty Name="Reported" ColumnName="Reported" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Types">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.Type">
+        <MappingFragment StoreEntitySet="Types">
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDescriptors">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.UserDescriptor">
+        <MappingFragment StoreEntitySet="UserDescriptors">
+          <ScalarProperty Name="UserDescriptorID" ColumnName="UserDescriptorID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="DescriptorID" ColumnName="DescriptorID" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ZipDemographics">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.ZipDemographic">
+        <MappingFragment StoreEntitySet="ZipDemographics">
+          <ScalarProperty Name="ZipDemographicID" ColumnName="ZipDemographicID" />
+          <ScalarProperty Name="DemographicID" ColumnName="DemographicID" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Zips">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.Zip">
+        <MappingFragment StoreEntitySet="Zips">
+          <ScalarProperty Name="Zip1" ColumnName="Zip" />
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+          <ScalarProperty Name="DiversityIndex" ColumnName="DiversityIndex" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ZipTypes">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.ZipType">
+        <MappingFragment StoreEntitySet="ZipTypes">
+          <ScalarProperty Name="ZipTypeID" ColumnName="ZipTypeID" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CustomStrings>
+  <!--Find a Place CustomStrings-->
+  <CustomString>
+    <CustomStringID>FindTitle</CustomStringID>
+    <Text>Find a Place</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindLabelAddress</CustomStringID>
+    <Text>Address</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindCurrentLocation</CustomStringID>
+    <Text>Use My Current Location</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindLabelType</CustomStringID>
+    <Text>Type of Place</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindLabelKeyword</CustomStringID>
+    <Text>Keyword (optional)</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindLabelDiversity</CustomStringID>
+    <Text>Level of Diversity in Area (optional)</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindResultsTitle</CustomStringID>
+    <Text>Results</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindNoResults</CustomStringID>
+    <Text>Sorry, no results were found matching your search.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindError</CustomStringID>
+    <Text>Sorry, an error occurred while searching. Please try back later.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindNoCity</CustomStringID>
+    <Text>Sorry, this app doesn't yet support the city you are searching for.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindTabList</CustomStringID>
+    <Text>List</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindTabMap</CustomStringID>
+    <Text>Map</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindResultsDiversity</CustomStringID>
+    <Text>Area Diversity</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindResultsDistance</CustomStringID>
+    <Text>Miles Away</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindSubmitReview</CustomStringID>
+    <Text>Submit Review</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindSeeReviews</CustomStringID>
+    <Text>See Reviews</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindMoreResults</CustomStringID>
+    <Text>More Results</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindSearchAgain</CustomStringID>
+    <Text>Search Again</Text>
+  </CustomString>
+</CustomStrings>

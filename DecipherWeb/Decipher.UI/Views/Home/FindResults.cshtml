@@ -1,0 +1,24 @@
+﻿@model List<Place>
+
+<h1>Results</h1>
+
+@if(Model.Count == 0)
+{
+    <p>Sorry, no results were found matching your search.</p>
+}
+else
+{
+    <ul class="findResults">
+        @foreach(var place in Model)
+        {
+            <li>
+                <div class="name">@place.Name</div>
+                <div class="types">@place.TypeStr</div>
+                <div class="diversity">@place.DefaultZip.DiversityStr</div>
+                <div class="distance">@place.DistanceStr</div>
+                <a class="reviewBtn" onclick="LoadReview('@place.PlaceID')">Review</a>
+            </li>
+        }
+    </ul>
+}
+<a class="btn btn-default" onclick="LoadFind()">Search Again</a>

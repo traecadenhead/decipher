@@ -1,0 +1,73 @@
+﻿@model City
+
+@{
+    if (Model.CityID > 0)
+    {
+        ViewBag.Title = "Edit City";
+    }
+    else
+    {
+        ViewBag.Title = "Add City";
+    }
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+@Html.Raw(TempData["Messages"])
+@Html.Raw(ViewBag.Messages)
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td class="label">City Name:</td>
+            <td class="field">
+                @Html.TextBox("Name", Model.Name, new { required = "required" })
+            </td>
+        </tr>
+        <tr>
+            <td class="label">City Center Latitude:</td>
+            <td class="field">
+                @Html.TextBox("Latitude", Model.Latitude, new { pattern = "?+[0-9]+([.][0-9]+)?", required = "required" })
+            </td>
+        </tr>
+        <tr>
+            <td class="label">City Center Longitude:</td>
+            <td class="field">
+                @Html.TextBox("Longitude", Model.Longitude, new { pattern = "?+[0-9]+([.][0-9]+)?", required = "required" })
+            </td>
+        </tr>
+        <tr>
+            <td class="label">ZIP Code at Center of City:</td>
+            <td class="field">
+                @Html.TextBox("CenterZip", Model.CenterZip, new { required = "required" })
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Radius of City in Miles:</td>
+            <td class="field">
+                <input type="number" value="@Model.Radius" id="Radius" name="Radius" required/>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Name for Reporting Incident:</td>
+            <td class="field">
+                @Html.TextBox("ReportName", Model.ReportName)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Email for Reporting Incident:</td>
+            <td class="field">
+                <input type="email" value="@Model.ReportEmail" id="ReportEmail" name="ReportEmail"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">&nbsp;</td>
+            <td class="field">
+                @Html.Hidden("CityID")
+                @Html.Hidden("ZipsAssociated")
+                @Html.Hidden("DateCreated")
+                <input type="submit" value="Save" />
+            </td>
+        </tr>
+    </table>
+}

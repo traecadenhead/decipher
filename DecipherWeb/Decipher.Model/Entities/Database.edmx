@@ -1,0 +1,1108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Decipher.Model.Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="CenterZip" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Radius" Type="int" Nullable="false" />
+          <Property Name="ZipsAssociated" Type="bit" Nullable="false" />
+          <Property Name="ReportEmail" Type="varchar" MaxLength="200" />
+          <Property Name="ReportName" Type="varchar" MaxLength="500" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Demographics">
+          <Key>
+            <PropertyRef Name="DemographicID" />
+          </Key>
+          <Property Name="DemographicID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Descriptors">
+          <Key>
+            <PropertyRef Name="DescriptorID" />
+          </Key>
+          <Property Name="DescriptorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptorType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AssociatedID" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Ordinal" Type="int" Nullable="false" />
+          <Property Name="Points" Type="int" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pages">
+          <Key>
+            <PropertyRef Name="PageID" />
+          </Key>
+          <Property Name="PageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Content" Type="text" Nullable="false" />
+          <Property Name="Ordinal" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Places">
+          <Key>
+            <PropertyRef Name="PlaceID" />
+          </Key>
+          <Property Name="PlaceID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Zip" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cost" Type="varchar" MaxLength="50" />
+          <Property Name="GoogleRating" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="Address" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlaceTypes">
+          <Key>
+            <PropertyRef Name="PlaceTypeID" />
+          </Key>
+          <Property Name="PlaceTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlaceID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="Ordinal" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReviewResponses">
+          <Key>
+            <PropertyRef Name="ReviewResponseID" />
+          </Key>
+          <Property Name="ReviewResponseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReviewID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="DescriptorID" Type="int" Nullable="false" />
+          <Property Name="Detail" Type="varchar" MaxLength="5000" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="PlaceID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="VisitDate" Type="datetime" />
+          <Property Name="Reported" Type="bit" Nullable="false" />
+          <Property Name="Score" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Types">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserDescriptors">
+          <Key>
+            <PropertyRef Name="UserDescriptorID" />
+          </Key>
+          <Property Name="UserDescriptorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="DescriptorID" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ZipDemographics">
+          <Key>
+            <PropertyRef Name="ZipDemographicID" />
+          </Key>
+          <Property Name="ZipDemographicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DemographicID" Type="int" Nullable="false" />
+          <Property Name="Zip" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zips">
+          <Key>
+            <PropertyRef Name="Zip" />
+          </Key>
+          <Property Name="Zip" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CityID" Type="int" />
+          <Property Name="DiversityIndex" Type="float" Nullable="false" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ZipTypes">
+          <Key>
+            <PropertyRef Name="ZipTypeID" />
+          </Key>
+          <Property Name="ZipTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Zip" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Places_Zips">
+          <End Role="Zips" Type="Self.Zips" Multiplicity="1" />
+          <End Role="Places" Type="Self.Places" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zips">
+              <PropertyRef Name="Zip" />
+            </Principal>
+            <Dependent Role="Places">
+              <PropertyRef Name="Zip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaceTypes_Places">
+          <End Role="Places" Type="Self.Places" Multiplicity="1" />
+          <End Role="PlaceTypes" Type="Self.PlaceTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Places">
+              <PropertyRef Name="PlaceID" />
+            </Principal>
+            <Dependent Role="PlaceTypes">
+              <PropertyRef Name="PlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaceTypes_Types">
+          <End Role="Types" Type="Self.Types" Multiplicity="1" />
+          <End Role="PlaceTypes" Type="Self.PlaceTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="PlaceTypes">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReviewResponses_Descriptors">
+          <End Role="Descriptors" Type="Self.Descriptors" Multiplicity="1" />
+          <End Role="ReviewResponses" Type="Self.ReviewResponses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Descriptors">
+              <PropertyRef Name="DescriptorID" />
+            </Principal>
+            <Dependent Role="ReviewResponses">
+              <PropertyRef Name="DescriptorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReviewResponses_Questions">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="ReviewResponses" Type="Self.ReviewResponses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="ReviewResponses">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReviewResponses_Reviews">
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="1" />
+          <End Role="ReviewResponses" Type="Self.ReviewResponses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reviews">
+              <PropertyRef Name="ReviewID" />
+            </Principal>
+            <Dependent Role="ReviewResponses">
+              <PropertyRef Name="ReviewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Places">
+          <End Role="Places" Type="Self.Places" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Places">
+              <PropertyRef Name="PlaceID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="PlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDescriptors_Descriptors">
+          <End Role="Descriptors" Type="Self.Descriptors" Multiplicity="1" />
+          <End Role="UserDescriptors" Type="Self.UserDescriptors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Descriptors">
+              <PropertyRef Name="DescriptorID" />
+            </Principal>
+            <Dependent Role="UserDescriptors">
+              <PropertyRef Name="DescriptorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDescriptors_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserDescriptors" Type="Self.UserDescriptors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserDescriptors">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZipDemographics_Demographics">
+          <End Role="Demographics" Type="Self.Demographics" Multiplicity="1" />
+          <End Role="ZipDemographics" Type="Self.ZipDemographics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Demographics">
+              <PropertyRef Name="DemographicID" />
+            </Principal>
+            <Dependent Role="ZipDemographics">
+              <PropertyRef Name="DemographicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZipDemographics_Zips">
+          <End Role="Zips" Type="Self.Zips" Multiplicity="1" />
+          <End Role="ZipDemographics" Type="Self.ZipDemographics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zips">
+              <PropertyRef Name="Zip" />
+            </Principal>
+            <Dependent Role="ZipDemographics">
+              <PropertyRef Name="Zip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zips_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+          <End Role="Zips" Type="Self.Zips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="Zips">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZipTypes_Types">
+          <End Role="Types" Type="Self.Types" Multiplicity="1" />
+          <End Role="ZipTypes" Type="Self.ZipTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="ZipTypes">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZipTypes_Zips">
+          <End Role="Zips" Type="Self.Zips" Multiplicity="1" />
+          <End Role="ZipTypes" Type="Self.ZipTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zips">
+              <PropertyRef Name="Zip" />
+            </Principal>
+            <Dependent Role="ZipTypes">
+              <PropertyRef Name="Zip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DecipherModelEntitiesStoreContainer">
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Demographics" EntityType="Self.Demographics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Descriptors" EntityType="Self.Descriptors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pages" EntityType="Self.Pages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Places" EntityType="Self.Places" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlaceTypes" EntityType="Self.PlaceTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReviewResponses" EntityType="Self.ReviewResponses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Types" EntityType="Self.Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDescriptors" EntityType="Self.UserDescriptors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZipDemographics" EntityType="Self.ZipDemographics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zips" EntityType="Self.Zips" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZipTypes" EntityType="Self.ZipTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Places_Zips" Association="Self.FK_Places_Zips">
+            <End Role="Zips" EntitySet="Zips" />
+            <End Role="Places" EntitySet="Places" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaceTypes_Places" Association="Self.FK_PlaceTypes_Places">
+            <End Role="Places" EntitySet="Places" />
+            <End Role="PlaceTypes" EntitySet="PlaceTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaceTypes_Types" Association="Self.FK_PlaceTypes_Types">
+            <End Role="Types" EntitySet="Types" />
+            <End Role="PlaceTypes" EntitySet="PlaceTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReviewResponses_Descriptors" Association="Self.FK_ReviewResponses_Descriptors">
+            <End Role="Descriptors" EntitySet="Descriptors" />
+            <End Role="ReviewResponses" EntitySet="ReviewResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReviewResponses_Questions" Association="Self.FK_ReviewResponses_Questions">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="ReviewResponses" EntitySet="ReviewResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReviewResponses_Reviews" Association="Self.FK_ReviewResponses_Reviews">
+            <End Role="Reviews" EntitySet="Reviews" />
+            <End Role="ReviewResponses" EntitySet="ReviewResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Places" Association="Self.FK_Reviews_Places">
+            <End Role="Places" EntitySet="Places" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Users" Association="Self.FK_Reviews_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDescriptors_Descriptors" Association="Self.FK_UserDescriptors_Descriptors">
+            <End Role="Descriptors" EntitySet="Descriptors" />
+            <End Role="UserDescriptors" EntitySet="UserDescriptors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDescriptors_Users" Association="Self.FK_UserDescriptors_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserDescriptors" EntitySet="UserDescriptors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZipDemographics_Demographics" Association="Self.FK_ZipDemographics_Demographics">
+            <End Role="Demographics" EntitySet="Demographics" />
+            <End Role="ZipDemographics" EntitySet="ZipDemographics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZipDemographics_Zips" Association="Self.FK_ZipDemographics_Zips">
+            <End Role="Zips" EntitySet="Zips" />
+            <End Role="ZipDemographics" EntitySet="ZipDemographics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zips_Cities" Association="Self.FK_Zips_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Zips" EntitySet="Zips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZipTypes_Types" Association="Self.FK_ZipTypes_Types">
+            <End Role="Types" EntitySet="Types" />
+            <End Role="ZipTypes" EntitySet="ZipTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZipTypes_Zips" Association="Self.FK_ZipTypes_Zips">
+            <End Role="Zips" EntitySet="Zips" />
+            <End Role="ZipTypes" EntitySet="ZipTypes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Decipher.Model.Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="CenterZip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Radius" Type="Int32" Nullable="false" />
+          <Property Name="ZipsAssociated" Type="Boolean" Nullable="false" />
+          <Property Name="ReportEmail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ReportName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Zips" Relationship="Self.FK_Zips_Cities" FromRole="Cities" ToRole="Zips" />
+        </EntityType>
+        <EntityType Name="Demographic">
+          <Key>
+            <PropertyRef Name="DemographicID" />
+          </Key>
+          <Property Name="DemographicID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ZipDemographics" Relationship="Self.FK_ZipDemographics_Demographics" FromRole="Demographics" ToRole="ZipDemographics" />
+        </EntityType>
+        <EntityType Name="Descriptor">
+          <Key>
+            <PropertyRef Name="DescriptorID" />
+          </Key>
+          <Property Name="DescriptorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptorType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AssociatedID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ordinal" Type="Int32" Nullable="false" />
+          <Property Name="Points" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ReviewResponses" Relationship="Self.FK_ReviewResponses_Descriptors" FromRole="Descriptors" ToRole="ReviewResponses" />
+          <NavigationProperty Name="UserDescriptors" Relationship="Self.FK_UserDescriptors_Descriptors" FromRole="Descriptors" ToRole="UserDescriptors" />
+        </EntityType>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="PageID" />
+          </Key>
+          <Property Name="PageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ordinal" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Place">
+          <Key>
+            <PropertyRef Name="PlaceID" />
+          </Key>
+          <Property Name="PlaceID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cost" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GoogleRating" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Zip1" Relationship="Self.FK_Places_Zips" FromRole="Places" ToRole="Zips" />
+          <NavigationProperty Name="PlaceTypes" Relationship="Self.FK_PlaceTypes_Places" FromRole="Places" ToRole="PlaceTypes" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK_Reviews_Places" FromRole="Places" ToRole="Reviews" />
+        </EntityType>
+        <EntityType Name="PlaceType">
+          <Key>
+            <PropertyRef Name="PlaceTypeID" />
+          </Key>
+          <Property Name="PlaceTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlaceID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TypeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Place" Relationship="Self.FK_PlaceTypes_Places" FromRole="PlaceTypes" ToRole="Places" />
+          <NavigationProperty Name="Type" Relationship="Self.FK_PlaceTypes_Types" FromRole="PlaceTypes" ToRole="Types" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ordinal" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ReviewResponses" Relationship="Self.FK_ReviewResponses_Questions" FromRole="Questions" ToRole="ReviewResponses" />
+        </EntityType>
+        <EntityType Name="ReviewResponse">
+          <Key>
+            <PropertyRef Name="ReviewResponseID" />
+          </Key>
+          <Property Name="ReviewResponseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReviewID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="DescriptorID" Type="Int32" Nullable="false" />
+          <Property Name="Detail" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Descriptor" Relationship="Self.FK_ReviewResponses_Descriptors" FromRole="ReviewResponses" ToRole="Descriptors" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_ReviewResponses_Questions" FromRole="ReviewResponses" ToRole="Questions" />
+          <NavigationProperty Name="Review" Relationship="Self.FK_ReviewResponses_Reviews" FromRole="ReviewResponses" ToRole="Reviews" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="PlaceID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VisitDate" Type="DateTime" Precision="3" />
+          <Property Name="Reported" Type="Boolean" Nullable="false" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Place" Relationship="Self.FK_Reviews_Places" FromRole="Reviews" ToRole="Places" />
+          <NavigationProperty Name="ReviewResponses" Relationship="Self.FK_ReviewResponses_Reviews" FromRole="Reviews" ToRole="ReviewResponses" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Reviews_Users" FromRole="Reviews" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="PlaceTypes" Relationship="Self.FK_PlaceTypes_Types" FromRole="Types" ToRole="PlaceTypes" />
+          <NavigationProperty Name="ZipTypes" Relationship="Self.FK_ZipTypes_Types" FromRole="Types" ToRole="ZipTypes" />
+        </EntityType>
+        <EntityType Name="UserDescriptor">
+          <Key>
+            <PropertyRef Name="UserDescriptorID" />
+          </Key>
+          <Property Name="UserDescriptorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DescriptorID" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Descriptor" Relationship="Self.FK_UserDescriptors_Descriptors" FromRole="UserDescriptors" ToRole="Descriptors" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserDescriptors_Users" FromRole="UserDescriptors" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK_Reviews_Users" FromRole="Users" ToRole="Reviews" />
+          <NavigationProperty Name="UserDescriptors" Relationship="Self.FK_UserDescriptors_Users" FromRole="Users" ToRole="UserDescriptors" />
+        </EntityType>
+        <EntityType Name="ZipDemographic">
+          <Key>
+            <PropertyRef Name="ZipDemographicID" />
+          </Key>
+          <Property Name="ZipDemographicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DemographicID" Type="Int32" Nullable="false" />
+          <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Demographic" Relationship="Self.FK_ZipDemographics_Demographics" FromRole="ZipDemographics" ToRole="Demographics" />
+          <NavigationProperty Name="Zip1" Relationship="Self.FK_ZipDemographics_Zips" FromRole="ZipDemographics" ToRole="Zips" />
+        </EntityType>
+        <EntityType Name="Zip">
+          <Key>
+            <PropertyRef Name="Zip1" />
+          </Key>
+          <Property Name="Zip1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CityID" Type="Int32" />
+          <Property Name="DiversityIndex" Type="Double" Nullable="false" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Zips_Cities" FromRole="Zips" ToRole="Cities" />
+          <NavigationProperty Name="Places" Relationship="Self.FK_Places_Zips" FromRole="Zips" ToRole="Places" />
+          <NavigationProperty Name="ZipDemographics" Relationship="Self.FK_ZipDemographics_Zips" FromRole="Zips" ToRole="ZipDemographics" />
+          <NavigationProperty Name="ZipTypes" Relationship="Self.FK_ZipTypes_Zips" FromRole="Zips" ToRole="ZipTypes" />
+        </EntityType>
+        <EntityType Name="ZipType">
+          <Key>
+            <PropertyRef Name="ZipTypeID" />
+          </Key>
+          <Property Name="ZipTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TypeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Type" Relationship="Self.FK_ZipTypes_Types" FromRole="ZipTypes" ToRole="Types" />
+          <NavigationProperty Name="Zip1" Relationship="Self.FK_ZipTypes_Zips" FromRole="ZipTypes" ToRole="Zips" />
+        </EntityType>
+        <Association Name="FK_Zips_Cities">
+          <End Role="Cities" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Zips" Type="Self.Zip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="Zips">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZipDemographics_Demographics">
+          <End Role="Demographics" Type="Self.Demographic" Multiplicity="1" />
+          <End Role="ZipDemographics" Type="Self.ZipDemographic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Demographics">
+              <PropertyRef Name="DemographicID" />
+            </Principal>
+            <Dependent Role="ZipDemographics">
+              <PropertyRef Name="DemographicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReviewResponses_Descriptors">
+          <End Role="Descriptors" Type="Self.Descriptor" Multiplicity="1" />
+          <End Role="ReviewResponses" Type="Decipher.Model.Entities.ReviewResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Descriptors">
+              <PropertyRef Name="DescriptorID" />
+            </Principal>
+            <Dependent Role="ReviewResponses">
+              <PropertyRef Name="DescriptorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDescriptors_Descriptors">
+          <End Role="Descriptors" Type="Self.Descriptor" Multiplicity="1" />
+          <End Role="UserDescriptors" Type="Self.UserDescriptor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Descriptors">
+              <PropertyRef Name="DescriptorID" />
+            </Principal>
+            <Dependent Role="UserDescriptors">
+              <PropertyRef Name="DescriptorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Places_Zips">
+          <End Role="Zips" Type="Self.Zip" Multiplicity="1" />
+          <End Role="Places" Type="Self.Place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zips">
+              <PropertyRef Name="Zip1" />
+            </Principal>
+            <Dependent Role="Places">
+              <PropertyRef Name="Zip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaceTypes_Places">
+          <End Role="Places" Type="Self.Place" Multiplicity="1" />
+          <End Role="PlaceTypes" Type="Self.PlaceType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Places">
+              <PropertyRef Name="PlaceID" />
+            </Principal>
+            <Dependent Role="PlaceTypes">
+              <PropertyRef Name="PlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Places">
+          <End Role="Places" Type="Self.Place" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Places">
+              <PropertyRef Name="PlaceID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="PlaceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaceTypes_Types">
+          <End Role="Types" Type="Self.Type" Multiplicity="1" />
+          <End Role="PlaceTypes" Type="Self.PlaceType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="PlaceTypes">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReviewResponses_Questions">
+          <End Role="Questions" Type="Self.Question" Multiplicity="1" />
+          <End Role="ReviewResponses" Type="Decipher.Model.Entities.ReviewResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="ReviewResponses">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReviewResponses_Reviews">
+          <End Role="Reviews" Type="Self.Review" Multiplicity="1" />
+          <End Role="ReviewResponses" Type="Decipher.Model.Entities.ReviewResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reviews">
+              <PropertyRef Name="ReviewID" />
+            </Principal>
+            <Dependent Role="ReviewResponses">
+              <PropertyRef Name="ReviewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZipTypes_Types">
+          <End Role="Types" Type="Self.Type" Multiplicity="1" />
+          <End Role="ZipTypes" Type="Self.ZipType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="ZipTypes">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDescriptors_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="UserDescriptors" Type="Self.UserDescriptor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserDescriptors">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZipDemographics_Zips">
+          <End Role="Zips" Type="Self.Zip" Multiplicity="1" />
+          <End Role="ZipDemographics" Type="Self.ZipDemographic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zips">
+              <PropertyRef Name="Zip1" />
+            </Principal>
+            <Dependent Role="ZipDemographics">
+              <PropertyRef Name="Zip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZipTypes_Zips">
+          <End Role="Zips" Type="Self.Zip" Multiplicity="1" />
+          <End Role="ZipTypes" Type="Self.ZipType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zips">
+              <PropertyRef Name="Zip1" />
+            </Principal>
+            <Dependent Role="ZipTypes">
+              <PropertyRef Name="Zip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DecipherEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Demographics" EntityType="Self.Demographic" />
+          <EntitySet Name="Descriptors" EntityType="Self.Descriptor" />
+          <EntitySet Name="Pages" EntityType="Self.Page" />
+          <EntitySet Name="Places" EntityType="Self.Place" />
+          <EntitySet Name="PlaceTypes" EntityType="Self.PlaceType" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="ReviewResponses" EntityType="Decipher.Model.Entities.ReviewResponse" />
+          <EntitySet Name="Reviews" EntityType="Self.Review" />
+          <EntitySet Name="Types" EntityType="Self.Type" />
+          <EntitySet Name="UserDescriptors" EntityType="Self.UserDescriptor" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="ZipDemographics" EntityType="Self.ZipDemographic" />
+          <EntitySet Name="Zips" EntityType="Self.Zip" />
+          <EntitySet Name="ZipTypes" EntityType="Self.ZipType" />
+          <AssociationSet Name="FK_Zips_Cities" Association="Self.FK_Zips_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Zips" EntitySet="Zips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZipDemographics_Demographics" Association="Self.FK_ZipDemographics_Demographics">
+            <End Role="Demographics" EntitySet="Demographics" />
+            <End Role="ZipDemographics" EntitySet="ZipDemographics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReviewResponses_Descriptors" Association="Self.FK_ReviewResponses_Descriptors">
+            <End Role="Descriptors" EntitySet="Descriptors" />
+            <End Role="ReviewResponses" EntitySet="ReviewResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDescriptors_Descriptors" Association="Self.FK_UserDescriptors_Descriptors">
+            <End Role="Descriptors" EntitySet="Descriptors" />
+            <End Role="UserDescriptors" EntitySet="UserDescriptors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Places_Zips" Association="Self.FK_Places_Zips">
+            <End Role="Zips" EntitySet="Zips" />
+            <End Role="Places" EntitySet="Places" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaceTypes_Places" Association="Self.FK_PlaceTypes_Places">
+            <End Role="Places" EntitySet="Places" />
+            <End Role="PlaceTypes" EntitySet="PlaceTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Places" Association="Self.FK_Reviews_Places">
+            <End Role="Places" EntitySet="Places" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaceTypes_Types" Association="Self.FK_PlaceTypes_Types">
+            <End Role="Types" EntitySet="Types" />
+            <End Role="PlaceTypes" EntitySet="PlaceTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReviewResponses_Questions" Association="Self.FK_ReviewResponses_Questions">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="ReviewResponses" EntitySet="ReviewResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReviewResponses_Reviews" Association="Self.FK_ReviewResponses_Reviews">
+            <End Role="Reviews" EntitySet="Reviews" />
+            <End Role="ReviewResponses" EntitySet="ReviewResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Users" Association="Self.FK_Reviews_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZipTypes_Types" Association="Self.FK_ZipTypes_Types">
+            <End Role="Types" EntitySet="Types" />
+            <End Role="ZipTypes" EntitySet="ZipTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDescriptors_Users" Association="Self.FK_UserDescriptors_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserDescriptors" EntitySet="UserDescriptors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZipDemographics_Zips" Association="Self.FK_ZipDemographics_Zips">
+            <End Role="Zips" EntitySet="Zips" />
+            <End Role="ZipDemographics" EntitySet="ZipDemographics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZipTypes_Zips" Association="Self.FK_ZipTypes_Zips">
+            <End Role="Zips" EntitySet="Zips" />
+            <End Role="ZipTypes" EntitySet="ZipTypes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DecipherModelEntitiesStoreContainer" CdmEntityContainer="DecipherEntities">
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.City">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="CenterZip" ColumnName="CenterZip" />
+                <ScalarProperty Name="Radius" ColumnName="Radius" />
+                <ScalarProperty Name="ZipsAssociated" ColumnName="ZipsAssociated" />
+                <ScalarProperty Name="ReportEmail" ColumnName="ReportEmail" />
+                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Demographics">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.Demographic">
+              <MappingFragment StoreEntitySet="Demographics">
+                <ScalarProperty Name="DemographicID" ColumnName="DemographicID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Descriptors">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.Descriptor">
+              <MappingFragment StoreEntitySet="Descriptors">
+                <ScalarProperty Name="DescriptorID" ColumnName="DescriptorID" />
+                <ScalarProperty Name="DescriptorType" ColumnName="DescriptorType" />
+                <ScalarProperty Name="AssociatedID" ColumnName="AssociatedID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pages">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.Page">
+              <MappingFragment StoreEntitySet="Pages">
+                <ScalarProperty Name="PageID" ColumnName="PageID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Places">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.Place">
+              <MappingFragment StoreEntitySet="Places">
+                <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="GoogleRating" ColumnName="GoogleRating" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlaceTypes">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.PlaceType">
+              <MappingFragment StoreEntitySet="PlaceTypes">
+                <ScalarProperty Name="PlaceTypeID" ColumnName="PlaceTypeID" />
+                <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReviewResponses">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.ReviewResponse">
+              <MappingFragment StoreEntitySet="ReviewResponses">
+                <ScalarProperty Name="ReviewResponseID" ColumnName="ReviewResponseID" />
+                <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="DescriptorID" ColumnName="DescriptorID" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.Review">
+              <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
+                <ScalarProperty Name="VisitDate" ColumnName="VisitDate" />
+                <ScalarProperty Name="Reported" ColumnName="Reported" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.Type">
+              <MappingFragment StoreEntitySet="Types">
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDescriptors">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.UserDescriptor">
+              <MappingFragment StoreEntitySet="UserDescriptors">
+                <ScalarProperty Name="UserDescriptorID" ColumnName="UserDescriptorID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DescriptorID" ColumnName="DescriptorID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZipDemographics">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.ZipDemographic">
+              <MappingFragment StoreEntitySet="ZipDemographics">
+                <ScalarProperty Name="ZipDemographicID" ColumnName="ZipDemographicID" />
+                <ScalarProperty Name="DemographicID" ColumnName="DemographicID" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zips">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.Zip">
+              <MappingFragment StoreEntitySet="Zips">
+                <ScalarProperty Name="Zip1" ColumnName="Zip" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="DiversityIndex" ColumnName="DiversityIndex" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZipTypes">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.ZipType">
+              <MappingFragment StoreEntitySet="ZipTypes">
+                <ScalarProperty Name="ZipTypeID" ColumnName="ZipTypeID" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

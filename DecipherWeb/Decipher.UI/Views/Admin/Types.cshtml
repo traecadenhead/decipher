@@ -1,0 +1,64 @@
+﻿@model List<Decipher.Model.Entities.Type>
+
+@{
+    ViewBag.Title = "Place Types";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+@Html.Raw(TempData["Messages"])
+
+<p>If you make changes to the list, be sure to hit the save button at the bottom of the page.</p>
+
+@using (Html.BeginForm("SaveTypes", "Admin", FormMethod.Post, new { id = "typesForm" }))
+{
+    <table cellpadding="8">
+        <tr>
+            <th>Google ID</th>
+            <th>Active</th>
+            <th>Name</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @item.TypeID
+            </td>
+            <td>@Html.CheckBox("Active" + item.TypeID, item.Active, new { @class = "active", typeID = item.TypeID })</td>
+            <td>@Html.TextBox("Name" + item.TypeID, item.Name, new { @class = "name", typeID = item.TypeID })</td>
+        </tr>
+        }
+        <tr>
+            <td colspan="2">&nbsp;</td>
+            <td><input type="submit" value="Save"/></td>
+        </tr>
+    </table>
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#typesForm").submit(function () {
+                var types = [];
+                $("#typesForm .active").each(function () {
+                    var typeID = $(this).attr("typeID");
+                    var type = {
+                        TypeID: typeID,
+                        Active: $(this).is(':checked'),
+                        Name: $("#Name" + typeID).val()
+                    };
+                    types.push(type);
+                });
+                var postData = { types: types };
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr("action"), 
+                    data: postData,
+                    dataType: "json"                    
+                }).always(function(msg){
+                    alert("The types list has been saved.");
+                });
+                return false;
+            });
+        });
+    </script>
+}

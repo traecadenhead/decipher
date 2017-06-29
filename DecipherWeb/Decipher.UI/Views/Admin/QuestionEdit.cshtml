@@ -1,0 +1,120 @@
+﻿@model Question
+
+@{
+    if (Model.QuestionID > 0)
+    {
+        ViewBag.Title = "Edit Question";
+    }
+    else
+    {
+        ViewBag.Title = "Add Question";
+    }
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+@Html.Raw(TempData["Messages"])
+@Html.Raw(ViewBag.Messages)
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td class="label">Question:</td>
+            <td class="field">
+                @Html.TextArea("Text", new { rows = 5, cols = 50})
+            </td>
+        </tr>
+        <tr>
+            <td class="label">&nbsp;</td>
+            <td class="field">
+                @Html.Hidden("QuestionID")
+                @Html.Hidden("Ordinal")
+                @Html.Hidden("DateCreated")
+                <input type="submit" value="Save"/>
+            </td>
+        </tr>
+    </table>
+}
+
+@if(Model.QuestionID > 0)
+{
+    <h2>Potential Responses</h2>
+    <ul id="Arrange">
+        @foreach (var item in Model.Descriptors)
+        {
+            <li id="@item.DescriptorID">
+                <table cellpadding="8">
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>
+                            <input type="number" id="@item.DescriptorID" name="@item.DescriptorID" value="@item.PointsSafe" class="points" placeholder="# Points (optional)"/>
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("DescriptorRemove", "Admin", FormMethod.Post, new { @class = "remove" }))
+                            {
+                                @Html.Hidden("DescriptorID", item.DescriptorID)
+                                @Html.Hidden("AssociatedID", Model.QuestionID)
+                                <input type="submit" value="Remove" />
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </li>
+        }
+    </ul>
+        using (Html.BeginForm("DescriptorAdd", "Admin"))
+        {
+            <table>
+                <tr>
+                    <td>@Html.TextBox("Name", String.Empty, new { placeholder = "Name" })</td>
+                    <td>
+                        <input type="number" id="Points" name="Points" placeholder="# Points (optional)" />
+                    </td>
+                    <td>
+                        @Html.Hidden("DescriptorType", "Question")
+                        @Html.Hidden("AssociatedID", Model.QuestionID)
+                        <input type="submit" value="Add" />
+                    </td>
+                </tr>
+            </table>
+        }
+}
+
+<p>
+    @Html.ActionLink("Back to Questions List", "Questions")
+</p>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".remove").submit(function () {
+                return confirm("Are you sure you want to remove this item?");
+            });
+
+            $("#Arrange").sortable({});
+
+            $("#Arrange").bind('sortstop', function(event, ui) {
+                var items = $('#Arrange').sortable('toArray');
+                var serialized = "";
+                for (currentItem = 0; currentItem < items.length; currentItem++) {
+                    var id = items[currentItem];
+                    if (currentItem > 0) {
+                        serialized += "~";
+                    }
+                    serialized += id + "-" + (currentItem + 1);
+                }
+                var url = "@Url.Action("DescriptorsOrder", "Admin")";
+                $.post(url, { type: "Question", associatedID: @Model.QuestionID, data: serialized}, function(data){
+                });
+            });
+
+            $(".points").blur(function(){
+                var points = $(this).val();
+                var id = $(this).attr("id");
+                $.post('@Url.Action("SaveDescriptorPoints", "Admin")', "DescriptorID=" + id + "&Points=" + points, function(result){
+                    console.log(result);
+                });
+            });
+        });
+    </script>
+}
