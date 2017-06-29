@@ -241,6 +241,18 @@ namespace Decipher.UI.Controllers
             return Content(false.ToString());
         }
 
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult SaveDescriptorName(Descriptor entity)
+        {
+            var original = db.Descriptors.Where(n => n.DescriptorID == entity.DescriptorID).FirstOrDefault();
+            if (original != null)
+            {
+                original.Name = entity.Name;
+                return Content(db.SaveDescriptor(original).ToString());
+            }
+            return Content(false.ToString());
+        }
+
         public ActionResult Hash(string id)
         {
             return Content(db.CreateSHAHash(id));

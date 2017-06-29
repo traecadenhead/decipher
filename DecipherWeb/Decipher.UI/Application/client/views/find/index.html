@@ -1,13 +1,16 @@
 ﻿<div ng-controller="FindIndex">
     <div ng-if="view == 'search'">
         <h1>{{customStrings['FindTitle']}}</h1>
+        
         <form ng-submit="Search()">
             <div class="categoryItem">
-                <div class="label">
-                    {{customStrings['FindLabelAddress']}}
-                </div>
-                <div class="field">
-                    <input type="text" ng-model="search.Address" ng-blur="ApplyLocation()"/>                    
+                <div ng-if="searchView == 'additional'">
+                    <div class="label">
+                        {{customStrings['FindLabelAddress']}}
+                    </div>
+                    <div class="field">
+                        <input type="text" ng-model="search.Address" ng-blur="ApplyLocation()" />
+                    </div>
                 </div>
                 <div class="field">
                     <div class="descriptor" ng-click="UseCurrentLocation()" ng-class="{'selected': search.CurrentLocation == true}">{{customStrings['FindCurrentLocation']}}</div>
@@ -21,33 +24,32 @@
                     <select ng-options="t.Value as t.Text for t in lists.Types" ng-model="search.TypeID"></select>
                 </div>
             </div>
-            <div class="categoryItem">
-                <div class="label">
-                    {{customStrings['FindLabelKeyword']}}
+            <div ng-if="searchView == 'additional'">
+                <div class="categoryItem">
+                    <div class="label">
+                        {{customStrings['FindLabelKeyword']}}
+                    </div>
+                    <div class="field">
+                        <input type="text" ng-model="search.Keyword" placeholder="example: coffee" />
+                    </div>
                 </div>
-                <div class="field">
-                    <input type="text" ng-model="search.Keyword" placeholder="example: coffee"/>
+                <div class="categoryItem">
+                    <div class="label">
+                        {{customStrings['FindLabelDiversity']}}
+                    </div>
+                    <div class="field">
+                        <select ng-options="t.Value as t.Text for t in lists.Diversity" ng-model="search.Diversity"></select>
+                    </div>
                 </div>
             </div>
             <div class="categoryItem">
-                <div class="label">
-                    {{customStrings['FindLabelDiversity']}}
-                </div>
                 <div class="field">
-                    <select ng-options="t.Value as t.Text for t in lists.Diversity" ng-model="search.Diversity"></select>
+                    <div class="descriptor" ng-click="ToggleSearchView()" ng-class="{'selected': searchView == 'additional'}">{{customStrings['FindAdditionalFilters']}}</div>
                 </div>
             </div>
-            <!--<div class="categoryItem">
-                <div class="label">
-                    Distance From Me (optional)
-                </div>
+            <div class="categoryItem">                
                 <div class="field">
-                    <select ng-options="t.Value as t.Text for t in lists.Distance" ng-model="search.Distance"></select>
-                </div>
-            </div>-->
-            <div class="categoryItem">
-                <div class="field">
-                    <input type="submit" class="btn btn-default" value="Search" />
+                    <input type="submit" class="btn btn-default" value="{{customStrings['FindButton']}}" />
                 </div>
             </div>
         </form>

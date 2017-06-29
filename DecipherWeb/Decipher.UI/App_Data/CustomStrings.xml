@@ -26,6 +26,14 @@
     <Text>Level of Diversity in Area (optional)</Text>
   </CustomString>
   <CustomString>
+    <CustomStringID>FindAdditionalFilters</CustomStringID>
+    <Text>Show Other Search Options</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>FindButton</CustomStringID>
+    <Text>Find Places</Text>
+  </CustomString>
+  <CustomString>
     <CustomStringID>FindResultsTitle</CustomStringID>
     <Text>Results</Text>
   </CustomString>

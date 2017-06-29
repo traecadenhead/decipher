@@ -12,6 +12,7 @@
             <ul class="nav navbar-nav">
                 <li><a ng-click="LoadState('Identify')">How I Identify</a></li>
                 <li><a ng-click="LoadState('Find')">Find a Place</a></li>
+                <li><a ng-click="LoadState('Data')">See the Data</a></li>
                 <li ng-repeat="page in pages">
                     <a ng-click="LoadPage(page.PageID)">{{page.Title}}</a>
                 </li>

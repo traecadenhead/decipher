@@ -45,7 +45,9 @@
             <li id="@item.DescriptorID">
                 <table cellpadding="8">
                     <tr>
-                        <td>@item.Name</td>
+                        <td>
+                            <input type="text" value="@item.Name" descriptorID="@item.DescriptorID" class="nameChange"/>
+                        </td>
                         <td>
                             <input type="number" id="@item.DescriptorID" name="@item.DescriptorID" value="@item.PointsSafe" class="points" placeholder="# Points (optional)"/>
                         </td>
@@ -112,6 +114,14 @@
                 var points = $(this).val();
                 var id = $(this).attr("id");
                 $.post('@Url.Action("SaveDescriptorPoints", "Admin")', "DescriptorID=" + id + "&Points=" + points, function(result){
+                    console.log(result);
+                });
+            });
+
+            $(".nameChange").blur(function(){
+                var name = $(this).val();
+                var id = $(this).attr("descriptorID");
+                $.post('@Url.Action("SaveDescriptorName", "Admin")', "DescriptorID=" + id + "&Name=" + name, function(result){
                     console.log(result);
                 });
             });

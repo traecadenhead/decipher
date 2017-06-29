@@ -9,6 +9,7 @@
         $scope.markers = [];
         $scope.customStrings = [];
         $scope.map = null;
+        $scope.searchView = null;
 
         var Load = function () {
             db.Get("list").then(function (data) {
@@ -22,12 +23,26 @@
                     $scope.customStrings[item.CustomStringID] = item.Text;
                 });
             });
+            // toggle to basic to start
+            $timeout(function () {
+                $scope.ToggleSearchView();
+            }, 1);            
         };
 
         Load();
 
-        $scope.UseCurrentLocation = function () {
-            if ($scope.search.CurrentLocation == true) {
+        $scope.ToggleSearchView = function () {
+            if ($scope.searchView == 'basic') {
+                $scope.searchView = 'additional';
+            }
+            else {
+                $scope.searchView = 'basic';
+                $scope.UseCurrentLocation(true);
+            }
+        };
+
+        $scope.UseCurrentLocation = function (force) {
+            if ($scope.search.CurrentLocation == true && (force == undefined || force == null || force == false)) {
                 // if there's an address, use that here
                 $scope.ApplyLocation();
             }
