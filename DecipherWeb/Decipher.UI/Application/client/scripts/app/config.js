@@ -24,6 +24,7 @@ var configFunction = function ($stateProvider, $httpProvider, $locationProvider,
         enabled: true,
         requireBase: false
     }).hashPrefix('!');
+    
 }
 configFunction.$inject = ['$stateProvider', '$httpProvider', '$locationProvider', 'cfpLoadingBarProvider', '$urlRouterProvider', '$urlMatcherFactoryProvider', '$compileProvider', 'relativePathsInterceptorProvider', 'uiGmapGoogleMapApiProvider'];
 

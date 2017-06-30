@@ -21,7 +21,7 @@
         },
         {
             ID: 'identifiers',
-            Title: 'Indentifiers',
+            Title: 'Identifiers',
             Index: 3,
             Available: false
         }

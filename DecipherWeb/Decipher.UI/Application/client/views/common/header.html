@@ -1,19 +1,22 @@
-﻿<div ng-controller="CommonHeader" class="navbar navbar-inverse navbar-fixed-top">
+﻿<div ng-controller="CommonHeader" class="navbar navbar-inverse navbar-fixed-top" id="header" ng-class="{'hide': current == 'Home'}">
     <div class="container">
+        <div class="logoContainer">
+            <a class="logo" ui-sref="Home">Decipher</a>
+            <div class="city">Austin</div>
+        </div>
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-click="ToggleNav()">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a ui-sref="Home" class="navbar-brand">Decipher Austin</a>
         </div>
         <div class="navbar-collapse" ng-class="{'collapse': showNav == false}">
             <ul class="nav navbar-nav">
-                <li><a ng-click="LoadState('Identify')">How I Identify</a></li>
-                <li><a ng-click="LoadState('Find')">Find a Place</a></li>
-                <li><a ng-click="LoadState('Data')">See the Data</a></li>
-                <li ng-repeat="page in pages">
+                <li ng-class="{'current': current == 'Identify'}"><a ng-click="LoadState('Identify')">How I Identify</a></li>
+                <li ng-class="{'current': current == 'Find'}"><a ng-click="LoadState('Find')">Find a Place</a></li>
+                <li ng-class="{'current': current == 'Data'}"><a ng-click="LoadState('Data')">See the Data</a></li>
+                <li ng-repeat="page in pages" ng-class="{'current': current == 'Page' + page.PageID}">
                     <a ng-click="LoadPage(page.PageID)">{{page.Title}}</a>
                 </li>
             </ul>

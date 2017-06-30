@@ -172,6 +172,10 @@
     <Content Include="Application\css\bootstrap.css" />
     <Content Include="Application\css\bootstrap.min.css" />
     <Content Include="Application\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Application\fonts\Open_Sans\LICENSE.txt" />
+    <Content Include="Application\fonts\Zilla_Slab\OFL.txt" />
+    <Content Include="Application\img\decipher_logo-cropped.png" />
+    <Content Include="Application\img\decipher_logo-landing.png" />
     <Content Include="Application\js\amplify.min.js" />
     <Content Include="Application\js\angular-animate.min.js" />
     <Content Include="Application\js\angular-google-maps.min.js" />
@@ -246,6 +250,26 @@
     <Content Include="Scripts\amplify.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Application\fonts\Open_Sans\OpenSans-Bold.ttf" />
+    <Content Include="Application\fonts\Open_Sans\OpenSans-BoldItalic.ttf" />
+    <Content Include="Application\fonts\Open_Sans\OpenSans-ExtraBold.ttf" />
+    <Content Include="Application\fonts\Open_Sans\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="Application\fonts\Open_Sans\OpenSans-Italic.ttf" />
+    <Content Include="Application\fonts\Open_Sans\OpenSans-Light.ttf" />
+    <Content Include="Application\fonts\Open_Sans\OpenSans-LightItalic.ttf" />
+    <Content Include="Application\fonts\Open_Sans\OpenSans-Regular.ttf" />
+    <Content Include="Application\fonts\Open_Sans\OpenSans-SemiBold.ttf" />
+    <Content Include="Application\fonts\Open_Sans\OpenSans-SemiBoldItalic.ttf" />
+    <Content Include="Application\fonts\Zilla_Slab\ZillaSlab-Bold.ttf" />
+    <Content Include="Application\fonts\Zilla_Slab\ZillaSlab-BoldItalic.ttf" />
+    <Content Include="Application\fonts\Zilla_Slab\ZillaSlab-Italic.ttf" />
+    <Content Include="Application\fonts\Zilla_Slab\ZillaSlab-Light.ttf" />
+    <Content Include="Application\fonts\Zilla_Slab\ZillaSlab-LightItalic.ttf" />
+    <Content Include="Application\fonts\Zilla_Slab\ZillaSlab-Medium.ttf" />
+    <Content Include="Application\fonts\Zilla_Slab\ZillaSlab-MediumItalic.ttf" />
+    <Content Include="Application\fonts\Zilla_Slab\ZillaSlab-Regular.ttf" />
+    <Content Include="Application\fonts\Zilla_Slab\ZillaSlab-SemiBold.ttf" />
+    <Content Include="Application\fonts\Zilla_Slab\ZillaSlab-SemiBoldItalic.ttf" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -475,9 +499,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Application\img\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Decipher.Model\Decipher.Model.csproj">
       <Project>{04c1b72b-61fd-4e06-8224-e1353f306959}</Project>

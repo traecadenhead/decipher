@@ -1,12 +1,49 @@
 ﻿// Index
 (function (app) {
     var HomeIndex = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope) {
-        var Load = function () {
+        var timer = null;
+        var timedOut = false;
+        var loaded = false;
+
+        Load = function () {
+            try {
+                $scope.height = parseInt(window.innerHeight - 100) + 'px';
+            }
+            catch (e) { }
+            timer = $timeout(function () { EndTimer(); }, 3000);
+            var userID = amplify.store("UserID");
+            // get user identity
+            db.Get("user", userID, true).then(function (data) {
+                // get pages
+                db.List("page", null, true).then(function (data) {
+                    loaded = true;
+                    if (timedOut) {
+                        Resume();
+                    }
+                });
+            });
+        };
+
+        Load();
+
+        var EndTimer = function () {
+            $timeout.cancel(timer);
+            timedOut = true;
+            if (loaded) {
+                Resume();
+            }
+        };
+
+        $scope.$on('datarefresh', function () {
+            Load();
+        });
+
+        var Resume = function () {
             if (amplify.store("UserID") != null) {
                 $state.go("Find");
             } else {
                 $state.go("Identify");
-            }            
+            }
         };
 
         Load();
@@ -16,54 +53,14 @@
     app.controller("HomeIndex", HomeIndex);
 }(angular.module("app")));
 
-// Identify
-(function (app) {
-    var HomeIdentify = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope) {
-        $scope.user = {};
-
-        Load = function () {
-            // get descriptors list
-            var userID = amplify.store("UserID");
-            db.Get("user", userID).then(function (data) {
-                $scope.user = data;
-            });
-        };
-
-        Load();
-
-        $scope.Select = function (item) {
-            if (item.Selected == true) {
-                item.Selected = false;
-            }
-            else {
-                item.Selected = true;
-            }
-            console.log(item.Selected);
-        };
-
-        $scope.Submit = function () {
-            // save descriptors list
-            db.Save("user", $scope.user).then(function (result) {
-                if (result > 0) {
-                    amplify.store("UserID", result);
-                    db.Get("user", result, true).then(function (data) {
-                        $state.go("Find");
-                    });
-                }
-            });
-        };
-    };
-
-    HomeIdentify.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope"];
-    app.controller("HomeIdentify", HomeIdentify);
-}(angular.module("app")));
-
 // Page
 (function (app) {
     var HomePage = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams) {
         $scope.page = {};
 
         Load = function () {
+            $rootScope.$broadcast("PageLoad", $stateParams.pageID);
+
             db.Get("page", $stateParams.pageID).then(function (data) {
                 $scope.page = data;
                 $scope.page.Content = $sce.trustAsHtml(data.Content);
