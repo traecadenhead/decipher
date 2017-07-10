@@ -1,84 +1,160 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <CustomStrings>
-  <!--Find a Place CustomStrings-->
+  <!--Header-->
   <CustomString>
-    <CustomStringID>FindTitle</CustomStringID>
+    <CustomStringID>Header-Decipher</CustomStringID>
+    <Text>Decipher</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Header-Austin</CustomStringID>
+    <Text>Austin</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Header-Identify</CustomStringID>
+    <Text>How I Identify</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Header-Find</CustomStringID>
     <Text>Find a Place</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindLabelAddress</CustomStringID>
+    <CustomStringID>Header-Data</CustomStringID>
+    <Text>See the Data</Text>
+  </CustomString>
+  <!--Footer-->
+  <CustomString>
+    <CustomStringID>Footer-Copyright</CustomStringID>
+    <Text>2017 - Decipher Austin</Text>
+  </CustomString>
+  <!--See the Data-->
+  <CustomString>
+    <CustomStringID>Data-PageTitle</CustomStringID>
+    <Text>See the Data</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Data-NavCity</CustomStringID>
+    <Text>City</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Data-NavZip</CustomStringID>
+    <Text>ZIP Codes</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Data-NavPlaces</CustomStringID>
+    <Text>Places</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Data-NavIdentifiers</CustomStringID>
+    <Text>Identifiers</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Data-FilterNote</CustomStringID>
+    <Text>Note: if no filters are selected, by default all reviews are shown.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Data-GenerateReport</CustomStringID>
+    <Text>Generate Report</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Data-Next</CustomStringID>
+    <Text>Next</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Data-ReviewsFound</CustomStringID>
+    <Text>reviews found.</Text>
+  </CustomString>
+  <!--Find a Place CustomStrings-->
+  <CustomString>
+    <CustomStringID>Find-PageTitle</CustomStringID>
+    <Text>Find a Place</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Find-LabelAddress</CustomStringID>
     <Text>Address</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindCurrentLocation</CustomStringID>
+    <CustomStringID>Find-CurrentLocation</CustomStringID>
     <Text>Use My Current Location</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindLabelType</CustomStringID>
+    <CustomStringID>Find-LabelType</CustomStringID>
     <Text>Type of Place</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindLabelKeyword</CustomStringID>
+    <CustomStringID>Find-LabelKeyword</CustomStringID>
     <Text>Keyword (optional)</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindLabelDiversity</CustomStringID>
+    <CustomStringID>Find-LabelDiversity</CustomStringID>
     <Text>Level of Diversity in Area (optional)</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindAdditionalFilters</CustomStringID>
+    <CustomStringID>Find-AdditionalFilters</CustomStringID>
     <Text>Show Other Search Options</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindButton</CustomStringID>
+    <CustomStringID>Find-Button</CustomStringID>
     <Text>Find Places</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindResultsTitle</CustomStringID>
+    <CustomStringID>Find-ResultsTitle</CustomStringID>
     <Text>Results</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindNoResults</CustomStringID>
+    <CustomStringID>Find-NoResults</CustomStringID>
     <Text>Sorry, no results were found matching your search.</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindError</CustomStringID>
+    <CustomStringID>Find-Error</CustomStringID>
     <Text>Sorry, an error occurred while searching. Please try back later.</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindNoCity</CustomStringID>
+    <CustomStringID>Find-NoCity</CustomStringID>
     <Text>Sorry, this app doesn't yet support the city you are searching for.</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindTabList</CustomStringID>
+    <CustomStringID>Find-TabList</CustomStringID>
     <Text>List</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindTabMap</CustomStringID>
+    <CustomStringID>Find-TabMap</CustomStringID>
     <Text>Map</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindResultsDiversity</CustomStringID>
+    <CustomStringID>Find-ResultsDiversity</CustomStringID>
     <Text>Area Diversity</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindResultsDistance</CustomStringID>
+    <CustomStringID>Find-ResultsDistance</CustomStringID>
     <Text>Miles Away</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindSubmitReview</CustomStringID>
+    <CustomStringID>Find-SubmitReview</CustomStringID>
     <Text>Submit Review</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindSeeReviews</CustomStringID>
+    <CustomStringID>Find-SeeReviews</CustomStringID>
     <Text>See Reviews</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindMoreResults</CustomStringID>
+    <CustomStringID>Find-MoreResults</CustomStringID>
     <Text>More Results</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>FindSearchAgain</CustomStringID>
+    <CustomStringID>Find-SearchAgain</CustomStringID>
     <Text>Search Again</Text>
+  </CustomString>
+  <!--Review Detail-->
+  <CustomString>
+    <CustomStringID>ReviewDetail-ReviewOf</CustomStringID>
+    <Text>Review of</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewDetail-ReviewedOn</CustomStringID>
+    <Text>Reviewed on</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewDetail-ReviewerIdentity</CustomStringID>
+    <Text>Reviewer Identifies As</Text>
   </CustomString>
 </CustomStrings>

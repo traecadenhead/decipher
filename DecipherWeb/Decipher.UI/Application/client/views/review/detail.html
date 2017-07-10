@@ -1,8 +1,8 @@
 ﻿<div ng-controller="ReviewDetail">
-    <h1>Review of {{entity.CurrentPlace.Name}}</h1>
+    <h1>{{customStrings['ReviewDetail-ReviewOf']}} {{entity.CurrentPlace.Name}}</h1>
     <p ng-if="entity.CurrentPlace.Address != null && entity.CurrentPlace.Address != ''">{{entity.CurrentPlace.Address}}</p>
-    <p>Reviewed on {{entity.DateCreatedStr}}</p>
-    <h2>Reviewer Identifies As</h2>
+    <p>{{customStrings['ReviewDetail-ReviewedOn']}} {{entity.DateCreatedStr}}</p>
+    <h2>{{customStrings['ReviewDetail-ReviewerIdentity']}}Reviewer Identifies As</h2>
     <ul class="tagList">
         <li ng-repeat="item in entity.CurrentUser.Descriptors" class="descriptor">
             {{item.Name}}

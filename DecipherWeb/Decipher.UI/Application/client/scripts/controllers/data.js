@@ -2,36 +2,44 @@
 (function (app) {
     var DataIndex = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $q) {
      
-        $scope.filterViews = [{
-            ID: 'city',
-            Title: 'City',
-            Index: 0,
-            Available: false
-        }, {
-            ID: 'zip',
-            Title: 'ZIP Codes',
-            Index: 1,
-            Available: false
-        },
-        {
-            ID: 'places',
-            Title: 'Places',
-            Index: 2,
-            Available: false
-        },
-        {
-            ID: 'identifiers',
-            Title: 'Identifiers',
-            Index: 3,
-            Available: false
-        }
-        ];
+        $scope.customStrings = [];
         $scope.filterView = null;
         $scope.filterViewNext = false;
         $scope.filters = {};
         $scope.mayGenerate = false;
 
         var Load = function () {
+            deviceSvc.GetCustomStrings().then(function (data) {
+                angular.forEach(data, function (item) {
+                    $scope.customStrings[item.CustomStringID] = item.Text;
+                });
+                $scope.filterViews = [
+                    {
+                        ID: 'city',
+                        Title: $scope.customStrings['Data-NavCity'],
+                        Index: 0,
+                        Available: false
+                    }, {
+                        ID: 'zip',
+                        Title: $scope.customStrings['Data-NavZip'],
+                        Index: 1,
+                        Available: false
+                    },
+                    {
+                        ID: 'places',
+                        Title: $scope.customStrings['Data-NavPlaces'],
+                        Index: 2,
+                        Available: false
+                    },
+                    {
+                        ID: 'identifiers',
+                        Title: $scope.customStrings['Data-NavIdentifiers'],
+                        Index: 3,
+                        Available: false
+                    }
+                ];
+            });
+
             $timeout(function () {
                 $scope.NextFilter();
             }, 1);

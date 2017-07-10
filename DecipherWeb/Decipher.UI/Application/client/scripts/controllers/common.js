@@ -4,12 +4,18 @@
         $scope.pages = [];
         $scope.showNav = false;
         $scope.current = "Home";
+        $scope.customStrings = [];
 
         Load = function () {
             console.log("loading page list");
             db.List("page").then(function (data) {
                 console.log("got " + data.length + " pages");
                 $scope.pages = data;
+            });
+            deviceSvc.GetCustomStrings().then(function (data) {
+                angular.forEach(data, function (item) {
+                    $scope.customStrings[item.CustomStringID] = item.Text;
+                });
             });
         };
 
@@ -48,4 +54,25 @@
 
     CommonHeader.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$transitions"];
     app.controller("CommonHeader", CommonHeader);
+}(angular.module("app")));
+
+// Footer
+(function (app) {
+    var CommonFooter = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope) {
+
+        $scope.customStrings = [];
+
+        Load = function () {
+            deviceSvc.GetCustomStrings().then(function (data) {
+                angular.forEach(data, function (item) {
+                    $scope.customStrings[item.CustomStringID] = item.Text;
+                });
+            });
+        };
+
+        Load();
+    };
+
+    CommonFooter.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope"];
+    app.controller("CommonFooter", CommonFooter);
 }(angular.module("app")));

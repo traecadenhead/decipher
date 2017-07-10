@@ -1,5 +1,5 @@
 ﻿<div ng-controller="DataIndex">
-    <h1>See the Data</h1>
+    <h1>{{customStrings['Data-PageTitle']}}</h1>
     <div class="filters">
         <div class="topFilterNav">
             <ul class="navList">
@@ -35,21 +35,21 @@
                     {{item.Name}}
                 </li>
             </ul>
-            <p>Note: if no filters are selected, by default all reviews are shown.</p>
+            <p>{{customStrings['Data-FilterNote']}}</p>
         </div>
         <div class="bottomFilterNav">
             <ul class="navList">
                 <li ng-if="mayGenerate">
-                    <a ng-click="GenerateReport()">Generate Report</a>
+                    <a ng-click="GenerateReport()">{{customStrings['Data-GenerateReport']}}</a>
                 </li>
                 <li ng-if="filterViewNext">
-                    <a ng-click="NextFilter()">Next</a>
+                    <a ng-click="NextFilter()">{{customStrings['Data-Next']}}</a>
                 </li>                
             </ul>
         </div>
     </div>
     <div ng-if="entity != null && entity.Name != null">
-        <p>{{entity.Reviews.length}} reviews found.</p>
+        <p>{{entity.Reviews.length}} {{customStrings['Data-ReviewsFound']}}</p>
         <div ng-repeat="question in entity.Questions" class="questionHold">
             <h2>{{question.Text}}</h2>
             <ul class="tagList resizable">

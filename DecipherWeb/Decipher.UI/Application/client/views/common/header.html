@@ -1,8 +1,8 @@
 ﻿<div ng-controller="CommonHeader" class="navbar navbar-inverse navbar-fixed-top" id="header" ng-class="{'hide': current == 'Home'}">
     <div class="container">
         <div class="logoContainer">
-            <a class="logo" ui-sref="Home">Decipher</a>
-            <div class="city">Austin</div>
+            <a class="logo" ui-sref="Home">{{customStrings['Header-Decipher']}}</a>
+            <div class="city">{{customStrings['Header-Austin']}}</div>
         </div>
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-click="ToggleNav()">
@@ -13,9 +13,9 @@
         </div>
         <div class="navbar-collapse" ng-class="{'collapse': showNav == false}">
             <ul class="nav navbar-nav">
-                <li ng-class="{'current': current == 'Identify'}"><a ng-click="LoadState('Identify')">How I Identify</a></li>
-                <li ng-class="{'current': current == 'Find'}"><a ng-click="LoadState('Find')">Find a Place</a></li>
-                <li ng-class="{'current': current == 'Data'}"><a ng-click="LoadState('Data')">See the Data</a></li>
+                <li ng-class="{'current': current == 'Identify'}"><a ng-click="LoadState('Identify')">{{customStrings['Header-Identify']}}</a></li>
+                <li ng-class="{'current': current == 'Find'}"><a ng-click="LoadState('Find')">{{customStrings['Header-Find']}}</a></li>
+                <li ng-class="{'current': current == 'Data'}"><a ng-click="LoadState('Data')">{{customStrings['Header-Data']}}</a></li>
                 <li ng-repeat="page in pages" ng-class="{'current': current == 'Page' + page.PageID}">
                     <a ng-click="LoadPage(page.PageID)">{{page.Title}}</a>
                 </li>

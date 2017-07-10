@@ -1,24 +1,24 @@
 ﻿<div ng-controller="FindIndex">
     <div ng-if="view == 'search'">
-        <h1>{{customStrings['FindTitle']}}</h1>
+        <h1>{{customStrings['Find-PageTitle']}}</h1>
         
         <form ng-submit="Search()">
             <div class="categoryItem">
                 <div ng-if="searchView == 'additional'">
                     <div class="label">
-                        {{customStrings['FindLabelAddress']}}
+                        {{customStrings['Find-LabelAddress']}}
                     </div>
                     <div class="field">
                         <input type="text" ng-model="search.Address" ng-blur="ApplyLocation()" />
                     </div>
                 </div>
                 <div class="field">
-                    <div class="descriptor" ng-click="UseCurrentLocation()" ng-class="{'selected': search.CurrentLocation == true}">{{customStrings['FindCurrentLocation']}}</div>
+                    <div class="descriptor" ng-click="UseCurrentLocation()" ng-class="{'selected': search.CurrentLocation == true}">{{customStrings['Find-CurrentLocation']}}</div>
                 </div>
             </div>
             <div class="categoryItem">
                 <div class="label">
-                    {{customStrings['FindLabelType']}}
+                    {{customStrings['Find-LabelType']}}
                 </div>
                 <div class="field">
                     <select ng-options="t.Value as t.Text for t in lists.Types" ng-model="search.TypeID"></select>
@@ -27,7 +27,7 @@
             <div ng-if="searchView == 'additional'">
                 <div class="categoryItem">
                     <div class="label">
-                        {{customStrings['FindLabelKeyword']}}
+                        {{customStrings['Find-LabelKeyword']}}
                     </div>
                     <div class="field">
                         <input type="text" ng-model="search.Keyword" placeholder="example: coffee" />
@@ -35,7 +35,7 @@
                 </div>
                 <div class="categoryItem">
                     <div class="label">
-                        {{customStrings['FindLabelDiversity']}}
+                        {{customStrings['Find-LabelDiversity']}}
                     </div>
                     <div class="field">
                         <select ng-options="t.Value as t.Text for t in lists.Diversity" ng-model="search.Diversity"></select>
@@ -44,33 +44,33 @@
             </div>
             <div class="categoryItem">
                 <div class="field">
-                    <div class="descriptor" ng-click="ToggleSearchView()" ng-class="{'selected': searchView == 'additional'}">{{customStrings['FindAdditionalFilters']}}</div>
+                    <div class="descriptor" ng-click="ToggleSearchView()" ng-class="{'selected': searchView == 'additional'}">{{customStrings['Find-AdditionalFilters']}}</div>
                 </div>
             </div>
             <div class="categoryItem">                
                 <div class="field">
-                    <input type="submit" class="btn btn-default" value="{{customStrings['FindButton']}}" />
+                    <input type="submit" class="btn btn-default" value="{{customStrings['Find-Button']}}" />
                 </div>
             </div>
         </form>
     </div>
     <div ng-if="view == 'results'">
-        <h1>{{customStrings['FindResultsTitle']}}</h1>
-        <p ng-if="result.Response == 'No Results' || result.NumResults == 0">{{customStrings['FindNoResults']}}</p>
-        <p ng-if="result.Response == 'Error'">{{customStrings['FindError']}}</p>
-        <p ng-if="result.Response == 'No City'">{{customStrings['FindNoCity']}}</p>
+        <h1>{{customStrings['Find-ResultsTitle']}}</h1>
+        <p ng-if="result.Response == 'No Results' || result.NumResults == 0">{{customStrings['Find-NoResults']}}</p>
+        <p ng-if="result.Response == 'Error'">{{customStrings['Find-Error']}}</p>
+        <p ng-if="result.Response == 'No City'">{{customStrings['Find-NoCity']}}</p>
         <ul class="tagList">
-            <li class="descriptor" ng-class="{'selected': resultView == 'list'}" ng-click="ViewResults('list')">{{customStrings['FindTabList']}}</li>
-            <li class="descriptor" ng-class="{'selected': resultView == 'map'}" ng-click="ViewResults('map')">{{customStrings['FindTabMap']}}</li>
+            <li class="descriptor" ng-class="{'selected': resultView == 'list'}" ng-click="ViewResults('list')">{{customStrings['Find-TabList']}}</li>
+            <li class="descriptor" ng-class="{'selected': resultView == 'map'}" ng-click="ViewResults('map')">{{customStrings['Find-TabMap']}}</li>
         </ul>
         <ul ng-if="result.NumResults > 0 && resultView == 'list'" class="findResults">
             <li ng-repeat="place in result.Results">
                 <div class="name">{{place.Name}}</div>
                 <div class="types">{{place.TypeStr}}</div>
-                <div class="diversity">{{place.DefaultZip.DiversityStr}} {{customStrings['FindResultsDiversity']}}</div>
-                <div class="distance">{{place.DistanceStr}} {{customStrings['FindResultsDistance']}}</div>
-                <a class="reviewBtn" ng-click="LoadReview(place)">{{customStrings['FindSubmitReview']}}</a>
-                <a class="reviewBtn alt" ng-click="LoadSummary(place)">{{customStrings['FindSeeReviews']}} <span ng-if="place.AvgScore != null">({{place.AvgScoreStr}})</span></a>
+                <div class="diversity">{{place.DefaultZip.DiversityStr}} {{customStrings['Find-ResultsDiversity']}}</div>
+                <div class="distance">{{place.DistanceStr}} {{customStrings['Find-ResultsDistance']}}</div>
+                <a class="reviewBtn" ng-click="LoadReview(place)">{{customStrings['Find-SubmitReview']}}</a>
+                <a class="reviewBtn alt" ng-click="LoadSummary(place)">{{customStrings['Find-SeeReviews']}} <span ng-if="place.AvgScore != null">({{place.AvgScoreStr}})</span></a>
             </li>
         </ul>
         <div ng-if="result.NumResults > 0 && resultView == 'map'" class="mapContainer">
@@ -81,17 +81,17 @@
                             <div class="mapWindow" ng-non-bindable>
                                 <div style="font-weight: bold">{{place.Name}}</div>
                                 <div style="font-style: italic;">{{place.TypeStr}}</div>
-                                <div>{{place.DefaultZip.DiversityStr}} {{customStrings['FindResultsDiversity']}}</div>
-                                <div>{{place.DistanceStr}} {{customStrings['FindResultsDistance']}}</div>
-                                <a style="padding: 5px; background-color: lightgray; border-radius: 10px; cursor: pointer; margin-top: 5px; display: table;" onclick="StartReview('{{id}}')">{{customStrings['FindSubmitReview']}}</a>
-                                <a style="padding: 5px; background-color: lightgray; border-radius: 10px; cursor: pointer; margin-top: 5px; display: table;" onclick="SeeReviews('{{id}}')">{{customStrings['FindSeeReviews']}}</a>
+                                <div>{{place.DefaultZip.DiversityStr}} {{customStrings['Find-ResultsDiversity']}}</div>
+                                <div>{{place.DistanceStr}} {{customStrings['Find-ResultsDistance']}}</div>
+                                <a style="padding: 5px; background-color: lightgray; border-radius: 10px; cursor: pointer; margin-top: 5px; display: table;" onclick="StartReview('{{id}}')">{{customStrings['Find-SubmitReview']}}</a>
+                                <a style="padding: 5px; background-color: lightgray; border-radius: 10px; cursor: pointer; margin-top: 5px; display: table;" onclick="SeeReviews('{{id}}')">{{customStrings['Find-SeeReviews']}}</a>
                             </div>
                         </ui-gmap-windows>
                     </ui-gmap-markers>
                 </ui-gmap-google-map>
             </div>
         </div>
-        <a ng-if="result.NextToken != null && result.NextToken != ''" class="btn btn-default" ng-click="MoreResults(result.NextToken)">{{customStrings['FindMoreResults']}}</a>
-        <a class="btn btn-default" ng-click="SetView('search')">{{customStrings['FindSearchAgain']}}</a>
+        <a ng-if="result.NextToken != null && result.NextToken != ''" class="btn btn-default" ng-click="MoreResults(result.NextToken)">{{customStrings['Find-MoreResults']}}</a>
+        <a class="btn btn-default" ng-click="SetView('search')">{{customStrings['Find-SearchAgain']}}</a>
     </div>
 </div>

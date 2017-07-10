@@ -104,10 +104,16 @@
     var ReviewDetail = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams) {
 
         $scope.entity = null;
+        $scope.customStrings = [];
 
         var Load = function () {
             db.Get("review", $stateParams.reviewID).then(function (data) {
                 $scope.entity = data;
+            });
+            deviceSvc.GetCustomStrings().then(function (data) {
+                angular.forEach(data, function (item) {
+                    $scope.customStrings[item.CustomStringID] = item.Text;
+                });
             });
         };
 
