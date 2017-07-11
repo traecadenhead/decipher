@@ -20,5 +20,9 @@ namespace Decipher.Model.Entities
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual ICollection<Translation> Translations { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

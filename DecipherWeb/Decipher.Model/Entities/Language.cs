@@ -18,6 +18,7 @@ namespace Decipher.Model.Entities
         public Language()
         {
             this.Translations = new HashSet<Translation>();
+            this.Users = new HashSet<User>();
         }
     
         public string LanguageID { get; set; }
@@ -27,5 +28,7 @@ namespace Decipher.Model.Entities
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Translation> Translations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

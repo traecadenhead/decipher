@@ -456,6 +456,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\API\BaseController.cs" />
     <Compile Include="Controllers\API\CustomStringController.cs" />
+    <Compile Include="Controllers\API\LanguageController.cs" />
     <Compile Include="Controllers\API\ListController.cs" />
     <Compile Include="Controllers\API\PageController.cs" />
     <Compile Include="Controllers\API\PlaceController.cs" />

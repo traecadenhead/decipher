@@ -66,6 +66,8 @@ namespace Decipher.Model.Abstract
         bool SavePage(Page entity);
         bool DeletePage(int id);
         bool OrderPages(string data);
+        List<Page> GetPages(string language = "en");
+        Page GetPage(int pageID, string language = "en");
         #endregion
 
         #region Places
@@ -114,7 +116,6 @@ namespace Decipher.Model.Abstract
         IQueryable<Translation> Translations { get; }
         bool SaveTranslation(Translation entity);
         bool DeleteTranslation(int id);
-        string TranslateString(string sourceString, string toLanguage, string fromLanguage = "en");
         #endregion
 
         #region Types

@@ -68,6 +68,10 @@
         };
 
         Load();
+
+        $rootScope.$on("Refresh", function () {
+            Load();
+        });
     };
 
     HomePage.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams"];

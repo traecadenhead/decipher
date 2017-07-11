@@ -168,6 +168,10 @@
                 $scope.entity = data;
             });
         };
+
+        $rootScope.$on("Refresh", function () {
+            Load();
+        });
     };
 
     DataIndex.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$q"];

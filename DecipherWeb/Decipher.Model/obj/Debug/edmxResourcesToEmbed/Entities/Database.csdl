@@ -158,6 +158,8 @@
     <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Reviews" Relationship="Self.FK_Reviews_Users" FromRole="Users" ToRole="Reviews" />
     <NavigationProperty Name="UserDescriptors" Relationship="Self.FK_UserDescriptors_Users" FromRole="Users" ToRole="UserDescriptors" />
+    <Property Name="LanguageID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Language" Relationship="Decipher.Model.Entities.FK_Users_Languages" FromRole="User" ToRole="Language" />
   </EntityType>
   <EntityType Name="ZipDemographic">
     <Key>
@@ -461,6 +463,10 @@
       <End Role="Language" EntitySet="Languages" />
       <End Role="Translation" EntitySet="Translations" />
     </AssociationSet>
+    <AssociationSet Name="FK_Users_Languages" Association="Decipher.Model.Entities.FK_Users_Languages">
+      <End Role="Language" EntitySet="Languages" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Language">
     <Key>
@@ -471,6 +477,7 @@
     <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Translations" Relationship="Decipher.Model.Entities.FK_Translations_Languages" FromRole="Language" ToRole="Translation" />
+    <NavigationProperty Name="Users" Relationship="Decipher.Model.Entities.FK_Users_Languages" FromRole="Language" ToRole="User" />
   </EntityType>
   <EntityType Name="Translation">
     <Key>
@@ -491,6 +498,18 @@
         <PropertyRef Name="LanguageID" />
       </Principal>
       <Dependent Role="Translation">
+        <PropertyRef Name="LanguageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Languages">
+    <End Type="Decipher.Model.Entities.Language" Role="Language" Multiplicity="0..1" />
+    <End Type="Decipher.Model.Entities.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="LanguageID" />
+      </Principal>
+      <Dependent Role="User">
         <PropertyRef Name="LanguageID" />
       </Dependent>
     </ReferentialConstraint>

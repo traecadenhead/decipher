@@ -41,6 +41,7 @@ namespace Decipher.Model.Concrete
                     var original = db.Users.Find(entity.UserID);
                     if (original != null)
                     {
+                        entity.DateCreated = original.DateCreated;
                         db.Entry(original).CurrentValues.SetValues(entity);
                     }
                     else

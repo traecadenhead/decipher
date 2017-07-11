@@ -77,16 +77,16 @@ namespace Decipher.Model.Concrete
                     var translations = Translations.Where(n => n.TranslationID.IndexOf("CustomString.") == 0).Where(n => n.LanguageID == language).ToList();
                     foreach(var customString in customStrings)
                     {
-                        var translation = translations.Where(n => n.TranslationID == "CustomString." + customString.CustomStringID).FirstOrDefault();
+                        var translation = translations.Where(n => n.TranslationID == "CustomString." + customString.CustomStringID + "." + language).FirstOrDefault();
                         if(translation == null)
                         {
                             // get translation and store it
-                            string str = TranslateString(customString.Text, language);
+                            string str = GoogleTranslateString(customString.Text, language);
                             if (!String.IsNullOrEmpty(str))
                             {
                                 translation = new Translation
                                 {
-                                    TranslationID = "CustomString." + customString.CustomStringID,
+                                    TranslationID = "CustomString." + customString.CustomStringID + "." + language,
                                     Text = str,
                                     LanguageID = language
                                 };

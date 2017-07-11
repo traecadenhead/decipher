@@ -12,17 +12,17 @@ namespace Decipher.UI.Controllers.API
     public class PageController : BaseController
     {
         [HttpGet]
-        public List<Page> List()
+        public List<Page> List(string language = "en")
         {
-            return db.Pages.OrderBy(n => n.Ordinal).ToList();
+            return db.GetPages(language);
         }
 
         [HttpGet]
-        public Page Get(int? id)
+        public Page Get(int? id, string language = "en")
         {
             if (id.HasValue)
             {
-                return db.Pages.Where(n => n.PageID == id.Value).FirstOrDefault();
+                return db.GetPage(id.Value, language);
             }
             return null;
         }

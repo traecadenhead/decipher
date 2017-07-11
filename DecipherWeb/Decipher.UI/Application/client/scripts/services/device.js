@@ -142,12 +142,27 @@
             return deferred.promise;
         };
 
+        var SetLanguage = function (language) {
+            amplify.store("Language", language);
+        };
+
+        var GetLanguage = function () {
+            if (amplify.store("Language") != null) {
+                return amplify.store("Language");
+            }
+            else {
+                return "en";
+            }
+        };
+
         return {
             Alert: Alert,
             OpenUrl: OpenUrl,
             CallAction: CallAction,
             GetCustomStrings: GetCustomStrings,
-            GetCustomString: GetCustomString
+            GetCustomString: GetCustomString,
+            SetLanguage: SetLanguage,
+            GetLanguage: GetLanguage
         };
     };
     deviceSvc.$inject = ["db", "$rootScope", "root", "$q", "$state", "$http"];

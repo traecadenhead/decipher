@@ -20,6 +20,13 @@ namespace Decipher.Model.Entities
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual ICollection<UserDescriptor> UserDescriptors { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual ICollection<Review> Reviews { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public virtual Language Language { get; set; }
     }
 }

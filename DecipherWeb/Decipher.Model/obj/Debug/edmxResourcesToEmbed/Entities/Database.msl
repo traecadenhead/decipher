@@ -144,6 +144,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="Decipher.Model.Entities.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="DateModified" ColumnName="DateModified" />

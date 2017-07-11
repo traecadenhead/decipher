@@ -3,6 +3,7 @@
 
         var Post = function (controller, action, entity) {
             var deferred = $q.defer();
+            entity.Language = GetLanguage();
             var req = {
                 method: 'POST',
                 url: root.GetBaseUrl() + '/api/' + controller + '/' + action,
@@ -19,6 +20,7 @@
             if (subset == undefined || subset == null) {
                 subset = '';
             }
+            entity.Language = GetLanguage();
             var req = {
                 method: 'PUT',
                 url: root.GetBaseUrl() + '/api/' + type + '/save' + subset,
@@ -53,15 +55,12 @@
             if (subset == undefined || subset == null) {
                 subset = '';
             }
-            var str = "";
+            var str = "language=" + GetLanguage();
             if (id != undefined && id != null && id != '') {
-                str += "id=" + id;
+                str += "&id=" + id;
             }
             if (additional != undefined && additional != null && additional != '') {
-                if (str.length > 0) {
-                    str += "&";
-                }
-                str += additional;
+                str += "&" + additional;
             }
             var req = {
                 method: 'GET',
@@ -82,14 +81,10 @@
             if (subset == undefined || subset == null) {
                 subset = '';
             }
-            var str = '';
+            var str = 'language=' + GetLanguage();
             if (additional != undefined && additional != null && additional != '') {
-                if (str.length > 0) {
-                    str += "&";
-                }
-                str += additional;
+                str += "&" + additional;
             }
-
             var req = {
                 method: 'GET',
                 url: root.GetBaseUrl() + '/api/' + type + '/list' + subset + '?' + str
@@ -104,7 +99,7 @@
             if (formMethod != undefined && formMethod != null && formMethod == "GET") {
                 var req = {
                     method: formMethod,
-                    url: root.GetBaseUrl() + '/api/' + type + '/' + action + '?' + entity
+                    url: root.GetBaseUrl() + '/api/' + type + '/' + action + '?language=' + GetLanguage() + '&' + entity
                 };
                 if (fresh == undefined || fresh == null) {
                     fresh = true;
@@ -112,6 +107,7 @@
                 return DeferredGet(req, fresh);
             }
             else {
+                entity.Language = GetLanguage();
                 var req = {
                     method: formMethod,
                     url: root.GetBaseUrl() + '/api/' + type + '/' + action,
@@ -183,6 +179,19 @@
             }
             // return promise
             return deferred.promise;
+        };
+
+        var SetLanguage = function (language) {
+            amplify.store("Language", language);
+        };
+
+        var GetLanguage = function () {
+            if (amplify.store("Language") != null) {
+                return amplify.store("Language");
+            }
+            else {
+                return "en";
+            }
         };
 
         return {

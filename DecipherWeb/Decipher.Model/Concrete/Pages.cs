@@ -115,6 +115,79 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
+        public List<Page> GetPages(string language = "en")
+        {
+            List<Page> list = new List<Page>();
+            try
+            {
+                var pages = Pages.OrderBy(n => n.Ordinal).ToList();
+                if (language != GetConfig("DefaultLanguage"))
+                {
+                    var translations = Translations.Where(n => n.TranslationID.IndexOf("Pages.") == 0).Where(n => n.LanguageID == language).ToList();
+                    foreach (var page in pages)
+                    {
+                        list.Add(TranslatePage(page, language, translations));
+                    }
+                }
+                else
+                {
+                    list.AddRange(pages);
+                }
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return list;
+        }
+
+        public Page GetPage(int pageID, string language = "en")
+        {
+            try
+            {
+                var page = Pages.Where(n => n.PageID == pageID).FirstOrDefault();
+                if (language != GetConfig("DefaultLanguage"))
+                {
+                    var translations = Translations.Where(n => n.TranslationID.IndexOf("Pages." + page.PageID) == 0).Where(n => n.LanguageID == language).ToList();
+                    return TranslatePage(page, language, translations);
+                }
+                else
+                {
+                    return page;
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return null;
+        }
+
+        public Page TranslatePage(Page page, string language = "en", List<Translation> translations = null)
+        {
+            try
+            {
+                if(translations == null)
+                {
+                    translations = Translations.Where(n => n.TranslationID.IndexOf("Pages." + page.PageID) == 0).Where(n => n.LanguageID == language).ToList();
+                }
+                return new Page
+                {
+                    PageID = page.PageID,
+                    Title = TranslateString("Pages", page.PageID.ToString(), "Title", page.Title, language, translations),
+                    Content = TranslateString("Pages", page.PageID.ToString(), "Content", page.Content, language, translations),
+                    Ordinal = page.Ordinal,
+                    DateCreated = page.DateCreated,
+                    DateModified = page.DateModified
+                };
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return page;
+        }
+
         # endregion
     }
 }

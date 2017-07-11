@@ -22,5 +22,11 @@ namespace Decipher.UI.Controllers.API
         {
             return db.SaveIdentify(entity);
         }
+
+        [HttpPut]
+        public bool SaveLanguage(User entity)
+        {
+            return db.SaveUser(entity);
+        }
     }
 }

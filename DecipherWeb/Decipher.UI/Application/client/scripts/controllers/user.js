@@ -40,6 +40,10 @@
                 }
             });
         };
+
+        $rootScope.$on("Refresh", function () {
+            Load();
+        });
     };
 
     UserIdentify.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope"];

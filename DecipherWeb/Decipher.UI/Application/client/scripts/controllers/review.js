@@ -95,6 +95,10 @@
                 $scope.review.Report = true;
             }
         };
+
+        $rootScope.$on("Refresh", function () {
+            Load();
+        });
     };
 
     ReviewSubmit.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams"];
@@ -120,6 +124,10 @@
         };
 
         Load();
+
+        $rootScope.$on("Refresh", function () {
+            Load();
+        });
     };
 
     ReviewDetail.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams"];
@@ -174,6 +182,10 @@
         $scope.LoadReview = function (review) {
             $state.go("ReviewDetail", {"reviewID": review.ReviewID});
         };
+
+        $rootScope.$on("Refresh", function () {
+            Load();
+        });
     };
 
     ReviewSummary.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams"];

@@ -55,7 +55,7 @@ namespace Decipher.Model.Concrete
                 if (ValidateTranslation(entity))
                 {
                     entity.DateModified = DateTime.Now;
-                    var original = db.Translations.Find(entity.TranslationID);
+                    var original = db.Translations.Where(n => n.TranslationID == entity.TranslationID).FirstOrDefault();
                     if (original != null)
                     {
                         entity.DateCreated = original.DateCreated;
@@ -100,17 +100,38 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
-        public string TranslateString(string sourceString, string toLanguage, string fromLanguage = "en")
+        public string TranslateString(string table, string id, string field, string text, string language = "en", List<Translation> translations = null)
         {
             try
             {
-                return GoogleTranslateString(sourceString, toLanguage, fromLanguage);
+                var trans = translations.Where(n => n.TranslationID == table + "." + id + "." + field + "." + language).FirstOrDefault();
+                if (trans == null)
+                {
+                    string translated = GoogleTranslateString(text, language);
+                    if (!String.IsNullOrEmpty(translated))
+                    {
+                        trans = new Translation
+                        {
+                            TranslationID = table + "." + id + "." + field + "." + language,
+                            LanguageID = language,
+                            Text = translated,
+                            DateCreated = DateTime.Now,
+                            DateModified = DateTime.Now
+                        };
+                        db.Translations.Add(trans);
+                        db.SaveChanges();
+                    }
+                }
+                if (trans != null)
+                {
+                    return trans.Text;
+                }
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.ToString());
             }
-            return null;
+            return text;
         }
 
         #endregion

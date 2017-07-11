@@ -56,13 +56,6 @@ namespace Decipher.UI.Services
         }
 
         [WebMethod]
-        public string TranslateString(string sourceString, string toLanguage)
-        {
-            IDataRepository db = new Repository();
-            return db.TranslateString(sourceString, toLanguage);
-        }
-
-        [WebMethod]
         public List<CustomString> GetCustomStrings()
         {
             IDataRepository db = new Repository();
