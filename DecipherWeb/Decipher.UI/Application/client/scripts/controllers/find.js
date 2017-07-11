@@ -74,7 +74,7 @@
                         $scope.search.Location = location;
                     }
                     else {
-                        deviceSvc.Alert("alert", "Sorry, we couldn't locate the address you entered. Please try another address or use your current location.");
+                        deviceSvc.Alert("alert", $scope.customStrings['Find-AddressAlert']);
                     }
                 });
             }
@@ -82,7 +82,7 @@
 
         $scope.Search = function () {
             if ($scope.search.Location == null) {
-                deviceSvc.Alert("alert", "Sorry, you have to enter a location before you can search. There are way too many places out there for us to show you everything!");
+                deviceSvc.Alert("alert", $scope.customStrings['Find-LocationAlert']);
             }
             else {
                 db.Post("place", "search", $scope.search).then(function (data) {
@@ -170,7 +170,7 @@
                 $state.go("ReviewSummary", { "placeID": place.PlaceID });
             }
             else {
-                deviceSvc.Alert("alert", "There are no reviews of " + place.Name + " yet. If you visit, please be sure to add one!")
+                deviceSvc.Alert("alert", $scope.customStrings['Find-NoReviewsAlert']);
             }
         };
 

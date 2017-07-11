@@ -1,6 +1,6 @@
 ﻿<div ng-controller="ReviewSubmit">
     <div ng-if="view == 'review'">
-        <h1>Review {{place.Name}}</h1>
+        <h1>{{customStrings['ReviewSubmit-Review']}} {{place.Name}}</h1>
         <div ng-if="question != null && question.QuestionID > 0" class="questionHold">
             <form ng-submit="Submit()">
                 <div class="question">
@@ -14,18 +14,15 @@
                 <textarea placeholder="Additional Details (optional)" ng-model="question.Detail"></textarea>
                 <ul ng-if="question.Detail != null && question.Detail != '' && !review.Reported" class="tagList">
                     <li>
-                        <div class="descriptor" ng-click="Report()" ng-class="{'selected': review.Report == true}">Report Experience to {{place.City.ReportName}}</div>
+                        <div class="descriptor" ng-click="Report()" ng-class="{'selected': review.Report == true}">{{customStrings['ReviewSubmit-Report']}} {{place.City.ReportName}}</div>
                     </li>
                 </ul>
-                <input type="submit" class="btn btn-default" value="Next" />
+                <input type="submit" class="btn btn-default" ng-value="customStrings['ReviewSubmit-Next']" />
             </form>
-        </div>
-        <div ng-if="question == null">
-            Don't have a question yet.
         </div>
     </div>
     <div ng-if="view == 'thanks'">
-        <h1>Thanks!</h1>
-        <p>Thanks for sharing your experience. The more we share, the better experiences everyone will have!</p>
+        <h1>{{customStrings['ReviewSubmit-Thanks']}}</h1>
+        <p>{{customStrings['ReviewSubmit-ThanksMessage']}}</p>
     </div>
 </div>

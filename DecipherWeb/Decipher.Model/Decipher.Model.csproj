@@ -98,6 +98,7 @@
     <Compile Include="Concrete\GooglePlacesAPI.cs" />
     <Compile Include="Concrete\GoogleTranslationAPI.cs" />
     <Compile Include="Concrete\Helpers.cs" />
+    <Compile Include="Concrete\Languages.cs" />
     <Compile Include="Concrete\Lists.cs" />
     <Compile Include="Concrete\Pages.cs" />
     <Compile Include="Concrete\Places.cs" />
@@ -138,6 +139,9 @@
     <Compile Include="Entities\Descriptor.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Language.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Page.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -147,6 +151,7 @@
     <Compile Include="Entities\Partials\CustomString.cs" />
     <Compile Include="Entities\Partials\Descriptor.cs" />
     <Compile Include="Entities\Partials\Email.cs" />
+    <Compile Include="Entities\Partials\Language.cs" />
     <Compile Include="Entities\Partials\ListHolder.cs" />
     <Compile Include="Entities\Partials\ListItem.cs" />
     <Compile Include="Entities\Partials\Page.cs" />
@@ -160,6 +165,7 @@
     <Compile Include="Entities\Partials\ReviewResponse.cs" />
     <Compile Include="Entities\Partials\ReviewSummary.cs" />
     <Compile Include="Entities\Partials\Search.cs" />
+    <Compile Include="Entities\Partials\Translation.cs" />
     <Compile Include="Entities\Partials\Type.cs" />
     <Compile Include="Entities\Partials\User.cs" />
     <Compile Include="Entities\Partials\UserDescriptor.cs" />
@@ -177,6 +183,9 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\ReviewResponse.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Translation.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Type.cs">

@@ -2,12 +2,18 @@
 (function (app) {
     var UserIdentify = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope) {
         $scope.user = {};
+        $scope.customStrings = [];
 
         Load = function () {
             // get descriptors list
             var userID = amplify.store("UserID");
             db.Get("user", userID).then(function (data) {
                 $scope.user = data;
+            });
+            deviceSvc.GetCustomStrings().then(function (data) {
+                angular.forEach(data, function (item) {
+                    $scope.customStrings[item.CustomStringID] = item.Text;
+                });
             });
         };
 

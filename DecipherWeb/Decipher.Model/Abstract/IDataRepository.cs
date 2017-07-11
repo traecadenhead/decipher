@@ -51,6 +51,12 @@ namespace Decipher.Model.Abstract
         string CreateSHAHash(string phrase);
         #endregion
 
+        #region Languages
+        IQueryable<Language> Languages { get; }
+        bool SaveLanguage(Language entity);
+        bool DeleteLanguage(int id);
+        #endregion
+
         #region Lists
         ListHolder GetListHolder();
         #endregion
@@ -105,6 +111,9 @@ namespace Decipher.Model.Abstract
         #endregion
 
         #region Translations
+        IQueryable<Translation> Translations { get; }
+        bool SaveTranslation(Translation entity);
+        bool DeleteTranslation(int id);
         string TranslateString(string sourceString, string toLanguage, string fromLanguage = "en");
         #endregion
 

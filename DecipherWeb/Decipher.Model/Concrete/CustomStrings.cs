@@ -74,9 +74,34 @@ namespace Decipher.Model.Concrete
                 }
                 else
                 {
-                    // TO DO: get locally stored translations
-                    // If we have matching local translations, use those
-                    // Otherwise, get translations from Google for each string
+                    var translations = Translations.Where(n => n.TranslationID.IndexOf("CustomString.") == 0).Where(n => n.LanguageID == language).ToList();
+                    foreach(var customString in customStrings)
+                    {
+                        var translation = translations.Where(n => n.TranslationID == "CustomString." + customString.CustomStringID).FirstOrDefault();
+                        if(translation == null)
+                        {
+                            // get translation and store it
+                            string str = TranslateString(customString.Text, language);
+                            if (!String.IsNullOrEmpty(str))
+                            {
+                                translation = new Translation
+                                {
+                                    TranslationID = "CustomString." + customString.CustomStringID,
+                                    Text = str,
+                                    LanguageID = language
+                                };
+                                SaveTranslation(translation);
+                            }
+                        }
+                        if(translation != null)
+                        {
+                            list.Add(new CustomString
+                            {
+                                CustomStringID = customString.CustomStringID,
+                                Text = translation.Text
+                            });
+                        }
+                    }
                 }
             }
             catch(Exception ex)

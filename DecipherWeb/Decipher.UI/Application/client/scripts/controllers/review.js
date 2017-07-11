@@ -5,6 +5,7 @@
         $scope.question = {};
         $scope.review = null;
         $scope.view = null;
+        $scope.customStrings = [];
 
         var Load = function () {
             if (amplify.store("UserID") == null) {
@@ -23,10 +24,14 @@
                         Responses: [],
                         Report: false
                     };
-                    console.log("get next question");
                     $scope.NextQuestion();
                 });
             }
+            deviceSvc.GetCustomStrings().then(function (data) {
+                angular.forEach(data, function (item) {
+                    $scope.customStrings[item.CustomStringID] = item.Text;
+                });
+            });
         };
 
         Load();
@@ -40,11 +45,8 @@
                     }
                 });
             }
-            console.log($scope.place.Questions.length + " questions");
-            console.log("nextIndex: " + nextIndex);
             if (nextIndex < $scope.place.Questions.length) {
                 $scope.question = $scope.place.Questions[nextIndex];
-                console.log("set the question: " + $scope.question.QuestionID);
             }
             else
             {
@@ -129,8 +131,14 @@
     var ReviewSummary = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams) {
 
         $scope.entity = { UserDescriptors: [] };
+        $scope.customStrings = [];
 
         var Load = function () {
+            deviceSvc.GetCustomStrings().then(function (data) {
+                angular.forEach(data, function (item) {
+                    $scope.customStrings[item.CustomStringID] = item.Text;
+                });
+            });
             $timeout(function () {
                 $scope.Select();
             }, 1);
@@ -141,11 +149,9 @@
         $scope.Select = function (item) {
             if (item != undefined && item != null) {
                 if (item.Selected == true) {
-                    console.log("deselecting");
                     item.Selected = false;
                 }
                 else {
-                    console.log("selecting");
                     item.Selected = true;
                 }
             }

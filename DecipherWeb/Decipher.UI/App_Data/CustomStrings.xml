@@ -26,6 +26,15 @@
     <CustomStringID>Footer-Copyright</CustomStringID>
     <Text>2017 - Decipher Austin</Text>
   </CustomString>
+  <!--Identify-->
+  <CustomString>
+    <CustomStringID>Identify-PageTitle</CustomStringID>
+    <Text>How do you identify?</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Identify-Next</CustomStringID>
+    <Text>Next</Text>
+  </CustomString>
   <!--See the Data-->
   <CustomString>
     <CustomStringID>Data-PageTitle</CustomStringID>
@@ -144,6 +153,18 @@
     <CustomStringID>Find-SearchAgain</CustomStringID>
     <Text>Search Again</Text>
   </CustomString>
+  <CustomString>
+    <CustomStringID>Find-AddressAlert</CustomStringID>
+    <Text>Sorry, we couldn't locate the address you entered. Please try another address or use your current location.</Text>
+  </CustomString>
+    <CustomString>
+    <CustomStringID>Find-LocationAlert</CustomStringID>
+    <Text>Sorry, you have to enter a location before you can search. There are way too many places out there for us to show you everything!</Text>
+  </CustomString>
+    <CustomString>
+    <CustomStringID>Find-NoReviewsAlert</CustomStringID>
+    <Text>There are no reviews of this place yet. If you visit, please be sure to add one!</Text>
+  </CustomString>
   <!--Review Detail-->
   <CustomString>
     <CustomStringID>ReviewDetail-ReviewOf</CustomStringID>
@@ -156,5 +177,47 @@
   <CustomString>
     <CustomStringID>ReviewDetail-ReviewerIdentity</CustomStringID>
     <Text>Reviewer Identifies As</Text>
+  </CustomString>
+  <!--Review Submit-->
+  <CustomString>
+    <CustomStringID>ReviewSubmit-Review</CustomStringID>
+    <Text>Review</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSubmit-Report</CustomStringID>
+    <Text>Report Experience to</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSubmit-Next</CustomStringID>
+    <Text>Next</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSubmit-Thanks</CustomStringID>
+    <Text>Thanks!</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSubmit-ThanksMessage</CustomStringID>
+    <Text>Thanks for sharing your experience. The more we share, the better experiences everyone will have!</Text>
+  </CustomString>
+  <!--Review Summary-->
+  <CustomString>
+    <CustomStringID>ReviewSummary-ReviewsOf</CustomStringID>
+    <Text>Reviews of</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-Show</CustomStringID>
+    <Text>Show Reviews From</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-FilterNote</CustomStringID>
+    <Text>Note: if no filters are selected, by default all reviews are shown.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-ReviewsFound</CustomStringID>
+    <Text>reviews found.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-Review</CustomStringID>
+    <Text>Review</Text>
   </CustomString>
 </CustomStrings>

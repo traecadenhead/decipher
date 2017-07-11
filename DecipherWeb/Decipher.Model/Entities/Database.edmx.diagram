@@ -35,6 +35,9 @@
         <AssociationConnector Association="Decipher.Model.Entities.FK_UserDescriptors_Users" ManuallyRouted="false" />
         <AssociationConnector Association="Decipher.Model.Entities.FK_ZipDemographics_Zips" ManuallyRouted="false" />
         <AssociationConnector Association="Decipher.Model.Entities.FK_ZipTypes_Zips" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.Language" Width="1.5" PointX="7.375" PointY="14" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.Translation" Width="1.5" PointX="9.625" PointY="13.875" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_Translations_Languages" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

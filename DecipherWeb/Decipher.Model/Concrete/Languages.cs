@@ -9,11 +9,6 @@ using System.Configuration;
 using System.Xml;
 using System.Xml.Linq;
 using System.Data;
-using System.Device.Location;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 using Decipher.Model.Abstract;
 using Decipher.Model.Entities;
 
@@ -21,50 +16,45 @@ namespace Decipher.Model.Concrete
 {
     public partial class Repository : IDataRepository
     {
-        #region Translations
+        #region Languages
 
-        public IQueryable<Translation> Translations
+        public IQueryable<Language> Languages
         {
             get
             {
-                return db.Translations.AsQueryable();
+                return db.Languages.AsQueryable();
             }
         }
 
-        public bool ValidateTranslation(Translation entity)
+        public bool ValidateLanguage(Language entity)
         {
-            if (entity.TranslationID == null || entity.TranslationID.Trim().Length == 0)
-            {
-                ModelState.AddModelError("TranslationID", "TranslationID is a required field.");
-            }
             if (entity.LanguageID == null || entity.LanguageID.Trim().Length == 0)
             {
                 ModelState.AddModelError("LanguageID", "LanguageID is a required field.");
             }
-            if (entity.Text == null || entity.Text.Trim().Length == 0)
+            if (entity.Name == null || entity.Name.Trim().Length == 0)
             {
-                ModelState.AddModelError("Text", "Text is a required field.");
+                ModelState.AddModelError("Name", "Name is a required field.");
             }
             return ModelState.IsValid;
         }
 
-        public bool SaveTranslation(Translation entity)
+        public bool SaveLanguage(Language entity)
         {
             try
             {
-                if (ValidateTranslation(entity))
+                if (ValidateLanguage(entity))
                 {
                     entity.DateModified = DateTime.Now;
-                    var original = db.Translations.Find(entity.TranslationID);
+                    var original = db.Languages.Find(entity.LanguageID);
                     if (original != null)
                     {
-                        entity.DateCreated = original.DateCreated;
                         db.Entry(original).CurrentValues.SetValues(entity);
                     }
                     else
                     {
                         entity.DateCreated = DateTime.Now;
-                        db.Translations.Add(entity);
+                        db.Languages.Add(entity);
                     }
                     if (db.SaveChanges() > 0)
                     {
@@ -79,14 +69,14 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
-        public bool DeleteTranslation(int id)
+        public bool DeleteLanguage(int id)
         {
             try
             {
-                var entity = db.Translations.Find(id);
+                var entity = db.Languages.Find(id);
                 if (entity != null)
                 {
-                    db.Translations.Remove(entity);
+                    db.Languages.Remove(entity);
                     if (db.SaveChanges() > 0)
                     {
                         return true;
@@ -100,19 +90,6 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
-        public string TranslateString(string sourceString, string toLanguage, string fromLanguage = "en")
-        {
-            try
-            {
-                return GoogleTranslateString(sourceString, toLanguage, fromLanguage);
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.ToString());
-            }
-            return null;
-        }
-
-        #endregion
+        # endregion
     }
 }

@@ -40,5 +40,7 @@ namespace Decipher.Model.Entities
         public virtual DbSet<ZipDemographic> ZipDemographics { get; set; }
         public virtual DbSet<Zip> Zips { get; set; }
         public virtual DbSet<ZipType> ZipTypes { get; set; }
+        public virtual DbSet<Language> Languages { get; set; }
+        public virtual DbSet<Translation> Translations { get; set; }
     }
 }
