@@ -119,6 +119,55 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
+        public List<Descriptor> TranslateDescriptors(List<Descriptor> descriptors, string language = "en")
+        {
+            List<Descriptor> list = new List<Descriptor>();
+            try
+            {
+                if (language != GetConfig("DefaultLanguage"))
+                {
+                    var translations = Translations.Where(n => n.TranslationID.IndexOf("Descriptors.") == 0).ToList();
+                    foreach (var desc in descriptors)
+                    {
+                        var trans = TranslateDescriptor(desc, language, translations);
+                        if (trans != null)
+                        {
+                            list.Add(trans);
+                        }
+                    }
+                }
+                else
+                {
+                    return descriptors;
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return list;
+        }
+
+        public Descriptor TranslateDescriptor(Descriptor descriptor, string language = "en", List<Translation> translations = null)
+        {
+            try
+            {
+                if (translations == null)
+                {
+                    translations = Translations.Where(n => n.TranslationID == "Descriptors." + descriptor.DescriptorID + ".Name." + language).ToList();
+                }
+                var desc = new Descriptor { DescriptorID = descriptor.DescriptorID };
+                desc = (Descriptor)UpdateObject(desc, descriptor, "DescriptorID");
+                desc.Name = TranslateString("Descriptors", descriptor.DescriptorID.ToString(), "Name", descriptor.Name, language, translations);
+                return desc;
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return descriptor;
+        }
+
         # endregion
     }
 }

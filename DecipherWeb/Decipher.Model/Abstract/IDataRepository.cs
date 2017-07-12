@@ -136,7 +136,7 @@ namespace Decipher.Model.Abstract
         IQueryable<User> Users { get; }
         bool SaveUser(User entity);
         bool DeleteUser(int id);
-        User GetIdentify(int userID);
+        User GetIdentify(int userID, string language = "en");
         int SaveIdentify(User entity);
         User GetUser(int userID);
         #endregion

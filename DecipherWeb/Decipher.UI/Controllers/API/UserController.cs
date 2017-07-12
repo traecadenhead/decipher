@@ -12,9 +12,9 @@ namespace Decipher.UI.Controllers.API
     public class UserController : BaseController
     {
         [HttpGet]
-        public User Get(int? id = null)
+        public User Get(int? id = null, string language = "en")
         {
-            return db.GetIdentify(id.GetValueOrDefault());
+            return db.GetIdentify(id.GetValueOrDefault(), language);
         }
 
         [HttpPut]

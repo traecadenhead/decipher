@@ -13,7 +13,7 @@
         </div>
         <div class="navbar-collapse" ng-class="{'collapse': showNav == false}">
             <ul class="nav navbar-nav">
-                <li>
+                <li ng-show="false">
                     <select ng-options="l.LanguageID as l.Name for l in languages" ng-model="user.Language" ng-change="ChangeLanguage()"></select>
                 </li>
                 <li ng-class="{'current': current == 'Identify'}"><a ng-click="LoadState('Identify')">{{customStrings['Header-Identify']}}</a></li>

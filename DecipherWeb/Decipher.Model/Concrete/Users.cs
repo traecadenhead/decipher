@@ -83,7 +83,7 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
-        public User GetIdentify(int userID)
+        public User GetIdentify(int userID, string language = "en")
         {
             try
             {
@@ -93,7 +93,7 @@ namespace Decipher.Model.Concrete
                     user = new User { UserID = 0 };
                 }
                 var existingDescriptors = UserDescriptors.Where(n => n.UserID == userID).ToList();
-                user.Descriptors = Descriptors.Where(n => n.DescriptorType == "Profile").OrderBy(n => n.Name).ToList();
+                user.Descriptors = TranslateDescriptors(Descriptors.Where(n => n.DescriptorType == "Profile").OrderBy(n => n.Name).ToList(), language);
                 foreach(var d in user.Descriptors)
                 {
                     if(existingDescriptors.Where(n => n.DescriptorID == d.DescriptorID).FirstOrDefault() != null)
