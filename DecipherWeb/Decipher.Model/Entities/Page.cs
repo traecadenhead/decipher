@@ -20,5 +20,6 @@ namespace Decipher.Model.Entities
         public int Ordinal { get; set; }
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateModified { get; set; }
+        public bool Active { get; set; }
     }
 }

@@ -45,6 +45,7 @@
   <EntityType Name="Page">
     <Key>
       <PropertyRef Name="PageID" />
+      <PropertyRef Name="Active" />
     </Key>
     <Property Name="PageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
@@ -52,6 +53,7 @@
     <Property Name="Ordinal" Type="Int32" Nullable="false" />
     <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Place">
     <Key>

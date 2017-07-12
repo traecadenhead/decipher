@@ -1,0 +1,454 @@
+﻿@font-face{
+    font-family: 'OpenSans';
+    font-style: normal;
+    src: url('../fonts/Open_Sans/OpenSans-Regular.ttf');
+}
+
+@font-face{
+    font-family: 'OpenSans';
+    font-style: normal;
+    font-weight: bold;
+    src: url('../fonts/Open_Sans/OpenSans-Bold.ttf');
+}
+
+@font-face{
+    font-family: 'OpenSans';
+    font-style: italic;
+    font-weight: bold;
+    src: url('../fonts/Open_Sans/OpenSans-BoldItalic.ttf');
+}
+
+@font-face{
+    font-family: 'OpenSans';
+    font-style: italic;
+    font-weight: normal;
+    src: url('../fonts/Open_Sans/OpenSans-Italic.ttf');
+}
+
+@font-face{
+    font-family: 'Zilla';
+    font-style: normal;
+    src: url('../fonts/Zilla_Slab/ZillaSlab-Regular.ttf');
+}
+
+@font-face{
+    font-family: 'Zilla';
+    font-style: normal;
+    font-weight: bold;
+    src: url('../fonts/Zilla_Slab/ZillaSlab-Bold.ttf');
+}
+
+@font-face{
+    font-family: 'Zilla';
+    font-style: italic;
+    font-weight: bold;
+    src: url('../fonts/Zilla_Slab/ZillaSlab-BoldItalic.ttf');
+}
+
+@font-face{
+    font-family: 'Zilla';
+    font-style: italic;
+    font-weight: normal;
+    src: url('../fonts/Zilla_Slab/ZillaSlab-Italic.ttf');
+}
+
+body
+{
+    padding-top: 0px;
+    padding-bottom: 20px;
+    font-family: OpenSans;
+}
+
+a{
+    cursor: pointer;
+}
+
+.navbar-fixed-top
+{
+    position: relative;
+    top: 0px;
+}
+
+ul.nav li select{
+    margin-top: 10px;
+}
+
+.pageContent{
+    font-family: Zilla;
+}
+
+.jumbotron p{
+    font-size: 18px;
+    font-family: Zilla;
+}
+
+h2{
+    font-size: 24px;
+}
+
+.hide{
+    display: none;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+.navbar-inverse .navbar-nav > li.current > a{
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Loading Screen */
+
+.loadingScreenContainer{
+    position: relative;
+    overflow: hidden;
+}
+
+.loadingScreen{
+    width: 100%;
+    height: 100%;
+}
+
+.loadingScreenOverlay {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url(../img/decipher_logo-landing.png);
+    opacity: 1;
+    background-repeat: no-repeat;
+    background-size: 540px 391px;
+    background-position: center center;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    height: 30px;
+    width: 100%;
+    border-radius: 10px;
+    border: solid 1px;
+    padding-left: 10px;
+}
+
+input[type=submit]{
+    height: 50px;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    border-radius: 20px;
+}
+
+ul.tagList{
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
+    overflow: auto;
+}
+
+ul.tagList li{
+    float: left;
+    margin-left: 0px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.descriptor {
+    padding: 8px;
+    background-color: lightgray;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.field .descriptor{
+    display: table;
+    margin-top: 5px;
+}
+
+.descriptor.selected {
+    background-color: #eac419;
+}
+
+ul.tagList.resizable{
+    font-size: 24pt;
+}
+
+.btn-default{
+    font-size: 20pt;
+    margin-top: 20px;
+    background-color: #3bbcd6;
+    color: #ffffff;
+    border-radius: 15px;
+}
+
+.btn-default:hover{
+    background-color: #3bbcd6;
+}
+
+#primaryHold .loading{
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+.categoryItem .label{
+    color: #000000;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    margin-left: 0px;
+    padding-left: 0px;
+    height: auto;
+}
+
+.categoryItem .field{
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+ul.findResults{
+    margin-left: 0px;
+    padding-left: 0px;
+    list-style: none;
+}
+
+ul.findResults li{
+    margin-left: 0px;
+    background-color: #ffffff;
+    padding: 10px;
+    font-size: 13pt;
+}
+
+ul.findResults li:nth-child(even){
+    background-color: lightblue;
+}
+
+ul.findResults li .name{
+    display: block;
+}
+
+ul.findResults li .types{
+    display: inline;
+    font-size: 65%;
+    font-style: italic;
+    padding-right: 10px;
+}
+
+ul.findResults li .diversity{
+    display: inline;
+    font-size: 65%;
+    padding-right: 10px;
+}
+
+ul.findResults li .distance{
+    display: inline;
+    font-size: 65%;
+    padding-right: 10px;
+}
+
+a.reviewBtn{
+    padding: 8px;
+    background-color: lightgray;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+a.reviewBtn span{
+    display: none;
+}
+
+td.label{
+    color: #000000;
+}
+
+.questionHold{
+    display: block;
+}
+
+.questionHold textarea{
+    display: block;
+    width: 100%;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.question{
+    font-size: 14pt;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.categoryItem{
+    margin-top: 25px;
+}
+
+.categoryItem .label{
+    font-size: 12pt;
+}
+
+.categoryItem .field{
+    margin-top: 5px;
+}
+
+#map_canvas, .angular-google-map-container{
+    width: 100%;
+    height: 450px;
+}
+
+div.filters{
+    display: block;
+}
+
+div.filters .filter{
+    display: block;
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+div.filters .topFilterNav{
+    display: block;
+}
+
+div.filters .topFilterNav ul.navList{
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
+    overflow: auto;
+    margin-bottom: 0px;
+}
+
+div.filters .topFilterNav ul.navList li{
+    display: block;
+    float: left;
+    background-color: #cccccc;
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 16pt;
+}
+
+div.filters .topFilterNav ul.navList li.selected{
+    background-color: #ffffff;
+}
+
+div.filters .topFilterNav ul.navList li a{
+    display: block;
+}
+
+div.filters .bottomFilterNav{
+    display: block;
+}
+
+div.filters .bottomFilterNav ul.navList{
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
+    margin-top: 20px;
+    overflow: auto;
+}
+
+div.filters .bottomFilterNav ul.navList li{
+    display: block;
+    float: right;
+    background-color: #3bbcd6;
+    padding: 10px;
+    font-size: 16pt;
+    margin-right: 10px;
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+div.filters .bottomFilterNav ul.navList li a{
+    display: block;
+    color: #ffffff;
+}
+
+div.logoContainer{
+    display: table;
+    background-color: #eee;
+    padding: 10px;
+    position: absolute;
+}
+
+div.logoContainer a.logo{
+    background: url(../img/decipher_logo-cropped.png) center center no-repeat;
+    height: 66px;
+    width: 120px;
+    display: block;
+    background-size: 120px 66px;
+    text-indent: -9999px;
+}
+
+div.logoContainer .city{
+    display: block;
+    margin: auto;
+    text-align: center;
+    font-size: 14pt;
+    margin-bottom: 0px;
+    color: #717275;
+}
+
+.container>.navbar-collapse{
+    margin-left: 150px;
+}
+
+@media (min-width: 768px){
+    .jumbotron h1{
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 767px) {    
+
+    .mainContainer{
+        padding-top: 40px;
+    }
+
+    input[type=submit]{
+        width: auto;
+        font-size: 16pt;
+    }
+
+    ul.findResults li .types{
+        display: block;
+    }
+
+    ul.findResults li .diversity{
+        display: block;
+    }
+
+    ul.findResults li .distance{
+        display: block;
+    }
+
+    a.reviewBtn{
+        margin-top: 5px;
+        display: table;
+    }
+
+    #map_canvas, .angular-google-map-container {
+        height: 350px;
+    }
+
+    .loadingScreenOverlay{
+        background-size: 270px 195px;
+    }
+
+    div.filters .topFilterNav ul.navList li{
+        padding: 5px;
+        margin-right: 3px;
+        font-size: 11pt;
+    }
+}

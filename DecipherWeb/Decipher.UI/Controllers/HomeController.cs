@@ -21,6 +21,11 @@ namespace Decipher.UI.Controllers
             return View();
         }
 
+        public ActionResult AppOriginal()
+        {
+            return View();
+        }
+
         #region jQuery-driven app to be replaced
 
         public ActionResult Index()

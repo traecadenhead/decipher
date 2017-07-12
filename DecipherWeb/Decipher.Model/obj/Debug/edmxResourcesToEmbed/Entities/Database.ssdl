@@ -58,11 +58,13 @@ warning 6002: The table/view 'DecipherDev.dbo.Pages' does not have a primary key
   <EntityType Name="Pages">
     <Key>
       <PropertyRef Name="PageID" />
+      <PropertyRef Name="Active" />
     </Key>
     <Property Name="PageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Title" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="Content" Type="text" Nullable="false" />
     <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
@@ -287,6 +289,7 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
     [Pages].[Title] AS [Title], 
     [Pages].[Content] AS [Content], 
     [Pages].[Ordinal] AS [Ordinal], 
+    [Pages].[Active] AS [Active], 
     [Pages].[DateCreated] AS [DateCreated], 
     [Pages].[DateModified] AS [DateModified]
     FROM [dbo].[Pages] AS [Pages]</DefiningQuery>

@@ -120,7 +120,7 @@ namespace Decipher.Model.Concrete
             List<Page> list = new List<Page>();
             try
             {
-                var pages = Pages.OrderBy(n => n.Ordinal).ToList();
+                var pages = Pages.Where(n => n.Active == true).OrderBy(n => n.Ordinal).ToList();
                 if (language != GetConfig("DefaultLanguage"))
                 {
                     var translations = Translations.Where(n => n.TranslationID.IndexOf("Pages.") == 0).Where(n => n.LanguageID == language).ToList();

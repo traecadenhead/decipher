@@ -82,6 +82,7 @@ warning 6002: The table/view 'DecipherDev.dbo.Pages' does not have a primary key
             
             
             
+            <PropertyRef Name="Active" />
             
             
           </Key>
@@ -89,6 +90,7 @@ warning 6002: The table/view 'DecipherDev.dbo.Pages' does not have a primary key
           <Property Name="Title" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Content" Type="text" Nullable="false" />
           <Property Name="Ordinal" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateModified" Type="datetime" Nullable="false" />
         </EntityType>
@@ -360,6 +362,7 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
     [Pages].[Title] AS [Title], 
     [Pages].[Content] AS [Content], 
     [Pages].[Ordinal] AS [Ordinal], 
+    [Pages].[Active] AS [Active], 
     [Pages].[DateCreated] AS [DateCreated], 
     [Pages].[DateModified] AS [DateModified]
     FROM [dbo].[Pages] AS [Pages]</DefiningQuery>
@@ -532,6 +535,7 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
         <EntityType Name="Page">
           <Key>
             <PropertyRef Name="PageID" />
+            <PropertyRef Name="Active" />
           </Key>
           <Property Name="PageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
@@ -539,6 +543,7 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
           <Property Name="Ordinal" Type="Int32" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Place">
           <Key>
@@ -1051,6 +1056,7 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
           <EntitySetMapping Name="Pages">
             <EntityTypeMapping TypeName="Decipher.Model.Entities.Page">
               <MappingFragment StoreEntitySet="Pages">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="PageID" ColumnName="PageID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Content" ColumnName="Content" />

@@ -1,52 +1,26 @@
 ﻿// Index
 (function (app) {
     var HomeIndex = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope) {
-        var timer = null;
-        var timedOut = false;
-        var loaded = false;
+        $scope.pages = [];
+        $scope.customStrings = [];
 
-        Load = function () {
-            try {
-                $scope.height = parseInt(window.innerHeight - 100) + 'px';
-            }
-            catch (e) { }
-            timer = $timeout(function () { EndTimer(); }, 3000);
-            var userID = amplify.store("UserID");
-            // get user identity
-            db.Get("user", userID, true).then(function (data) {
-                // get pages
-                db.List("page", null, true).then(function (data) {
-                    loaded = true;
-                    if (timedOut) {
-                        Resume();
-                    }
+        var Load = function () {
+            db.List("page").then(function (data) {
+                console.log("got " + data.length + " pages");
+                $scope.pages = data;
+            });
+            deviceSvc.GetCustomStrings().then(function (data) {
+                angular.forEach(data, function (item) {
+                    $scope.customStrings[item.CustomStringID] = item.Text;
                 });
             });
         };
 
         Load();
 
-        var EndTimer = function () {
-            $timeout.cancel(timer);
-            timedOut = true;
-            if (loaded) {
-                Resume();
-            }
-        };
-
-        $scope.$on('datarefresh', function () {
-            Load();
-        });
-
-        var Resume = function () {
-            if (amplify.store("UserID") != null) {
-                $state.go("Find");
-            } else {
-                $state.go("Identify");
-            }
-        };
-
-        Load();
+        $scope.LoadPage = function (pageID) {
+            $state.go("Page", { "pageID": pageID });
+        }
     };
 
     HomeIndex.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope"];

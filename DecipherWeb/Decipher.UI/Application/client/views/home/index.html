@@ -1,7 +1,10 @@
 ﻿<div ng-controller="HomeIndex">
-    <div class="loadingScreenContainer">
-        <div class="loadingScreen" ng-style="{'min-height': height}">
-            <div class="loadingScreenOverlay" ng-style="{'min-height': height}"></div>
-        </div>
-    </div>
+    <ul class="nav navbar-nav">
+        <li>
+            <a ui-sref="Review">{{customStrings['Home-LeaveReview']}}</a>
+        </li>
+        <li ng-repeat="page in pages">
+            <a ng-click="LoadPage(page.PageID)">{{page.Title}}</a>
+        </li>
+    </ul>
 </div>

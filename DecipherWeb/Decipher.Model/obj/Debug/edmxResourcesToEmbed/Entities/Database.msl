@@ -45,6 +45,7 @@
     <EntitySetMapping Name="Pages">
       <EntityTypeMapping TypeName="Decipher.Model.Entities.Page">
         <MappingFragment StoreEntitySet="Pages">
+          <ScalarProperty Name="Active" ColumnName="Active" />
           <ScalarProperty Name="PageID" ColumnName="PageID" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Content" ColumnName="Content" />

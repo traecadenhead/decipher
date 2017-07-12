@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <CustomStrings>
-  <!--Header-->
+  <!-- BEGIN: New app strings-->
+  <CustomString>
+    <CustomStringID>Home-LeaveReview</CustomStringID>
+    <Text>Leave a Review</Text>
+  </CustomString>
+  <!--BEGIN: Original app strings
   <CustomString>
     <CustomStringID>Header-Decipher</CustomStringID>
     <Text>Decipher</Text>
@@ -21,12 +26,10 @@
     <CustomStringID>Header-Data</CustomStringID>
     <Text>See the Data</Text>
   </CustomString>
-  <!--Footer-->
   <CustomString>
     <CustomStringID>Footer-Copyright</CustomStringID>
     <Text>2017 - Decipher Austin</Text>
   </CustomString>
-  <!--Identify-->
   <CustomString>
     <CustomStringID>Identify-PageTitle</CustomStringID>
     <Text>How do you identify?</Text>
@@ -35,7 +38,6 @@
     <CustomStringID>Identify-Next</CustomStringID>
     <Text>Next</Text>
   </CustomString>
-  <!--See the Data-->
   <CustomString>
     <CustomStringID>Data-PageTitle</CustomStringID>
     <Text>See the Data</Text>
@@ -72,7 +74,6 @@
     <CustomStringID>Data-ReviewsFound</CustomStringID>
     <Text>reviews found.</Text>
   </CustomString>
-  <!--Find a Place CustomStrings-->
   <CustomString>
     <CustomStringID>Find-PageTitle</CustomStringID>
     <Text>Find a Place</Text>
@@ -165,7 +166,6 @@
     <CustomStringID>Find-NoReviewsAlert</CustomStringID>
     <Text>There are no reviews of this place yet. If you visit, please be sure to add one!</Text>
   </CustomString>
-  <!--Review Detail-->
   <CustomString>
     <CustomStringID>ReviewDetail-ReviewOf</CustomStringID>
     <Text>Review of</Text>
@@ -178,7 +178,6 @@
     <CustomStringID>ReviewDetail-ReviewerIdentity</CustomStringID>
     <Text>Reviewer Identifies As</Text>
   </CustomString>
-  <!--Review Submit-->
   <CustomString>
     <CustomStringID>ReviewSubmit-Review</CustomStringID>
     <Text>Review</Text>
@@ -199,7 +198,6 @@
     <CustomStringID>ReviewSubmit-ThanksMessage</CustomStringID>
     <Text>Thanks for sharing your experience. The more we share, the better experiences everyone will have!</Text>
   </CustomString>
-  <!--Review Summary-->
   <CustomString>
     <CustomStringID>ReviewSummary-ReviewsOf</CustomStringID>
     <Text>Reviews of</Text>
@@ -219,5 +217,5 @@
   <CustomString>
     <CustomStringID>ReviewSummary-Review</CustomStringID>
     <Text>Review</Text>
-  </CustomString>
+  </CustomString>-->
 </CustomStrings>
