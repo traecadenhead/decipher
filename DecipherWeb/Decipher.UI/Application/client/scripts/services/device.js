@@ -122,8 +122,8 @@
 
         var GetCustomStrings = function GetCustomStrings() {
             var deferred = $q.defer();
-            // TO DO: Pass language that user has selected
-            db.List("CustomString").then(function (data) {
+            // For now force a fresh version of the string list
+            db.List("CustomString", null, true).then(function (data) {
                 deferred.resolve(data);
             });
             return deferred.promise;
