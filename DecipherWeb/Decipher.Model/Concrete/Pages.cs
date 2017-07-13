@@ -46,7 +46,7 @@ namespace Decipher.Model.Concrete
                 if (ValidatePage(entity))
                 {
                     entity.DateModified = DateTime.Now;
-                    var original = db.Pages.Find(entity.PageID);
+                    var original = Pages.Where(n => n.PageID == entity.PageID).FirstOrDefault();
                     if (original != null)
                     {
                         db.Entry(original).CurrentValues.SetValues(entity);

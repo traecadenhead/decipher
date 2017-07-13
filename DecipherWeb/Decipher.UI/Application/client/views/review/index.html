@@ -1,3 +1,12 @@
 ﻿<div ng-controller="ReviewIndex">
-    Leave a Review
+    <h1>{{customStrings['Review-PageTitle']}}</h1>
+    <div class="searchBar">
+        <form ng-submit="Search()">
+            <input type="text" placeholder="{{customStrings['Review-SearchBox']}}" ng-model="search.Term"/>
+            <input type="submit" ng-value="customStrings['Review-SearchButton']"/>
+        </form>
+    </div>
+    <div class="searchResults">
+
+    </div>
 </div>

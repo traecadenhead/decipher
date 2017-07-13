@@ -5,6 +5,38 @@
     <CustomStringID>Home-LeaveReview</CustomStringID>
     <Text>Leave a Review</Text>
   </CustomString>
+  <CustomString>
+    <CustomStringID>Review-PageTitle</CustomStringID>
+    <Text>Choose the Place</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Review-SearchBox</CustomStringID>
+    <Text>Name of Place</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Review-SearchButton</CustomStringID>
+    <Text>Search</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Review-CurrentLocation</CustomStringID>
+    <Text>Use My Current Location</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Review-NoLocation</CustomStringID>
+    <Text>To review a place near you, you must allow the app to use your device's location. Please make sure your location services are enabled on your device.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewIdentify-PageTitle</CustomStringID>
+    <Text>How do you identify?</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewIdentify-Message</CustomStringID>
+    <Text>Your information is completely anonymous, but important to make sure your voice is heard.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewIdentify-Next</CustomStringID>
+    <Text>Next</Text>
+  </CustomString>
   <!--BEGIN: Original app strings
   <CustomString>
     <CustomStringID>Header-Decipher</CustomStringID>

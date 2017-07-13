@@ -76,6 +76,7 @@ namespace Decipher.Model.Abstract
         bool DeletePlace(int id);
         List<SelectListItem> ListPlaceDistances(string defaultValue = "", string emptyText = "");
         PlaceResult SearchPlaces(Search entity);
+        PlaceResult NearbyPlaces(Search entity);
         Place GetPlaceForReview(string placeID);
         bool ImportPlace(string placeID);
         bool ImportPlacesInCity(int cityID, string type = null);

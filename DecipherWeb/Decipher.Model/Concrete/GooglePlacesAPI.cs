@@ -45,6 +45,39 @@ namespace Decipher.Model.Concrete
             return null;
         }
 
+        private PlaceResult NearbyPlacesFromGoogle(Search search)
+        {
+            try
+            {
+                Dictionary<string, string> dict = new Dictionary<string, string>();
+                if (!String.IsNullOrEmpty(search.Token))
+                {
+                    dict.Add("pagetoken", search.Token);
+                }
+                else
+                {
+                    dict.Add("location", search.Location.Latitude.ToString() + "," + search.Location.Longitude.ToString());
+                    // we're only looking right around where the user is - 500 meters for now
+                    dict.Add("radius", 500.ToString());                    
+                }
+                string response = GooglePlacesAPIRequest("nearbysearch", dict);
+                JObject json = JObject.Parse(response);
+                return new PlaceResult
+                {
+                    Results = ParseGooglePlaces(json),
+                    NextToken = SafeJsonString(json, "next_page_token")
+                };
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return new PlaceResult
+            {
+                Results = new List<Place>()
+            };
+        }
+
         private PlaceResult SearchPlacesFromGoogle(Search search)
         {
             try

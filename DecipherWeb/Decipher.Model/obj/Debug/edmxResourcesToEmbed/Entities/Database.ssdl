@@ -53,14 +53,11 @@ warning 6002: The table/view 'DecipherDev.dbo.Descriptors' does not have a prima
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.Pages' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Pages">
     <Key>
       <PropertyRef Name="PageID" />
-      <PropertyRef Name="Active" />
     </Key>
-    <Property Name="PageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PageID" Type="int" Nullable="false" />
     <Property Name="Title" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="Content" Type="text" Nullable="false" />
     <Property Name="Ordinal" Type="int" Nullable="false" />
@@ -247,6 +244,7 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
   </Association>
   <EntityContainer Name="DecipherModelEntitiesStoreContainer">
     <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pages" EntityType="Self.Pages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Translations" EntityType="Self.Translations" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Cities" EntityType="Self.Cities" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -282,17 +280,6 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
     [Descriptors].[DateCreated] AS [DateCreated], 
     [Descriptors].[DateModified] AS [DateModified]
     FROM [dbo].[Descriptors] AS [Descriptors]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="Pages" EntityType="Self.Pages" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Pages].[PageID] AS [PageID], 
-    [Pages].[Title] AS [Title], 
-    [Pages].[Content] AS [Content], 
-    [Pages].[Ordinal] AS [Ordinal], 
-    [Pages].[Active] AS [Active], 
-    [Pages].[DateCreated] AS [DateCreated], 
-    [Pages].[DateModified] AS [DateModified]
-    FROM [dbo].[Pages] AS [Pages]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="Places" EntityType="Self.Places" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 

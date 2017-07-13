@@ -27,13 +27,32 @@ namespace Decipher.Model.Entities
             }
         }
 
+        public Double? DistanceInFeet
+        {
+            get
+            {
+                if(DistanceInMeters.HasValue)
+                {
+                    return DistanceInMeters.Value * 3.28084;
+                }
+                return null;
+            }
+        }
+
         public string DistanceStr
         {
             get
             {
                 if (Distance.HasValue)
                 {
-                    return Distance.Value.ToString("0.0");
+                    if (DistanceInMeters.Value <= 500)
+                    {
+                        return DistanceInFeet.Value.ToString() + " feet";
+                    }
+                    else
+                    {
+                        return Distance.Value.ToString("0.0") + " miles";
+                    }
                 }
                 else
                 {

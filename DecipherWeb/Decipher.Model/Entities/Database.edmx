@@ -74,19 +74,11 @@ warning 6002: The table/view 'DecipherDev.dbo.Descriptors' does not have a prima
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateModified" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.Pages' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Pages">
           <Key>
             <PropertyRef Name="PageID" />
-            
-            
-            
-            <PropertyRef Name="Active" />
-            
-            
           </Key>
-          <Property Name="PageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PageID" Type="int" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="Content" Type="text" Nullable="false" />
           <Property Name="Ordinal" Type="int" Nullable="false" />
@@ -320,6 +312,7 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
         </Association>
         <EntityContainer Name="DecipherModelEntitiesStoreContainer">
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pages" EntityType="Self.Pages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Translations" EntityType="Self.Translations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cities" EntityType="Self.Cities" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -355,17 +348,6 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
     [Descriptors].[DateCreated] AS [DateCreated], 
     [Descriptors].[DateModified] AS [DateModified]
     FROM [dbo].[Descriptors] AS [Descriptors]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Pages" EntityType="Self.Pages" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Pages].[PageID] AS [PageID], 
-    [Pages].[Title] AS [Title], 
-    [Pages].[Content] AS [Content], 
-    [Pages].[Ordinal] AS [Ordinal], 
-    [Pages].[Active] AS [Active], 
-    [Pages].[DateCreated] AS [DateCreated], 
-    [Pages].[DateModified] AS [DateModified]
-    FROM [dbo].[Pages] AS [Pages]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Places" EntityType="Self.Places" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -531,19 +513,6 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
           <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="ReviewResponses" Relationship="Self.FK_ReviewResponses_Descriptors" FromRole="Descriptors" ToRole="ReviewResponses" />
           <NavigationProperty Name="UserDescriptors" Relationship="Self.FK_UserDescriptors_Descriptors" FromRole="Descriptors" ToRole="UserDescriptors" />
-        </EntityType>
-        <EntityType Name="Page">
-          <Key>
-            <PropertyRef Name="PageID" />
-            <PropertyRef Name="Active" />
-          </Key>
-          <Property Name="PageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Ordinal" Type="Int32" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Place">
           <Key>
@@ -877,7 +846,6 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
           <EntitySet Name="Cities" EntityType="Self.City" />
           <EntitySet Name="Demographics" EntityType="Self.Demographic" />
           <EntitySet Name="Descriptors" EntityType="Self.Descriptor" />
-          <EntitySet Name="Pages" EntityType="Self.Page" />
           <EntitySet Name="Places" EntityType="Self.Place" />
           <EntitySet Name="PlaceTypes" EntityType="Self.PlaceType" />
           <EntitySet Name="Questions" EntityType="Self.Question" />
@@ -959,6 +927,7 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
             <End Role="Language" EntitySet="Languages" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="Pages" EntityType="Decipher.Model.Entities.Page" />
         </EntityContainer>
         <EntityType Name="Language">
           <Key>
@@ -1006,6 +975,18 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="PageID" />
+          </Key>
+          <Property Name="PageID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Ordinal" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1048,19 +1029,6 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
                 <ScalarProperty Name="Points" ColumnName="Points" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Pages">
-            <EntityTypeMapping TypeName="Decipher.Model.Entities.Page">
-              <MappingFragment StoreEntitySet="Pages">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="PageID" ColumnName="PageID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="DateModified" ColumnName="DateModified" />
               </MappingFragment>
@@ -1216,6 +1184,19 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
                 <ScalarProperty Name="TranslationID" ColumnName="TranslationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pages">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.Page">
+              <MappingFragment StoreEntitySet="Pages">
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PageID" ColumnName="PageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

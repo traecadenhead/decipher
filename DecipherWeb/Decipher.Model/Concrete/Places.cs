@@ -120,6 +120,82 @@ namespace Decipher.Model.Concrete
             return CreateList(dict, defaultValue, emptyText);
         }
 
+        public PlaceResult NearbyPlaces(Search entity)
+        {
+            try
+            {
+                entity.City = DetermineNearestCity(entity.Location);
+                if (entity.City != null)
+                {
+                    // Search Google Places API
+                    var results = NearbyPlacesFromGoogle(entity);
+                    if (results.NumResults > 0)
+                    {
+                        var rtn = new PlaceResult
+                        {
+                            NextToken = results.NextToken,
+                            Results = new List<Place>(),
+                            Response = "Results"
+                        };
+                        // don't need zips anymore
+                        //var zips = Zips.Where(n => n.CityID == entity.City.CityID).ToList();
+                        var types = Types.ToList();
+                        var reviews = Reviews.Where(n => n.Place.Zip1.CityID == entity.City.CityID).ToList();
+                        foreach (var place in results.Results)
+                        {
+                            // don't need zips anymore
+                            // For each result, get nearest zip / demographics and distance
+                            //place.Zip = DetermineNearestZipForPlace(place, entity.City.CityID, zips);
+                            //if (!String.IsNullOrEmpty(place.Zip))
+                            //{
+                            //    place.DefaultZip = zips.Where(n => n.Zip1 == place.Zip).FirstOrDefault();
+                            //}
+                            place.DistanceInMeters = place.Location.GetDistanceTo(entity.Location);
+                            place.Types = new List<Entities.Type>();
+                            foreach (string typeID in place.TypesList)
+                            {
+                                var type = types.Where(n => n.TypeID == typeID).FirstOrDefault();
+                                if (type != null)
+                                {
+                                    place.Types.Add(type);
+                                }
+                            }
+                            if (reviews.Where(n => n.PlaceID == place.PlaceID).Count() > 0)
+                            {
+                                place.HasReviews = true;
+                                place.AvgScore = Convert.ToDouble(reviews.Where(n => n.PlaceID == place.PlaceID).Select(n => n.Score).Sum()) / Convert.ToDouble(reviews.Where(n => n.PlaceID == place.PlaceID).Select(n => n.Score).Count());
+                            }
+                            rtn.Results.Add(place);
+                        }
+                        rtn.Search = entity;
+                        return rtn;
+                    }
+                }
+                else
+                {
+                    return new PlaceResult
+                    {
+                        Results = new List<Place>(),
+                        Response = "No City"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+                return new PlaceResult
+                {
+                    Results = new List<Place>(),
+                    Response = "Error"
+                };
+            }
+            return new PlaceResult
+            {
+                Results = new List<Place>(),
+                Response = "No Results"
+            };
+        }
+
         public PlaceResult SearchPlaces(Search entity)
         {
             try

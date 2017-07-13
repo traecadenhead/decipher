@@ -8,7 +8,6 @@
         <EntityTypeShape EntityType="Decipher.Model.Entities.City" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="Decipher.Model.Entities.Demographic" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Decipher.Model.Entities.Descriptor" Width="1.5" PointX="10.5" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Decipher.Model.Entities.Page" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Decipher.Model.Entities.Place" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Decipher.Model.Entities.PlaceType" Width="1.5" PointX="7.5" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Decipher.Model.Entities.Question" Width="1.5" PointX="10.5" PointY="10.5" IsExpanded="true" />
@@ -39,6 +38,7 @@
         <EntityTypeShape EntityType="Decipher.Model.Entities.Translation" Width="1.5" PointX="9.625" PointY="13.875" />
         <AssociationConnector Association="Decipher.Model.Entities.FK_Translations_Languages" />
         <AssociationConnector Association="Decipher.Model.Entities.FK_Users_Languages" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.Page" Width="1.5" PointX="7.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -42,19 +42,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Pages">
-      <EntityTypeMapping TypeName="Decipher.Model.Entities.Page">
-        <MappingFragment StoreEntitySet="Pages">
-          <ScalarProperty Name="Active" ColumnName="Active" />
-          <ScalarProperty Name="PageID" ColumnName="PageID" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="Content" ColumnName="Content" />
-          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
-          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Places">
       <EntityTypeMapping TypeName="Decipher.Model.Entities.Place">
         <MappingFragment StoreEntitySet="Places">
@@ -205,6 +192,19 @@
           <ScalarProperty Name="Text" ColumnName="Text" />
           <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
           <ScalarProperty Name="TranslationID" ColumnName="TranslationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pages">
+      <EntityTypeMapping TypeName="Decipher.Model.Entities.Page">
+        <MappingFragment StoreEntitySet="Pages">
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

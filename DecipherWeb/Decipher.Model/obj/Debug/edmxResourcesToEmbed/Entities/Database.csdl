@@ -42,19 +42,6 @@
     <NavigationProperty Name="ReviewResponses" Relationship="Self.FK_ReviewResponses_Descriptors" FromRole="Descriptors" ToRole="ReviewResponses" />
     <NavigationProperty Name="UserDescriptors" Relationship="Self.FK_UserDescriptors_Descriptors" FromRole="Descriptors" ToRole="UserDescriptors" />
   </EntityType>
-  <EntityType Name="Page">
-    <Key>
-      <PropertyRef Name="PageID" />
-      <PropertyRef Name="Active" />
-    </Key>
-    <Property Name="PageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Ordinal" Type="Int32" Nullable="false" />
-    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Active" Type="Boolean" Nullable="false" />
-  </EntityType>
   <EntityType Name="Place">
     <Key>
       <PropertyRef Name="PlaceID" />
@@ -387,7 +374,6 @@
     <EntitySet Name="Cities" EntityType="Self.City" />
     <EntitySet Name="Demographics" EntityType="Self.Demographic" />
     <EntitySet Name="Descriptors" EntityType="Self.Descriptor" />
-    <EntitySet Name="Pages" EntityType="Self.Page" />
     <EntitySet Name="Places" EntityType="Self.Place" />
     <EntitySet Name="PlaceTypes" EntityType="Self.PlaceType" />
     <EntitySet Name="Questions" EntityType="Self.Question" />
@@ -469,6 +455,7 @@
       <End Role="Language" EntitySet="Languages" />
       <End Role="User" EntitySet="Users" />
     </AssociationSet>
+    <EntitySet Name="Pages" EntityType="Decipher.Model.Entities.Page" />
   </EntityContainer>
   <EntityType Name="Language">
     <Key>
@@ -516,4 +503,16 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Page">
+    <Key>
+      <PropertyRef Name="PageID" />
+    </Key>
+    <Property Name="PageID" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Ordinal" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
 </Schema>

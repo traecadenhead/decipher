@@ -28,7 +28,6 @@ namespace Decipher.Model.Entities
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Demographic> Demographics { get; set; }
         public virtual DbSet<Descriptor> Descriptors { get; set; }
-        public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<Place> Places { get; set; }
         public virtual DbSet<PlaceType> PlaceTypes { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
@@ -42,5 +41,6 @@ namespace Decipher.Model.Entities
         public virtual DbSet<ZipType> ZipTypes { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<Translation> Translations { get; set; }
+        public virtual DbSet<Page> Pages { get; set; }
     }
 }
