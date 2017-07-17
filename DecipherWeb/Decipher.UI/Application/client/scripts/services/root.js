@@ -1,6 +1,6 @@
 (function (app) {
     var root = function () {
-        var baseUrl = "http://dev.decipheraustin.com";
+        var baseUrl = "https://dev.decipheraustin.com";
 
         var GetBaseUrl = function () {
             return baseUrl;
