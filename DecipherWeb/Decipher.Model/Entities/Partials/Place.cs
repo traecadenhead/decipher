@@ -47,7 +47,7 @@ namespace Decipher.Model.Entities
                 {
                     if (DistanceInMeters.Value <= 500)
                     {
-                        return DistanceInFeet.Value.ToString() + " feet";
+                        return DistanceInFeet.Value.ToString("0") + " feet";
                     }
                     else
                     {
@@ -119,6 +119,14 @@ namespace Decipher.Model.Entities
                 {
                     return String.Empty;
                 }
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return "X% Positive Experience";
             }
         }
     }

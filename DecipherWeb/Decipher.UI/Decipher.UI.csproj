@@ -207,12 +207,15 @@
     <Content Include="Application\client\views\home\page.html" />
     <Content Include="Application\client\views\review\identify.html" />
     <Content Include="Application\client\views\review\index.html" />
+    <Content Include="Application\client\views\review\questions.html" />
     <Content Include="Application\css\app.css" />
     <Content Include="Application\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Application\fonts\Open_Sans\LICENSE.txt" />
     <Content Include="Application\fonts\Zilla_Slab\OFL.txt" />
+    <Content Include="Application\img\burger.png" />
     <Content Include="Application\img\decipher_logo-cropped.png" />
     <Content Include="Application\img\decipher_logo-landing.png" />
+    <Content Include="Application\img\search.png" />
     <Content Include="Application\js\amplify.min.js" />
     <Content Include="Application\js\angular-animate.min.js" />
     <Content Include="Application\js\angular-google-maps.min.js" />

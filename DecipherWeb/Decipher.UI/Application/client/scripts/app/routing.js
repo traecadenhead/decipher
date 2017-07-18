@@ -10,6 +10,16 @@
             }
         }
     })
+    .state('ReviewQuestions', {
+        url: '/app/review/questions/{placeID}',
+        views: {
+            "mainContainer": {
+                templateUrl: function ($stateParams) {
+                    return '/Application/client/views/review/questions.html';
+                }
+            }
+        }
+    })
     .state('Review', {
         url: '/app/review',
         views: {

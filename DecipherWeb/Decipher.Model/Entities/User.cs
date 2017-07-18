@@ -22,14 +22,14 @@ namespace Decipher.Model.Entities
         }
     
         public int UserID { get; set; }
+        public string LanguageID { get; set; }
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateModified { get; set; }
-        public string LanguageID { get; set; }
     
+        public virtual Language Language { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserDescriptor> UserDescriptors { get; set; }
-        public virtual Language Language { get; set; }
     }
 }

@@ -8,6 +8,10 @@
             db.List("page").then(function (data) {
                 console.log("got " + data.length + " pages");
                 $scope.pages = data;
+                try {
+                    $scope.height = parseInt(window.innerHeight - ($scope.pages.length * 75) - 75);
+                }
+                catch (e) { console.log(e); }
             });
             deviceSvc.GetCustomStrings().then(function (data) {
                 angular.forEach(data, function (item) {

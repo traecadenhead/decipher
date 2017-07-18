@@ -38,7 +38,7 @@ namespace Decipher.Model.Concrete
                 if (ValidateUser(entity))
                 {
                     entity.DateModified = DateTime.Now;
-                    var original = db.Users.Find(entity.UserID);
+                    var original = db.Users.Where(n => n.UserID == entity.UserID).FirstOrDefault();
                     if (original != null)
                     {
                         entity.DateCreated = original.DateCreated;

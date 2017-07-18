@@ -4,6 +4,7 @@
         $scope.customStrings = [];
         $scope.search = {};
         $scope.result = null;
+        $scope.selected = null;
 
         var Load = function () {
             if (amplify.store("UserID") == null) {
@@ -56,10 +57,33 @@
             }
         };
 
+        $scope.ClearSearch = function () {
+            $scope.search.Term = '';
+            Submit();
+        };
+
+        $scope.Select = function (item) {
+            if (item.PlaceID == $scope.selected) {
+                $scope.selected = null;
+            }
+            else {
+                $scope.selected = item.PlaceID;
+            }
+        };
+
         var Submit = function () {
             db.Post("place", "find", $scope.search).then(function (data) {
                 $scope.result = data;
             });
+        };
+
+        $scope.Next = function () {
+            if ($scope.selected != null) {
+                $state.go("ReviewQuestions", { "placeID": $scope.selected });
+            }
+            else {
+                deviceSvc.Alert($scope.customStrings["Review-NoPlace"]);
+            }
         };
     };
 

@@ -2,12 +2,16 @@
 <CustomStrings>
   <!-- BEGIN: New app strings-->
   <CustomString>
+    <CustomStringID>Home-Austin</CustomStringID>
+    <Text>Austin</Text>
+  </CustomString>
+  <CustomString>
     <CustomStringID>Home-LeaveReview</CustomStringID>
     <Text>Leave a Review</Text>
   </CustomString>
   <CustomString>
     <CustomStringID>Review-PageTitle</CustomStringID>
-    <Text>Choose the Place</Text>
+    <Text>Step 2 - Pick a Place</Text>
   </CustomString>
   <CustomString>
     <CustomStringID>Review-SearchBox</CustomStringID>
@@ -26,12 +30,24 @@
     <Text>To review a place near you, you must allow the app to use your device's location. Please make sure your location services are enabled on your device.</Text>
   </CustomString>
   <CustomString>
-    <CustomStringID>ReviewIdentify-PageTitle</CustomStringID>
+    <CustomStringID>Review-NoPlace</CustomStringID>
+    <Text>To proceed, please pick a place first.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Review-Next</CustomStringID>
+    <Text>Next</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewIdentify-Header</CustomStringID>
+    <Text>Step 1 - Identify Yourself</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewIdentify-Question</CustomStringID>
     <Text>How do you identify?</Text>
   </CustomString>
   <CustomString>
     <CustomStringID>ReviewIdentify-Message</CustomStringID>
-    <Text>Your information is completely anonymous, but important to make sure your voice is heard.</Text>
+    <Text>You are totally anonymous in this process.</Text>
   </CustomString>
   <CustomString>
     <CustomStringID>ReviewIdentify-Next</CustomStringID>

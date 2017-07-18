@@ -1,12 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Decipher.Model.Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.Cities' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Cities">
     <Key>
       <PropertyRef Name="CityID" />
     </Key>
-    <Property Name="CityID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="Latitude" Type="float" Nullable="false" />
     <Property Name="Longitude" Type="float" Nullable="false" />
@@ -18,8 +16,6 @@ warning 6002: The table/view 'DecipherDev.dbo.Cities' does not have a primary ke
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.Demographics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Demographics">
     <Key>
       <PropertyRef Name="DemographicID" />
@@ -29,13 +25,11 @@ warning 6002: The table/view 'DecipherDev.dbo.Demographics' does not have a prim
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.Descriptors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Descriptors">
     <Key>
       <PropertyRef Name="DescriptorID" />
     </Key>
-    <Property Name="DescriptorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DescriptorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DescriptorType" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="AssociatedID" Type="int" />
     <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
@@ -57,16 +51,14 @@ warning 6002: The table/view 'DecipherDev.dbo.Descriptors' does not have a prima
     <Key>
       <PropertyRef Name="PageID" />
     </Key>
-    <Property Name="PageID" Type="int" Nullable="false" />
+    <Property Name="PageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="Content" Type="text" Nullable="false" />
-    <Property Name="Ordinal" Type="int" Nullable="false" />
     <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.Places' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Places">
     <Key>
       <PropertyRef Name="PlaceID" />
@@ -82,37 +74,31 @@ warning 6002: The table/view 'DecipherDev.dbo.Places' does not have a primary ke
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.PlaceTypes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="PlaceTypes">
     <Key>
       <PropertyRef Name="PlaceTypeID" />
     </Key>
-    <Property Name="PlaceTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PlaceTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PlaceID" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="TypeID" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.Questions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Questions">
     <Key>
       <PropertyRef Name="QuestionID" />
     </Key>
-    <Property Name="QuestionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Text" Type="varchar" MaxLength="2000" Nullable="false" />
     <Property Name="Ordinal" Type="int" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.ReviewResponses' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ReviewResponses">
     <Key>
       <PropertyRef Name="ReviewResponseID" />
     </Key>
-    <Property Name="ReviewResponseID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ReviewResponseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ReviewID" Type="int" Nullable="false" />
     <Property Name="QuestionID" Type="int" Nullable="false" />
     <Property Name="DescriptorID" Type="int" Nullable="false" />
@@ -120,13 +106,11 @@ warning 6002: The table/view 'DecipherDev.dbo.ReviewResponses' does not have a p
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.Reviews' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Reviews">
     <Key>
       <PropertyRef Name="ReviewID" />
     </Key>
-    <Property Name="ReviewID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ReviewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="PlaceID" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="VisitDate" Type="datetime" />
@@ -145,8 +129,6 @@ warning 6002: The table/view 'DecipherDev.dbo.Reviews' does not have a primary k
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.Types' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Types">
     <Key>
       <PropertyRef Name="TypeID" />
@@ -157,43 +139,35 @@ warning 6002: The table/view 'DecipherDev.dbo.Types' does not have a primary key
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.UserDescriptors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="UserDescriptors">
     <Key>
       <PropertyRef Name="UserDescriptorID" />
     </Key>
-    <Property Name="UserDescriptorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserDescriptorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="DescriptorID" Type="int" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserID" />
     </Key>
-    <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="LanguageID" Type="varchar" MaxLength="50" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.ZipDemographics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ZipDemographics">
     <Key>
       <PropertyRef Name="ZipDemographicID" />
     </Key>
-    <Property Name="ZipDemographicID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ZipDemographicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DemographicID" Type="int" Nullable="false" />
     <Property Name="Zip" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.Zips' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Zips">
     <Key>
       <PropertyRef Name="Zip" />
@@ -206,18 +180,112 @@ warning 6002: The table/view 'DecipherDev.dbo.Zips' does not have a primary key 
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ZipTypes">
     <Key>
       <PropertyRef Name="ZipTypeID" />
     </Key>
-    <Property Name="ZipTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ZipTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Zip" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="TypeID" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
+  <Association Name="FK_Places_Zips">
+    <End Role="Zips" Type="Self.Zips" Multiplicity="1" />
+    <End Role="Places" Type="Self.Places" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zips">
+        <PropertyRef Name="Zip" />
+      </Principal>
+      <Dependent Role="Places">
+        <PropertyRef Name="Zip" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlaceTypes_Places">
+    <End Role="Places" Type="Self.Places" Multiplicity="1" />
+    <End Role="PlaceTypes" Type="Self.PlaceTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Places">
+        <PropertyRef Name="PlaceID" />
+      </Principal>
+      <Dependent Role="PlaceTypes">
+        <PropertyRef Name="PlaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlaceTypes_Types">
+    <End Role="Types" Type="Self.Types" Multiplicity="1" />
+    <End Role="PlaceTypes" Type="Self.PlaceTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Types">
+        <PropertyRef Name="TypeID" />
+      </Principal>
+      <Dependent Role="PlaceTypes">
+        <PropertyRef Name="TypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReviewResponses_Descriptors">
+    <End Role="Descriptors" Type="Self.Descriptors" Multiplicity="1" />
+    <End Role="ReviewResponses" Type="Self.ReviewResponses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Descriptors">
+        <PropertyRef Name="DescriptorID" />
+      </Principal>
+      <Dependent Role="ReviewResponses">
+        <PropertyRef Name="DescriptorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReviewResponses_Questions">
+    <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+    <End Role="ReviewResponses" Type="Self.ReviewResponses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questions">
+        <PropertyRef Name="QuestionID" />
+      </Principal>
+      <Dependent Role="ReviewResponses">
+        <PropertyRef Name="QuestionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReviewResponses_Reviews">
+    <End Role="Reviews" Type="Self.Reviews" Multiplicity="1" />
+    <End Role="ReviewResponses" Type="Self.ReviewResponses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reviews">
+        <PropertyRef Name="ReviewID" />
+      </Principal>
+      <Dependent Role="ReviewResponses">
+        <PropertyRef Name="ReviewID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reviews_Places">
+    <End Role="Places" Type="Self.Places" Multiplicity="1" />
+    <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Places">
+        <PropertyRef Name="PlaceID" />
+      </Principal>
+      <Dependent Role="Reviews">
+        <PropertyRef Name="PlaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reviews_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Reviews">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Translations_Languages">
     <End Role="Languages" Type="Self.Languages" Multiplicity="1" />
     <End Role="Translations" Type="Self.Translations" Multiplicity="*" />
@@ -227,6 +295,30 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
       </Principal>
       <Dependent Role="Translations">
         <PropertyRef Name="LanguageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDescriptors_Descriptors">
+    <End Role="Descriptors" Type="Self.Descriptors" Multiplicity="1" />
+    <End Role="UserDescriptors" Type="Self.UserDescriptors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Descriptors">
+        <PropertyRef Name="DescriptorID" />
+      </Principal>
+      <Dependent Role="UserDescriptors">
+        <PropertyRef Name="DescriptorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDescriptors_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="UserDescriptors" Type="Self.UserDescriptors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserDescriptors">
+        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -242,162 +334,151 @@ warning 6002: The table/view 'DecipherDev.dbo.ZipTypes' does not have a primary 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ZipDemographics_Demographics">
+    <End Role="Demographics" Type="Self.Demographics" Multiplicity="1" />
+    <End Role="ZipDemographics" Type="Self.ZipDemographics" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Demographics">
+        <PropertyRef Name="DemographicID" />
+      </Principal>
+      <Dependent Role="ZipDemographics">
+        <PropertyRef Name="DemographicID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZipDemographics_Zips">
+    <End Role="Zips" Type="Self.Zips" Multiplicity="1" />
+    <End Role="ZipDemographics" Type="Self.ZipDemographics" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zips">
+        <PropertyRef Name="Zip" />
+      </Principal>
+      <Dependent Role="ZipDemographics">
+        <PropertyRef Name="Zip" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zips_Cities">
+    <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+    <End Role="Zips" Type="Self.Zips" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="Zips">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZipTypes_Types">
+    <End Role="Types" Type="Self.Types" Multiplicity="1" />
+    <End Role="ZipTypes" Type="Self.ZipTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Types">
+        <PropertyRef Name="TypeID" />
+      </Principal>
+      <Dependent Role="ZipTypes">
+        <PropertyRef Name="TypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZipTypes_Zips">
+    <End Role="Zips" Type="Self.Zips" Multiplicity="1" />
+    <End Role="ZipTypes" Type="Self.ZipTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zips">
+        <PropertyRef Name="Zip" />
+      </Principal>
+      <Dependent Role="ZipTypes">
+        <PropertyRef Name="Zip" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="DecipherModelEntitiesStoreContainer">
+    <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Demographics" EntityType="Self.Demographics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Descriptors" EntityType="Self.Descriptors" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pages" EntityType="Self.Pages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Places" EntityType="Self.Places" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlaceTypes" EntityType="Self.PlaceTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReviewResponses" EntityType="Self.ReviewResponses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Translations" EntityType="Self.Translations" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Cities" EntityType="Self.Cities" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Cities].[CityID] AS [CityID], 
-    [Cities].[Name] AS [Name], 
-    [Cities].[Latitude] AS [Latitude], 
-    [Cities].[Longitude] AS [Longitude], 
-    [Cities].[CenterZip] AS [CenterZip], 
-    [Cities].[Radius] AS [Radius], 
-    [Cities].[ZipsAssociated] AS [ZipsAssociated], 
-    [Cities].[ReportEmail] AS [ReportEmail], 
-    [Cities].[ReportName] AS [ReportName], 
-    [Cities].[DateCreated] AS [DateCreated], 
-    [Cities].[DateModified] AS [DateModified]
-    FROM [dbo].[Cities] AS [Cities]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="Demographics" EntityType="Self.Demographics" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Demographics].[DemographicID] AS [DemographicID], 
-    [Demographics].[Name] AS [Name], 
-    [Demographics].[DateCreated] AS [DateCreated], 
-    [Demographics].[DateModified] AS [DateModified]
-    FROM [dbo].[Demographics] AS [Demographics]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="Descriptors" EntityType="Self.Descriptors" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Descriptors].[DescriptorID] AS [DescriptorID], 
-    [Descriptors].[DescriptorType] AS [DescriptorType], 
-    [Descriptors].[AssociatedID] AS [AssociatedID], 
-    [Descriptors].[Name] AS [Name], 
-    [Descriptors].[Ordinal] AS [Ordinal], 
-    [Descriptors].[Points] AS [Points], 
-    [Descriptors].[DateCreated] AS [DateCreated], 
-    [Descriptors].[DateModified] AS [DateModified]
-    FROM [dbo].[Descriptors] AS [Descriptors]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="Places" EntityType="Self.Places" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Places].[PlaceID] AS [PlaceID], 
-    [Places].[Name] AS [Name], 
-    [Places].[Zip] AS [Zip], 
-    [Places].[Cost] AS [Cost], 
-    [Places].[GoogleRating] AS [GoogleRating], 
-    [Places].[Address] AS [Address], 
-    [Places].[Latitude] AS [Latitude], 
-    [Places].[Longitude] AS [Longitude], 
-    [Places].[DateCreated] AS [DateCreated], 
-    [Places].[DateModified] AS [DateModified]
-    FROM [dbo].[Places] AS [Places]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="PlaceTypes" EntityType="Self.PlaceTypes" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [PlaceTypes].[PlaceTypeID] AS [PlaceTypeID], 
-    [PlaceTypes].[PlaceID] AS [PlaceID], 
-    [PlaceTypes].[TypeID] AS [TypeID], 
-    [PlaceTypes].[DateCreated] AS [DateCreated], 
-    [PlaceTypes].[DateModified] AS [DateModified]
-    FROM [dbo].[PlaceTypes] AS [PlaceTypes]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="Questions" EntityType="Self.Questions" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Questions].[QuestionID] AS [QuestionID], 
-    [Questions].[Text] AS [Text], 
-    [Questions].[Ordinal] AS [Ordinal], 
-    [Questions].[DateCreated] AS [DateCreated], 
-    [Questions].[DateModified] AS [DateModified]
-    FROM [dbo].[Questions] AS [Questions]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="ReviewResponses" EntityType="Self.ReviewResponses" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [ReviewResponses].[ReviewResponseID] AS [ReviewResponseID], 
-    [ReviewResponses].[ReviewID] AS [ReviewID], 
-    [ReviewResponses].[QuestionID] AS [QuestionID], 
-    [ReviewResponses].[DescriptorID] AS [DescriptorID], 
-    [ReviewResponses].[Detail] AS [Detail], 
-    [ReviewResponses].[DateCreated] AS [DateCreated], 
-    [ReviewResponses].[DateModified] AS [DateModified]
-    FROM [dbo].[ReviewResponses] AS [ReviewResponses]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="Reviews" EntityType="Self.Reviews" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Reviews].[ReviewID] AS [ReviewID], 
-    [Reviews].[UserID] AS [UserID], 
-    [Reviews].[PlaceID] AS [PlaceID], 
-    [Reviews].[VisitDate] AS [VisitDate], 
-    [Reviews].[Reported] AS [Reported], 
-    [Reviews].[Score] AS [Score], 
-    [Reviews].[DateCreated] AS [DateCreated], 
-    [Reviews].[DateModified] AS [DateModified]
-    FROM [dbo].[Reviews] AS [Reviews]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="Types" EntityType="Self.Types" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Types].[TypeID] AS [TypeID], 
-    [Types].[Name] AS [Name], 
-    [Types].[Active] AS [Active], 
-    [Types].[DateCreated] AS [DateCreated], 
-    [Types].[DateModified] AS [DateModified]
-    FROM [dbo].[Types] AS [Types]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="UserDescriptors" EntityType="Self.UserDescriptors" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [UserDescriptors].[UserDescriptorID] AS [UserDescriptorID], 
-    [UserDescriptors].[UserID] AS [UserID], 
-    [UserDescriptors].[DescriptorID] AS [DescriptorID], 
-    [UserDescriptors].[DateCreated] AS [DateCreated], 
-    [UserDescriptors].[DateModified] AS [DateModified]
-    FROM [dbo].[UserDescriptors] AS [UserDescriptors]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Users].[UserID] AS [UserID], 
-    [Users].[LanguageID] AS [LanguageID], 
-    [Users].[DateCreated] AS [DateCreated], 
-    [Users].[DateModified] AS [DateModified]
-    FROM [dbo].[Users] AS [Users]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="ZipDemographics" EntityType="Self.ZipDemographics" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [ZipDemographics].[ZipDemographicID] AS [ZipDemographicID], 
-    [ZipDemographics].[DemographicID] AS [DemographicID], 
-    [ZipDemographics].[Zip] AS [Zip], 
-    [ZipDemographics].[DateCreated] AS [DateCreated], 
-    [ZipDemographics].[DateModified] AS [DateModified]
-    FROM [dbo].[ZipDemographics] AS [ZipDemographics]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="Zips" EntityType="Self.Zips" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Zips].[Zip] AS [Zip], 
-    [Zips].[CityID] AS [CityID], 
-    [Zips].[DiversityIndex] AS [DiversityIndex], 
-    [Zips].[Latitude] AS [Latitude], 
-    [Zips].[Longitude] AS [Longitude], 
-    [Zips].[DateCreated] AS [DateCreated], 
-    [Zips].[DateModified] AS [DateModified]
-    FROM [dbo].[Zips] AS [Zips]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="ZipTypes" EntityType="Self.ZipTypes" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [ZipTypes].[ZipTypeID] AS [ZipTypeID], 
-    [ZipTypes].[Zip] AS [Zip], 
-    [ZipTypes].[TypeID] AS [TypeID], 
-    [ZipTypes].[DateCreated] AS [DateCreated], 
-    [ZipTypes].[DateModified] AS [DateModified]
-    FROM [dbo].[ZipTypes] AS [ZipTypes]</DefiningQuery>
-    </EntitySet>
+    <EntitySet Name="Types" EntityType="Self.Types" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserDescriptors" EntityType="Self.UserDescriptors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ZipDemographics" EntityType="Self.ZipDemographics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Zips" EntityType="Self.Zips" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ZipTypes" EntityType="Self.ZipTypes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Places_Zips" Association="Self.FK_Places_Zips">
+      <End Role="Zips" EntitySet="Zips" />
+      <End Role="Places" EntitySet="Places" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlaceTypes_Places" Association="Self.FK_PlaceTypes_Places">
+      <End Role="Places" EntitySet="Places" />
+      <End Role="PlaceTypes" EntitySet="PlaceTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlaceTypes_Types" Association="Self.FK_PlaceTypes_Types">
+      <End Role="Types" EntitySet="Types" />
+      <End Role="PlaceTypes" EntitySet="PlaceTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReviewResponses_Descriptors" Association="Self.FK_ReviewResponses_Descriptors">
+      <End Role="Descriptors" EntitySet="Descriptors" />
+      <End Role="ReviewResponses" EntitySet="ReviewResponses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReviewResponses_Questions" Association="Self.FK_ReviewResponses_Questions">
+      <End Role="Questions" EntitySet="Questions" />
+      <End Role="ReviewResponses" EntitySet="ReviewResponses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReviewResponses_Reviews" Association="Self.FK_ReviewResponses_Reviews">
+      <End Role="Reviews" EntitySet="Reviews" />
+      <End Role="ReviewResponses" EntitySet="ReviewResponses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reviews_Places" Association="Self.FK_Reviews_Places">
+      <End Role="Places" EntitySet="Places" />
+      <End Role="Reviews" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reviews_Users" Association="Self.FK_Reviews_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Reviews" EntitySet="Reviews" />
+    </AssociationSet>
     <AssociationSet Name="FK_Translations_Languages" Association="Self.FK_Translations_Languages">
       <End Role="Languages" EntitySet="Languages" />
       <End Role="Translations" EntitySet="Translations" />
     </AssociationSet>
+    <AssociationSet Name="FK_UserDescriptors_Descriptors" Association="Self.FK_UserDescriptors_Descriptors">
+      <End Role="Descriptors" EntitySet="Descriptors" />
+      <End Role="UserDescriptors" EntitySet="UserDescriptors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDescriptors_Users" Association="Self.FK_UserDescriptors_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserDescriptors" EntitySet="UserDescriptors" />
+    </AssociationSet>
     <AssociationSet Name="FK_Users_Languages" Association="Self.FK_Users_Languages">
       <End Role="Languages" EntitySet="Languages" />
       <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZipDemographics_Demographics" Association="Self.FK_ZipDemographics_Demographics">
+      <End Role="Demographics" EntitySet="Demographics" />
+      <End Role="ZipDemographics" EntitySet="ZipDemographics" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZipDemographics_Zips" Association="Self.FK_ZipDemographics_Zips">
+      <End Role="Zips" EntitySet="Zips" />
+      <End Role="ZipDemographics" EntitySet="ZipDemographics" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zips_Cities" Association="Self.FK_Zips_Cities">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="Zips" EntitySet="Zips" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZipTypes_Types" Association="Self.FK_ZipTypes_Types">
+      <End Role="Types" EntitySet="Types" />
+      <End Role="ZipTypes" EntitySet="ZipTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZipTypes_Zips" Association="Self.FK_ZipTypes_Zips">
+      <End Role="Zips" EntitySet="Zips" />
+      <End Role="ZipTypes" EntitySet="ZipTypes" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

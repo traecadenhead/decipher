@@ -1,6 +1,7 @@
 ﻿<div ng-controller="ReviewIdentify">
-    <h1>{{customStrings['ReviewIdentify-PageTitle']}}</h1>
-    <p>{{customStrings['ReviewIdentify-Message']}}</p>
+    <h1>{{customStrings['ReviewIdentify-Header']}}</h1>
+    <h3>{{customStrings['ReviewIdentify-Message']}}</h3>
+    <h2>{{customStrings['ReviewIdentify-Question']}}</h2>
     <form ng-submit="Submit()">
         <ul class="tagList" id="profileTagList">
             <li ng-repeat="item in user.Descriptors" class="descriptor" ng-click="Select(item)" ng-class="{'selected': item.Selected == true}">

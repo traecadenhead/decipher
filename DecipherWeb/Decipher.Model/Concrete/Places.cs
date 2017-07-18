@@ -167,6 +167,7 @@ namespace Decipher.Model.Concrete
                             }
                             rtn.Results.Add(place);
                         }
+                        rtn.Results = rtn.Results.OrderBy(n => n.Distance.GetValueOrDefault()).ToList();
                         rtn.Search = entity;
                         return rtn;
                     }

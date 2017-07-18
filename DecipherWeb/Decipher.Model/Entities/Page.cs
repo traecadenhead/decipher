@@ -18,8 +18,8 @@ namespace Decipher.Model.Entities
         public string Title { get; set; }
         public string Content { get; set; }
         public int Ordinal { get; set; }
-        public bool Active { get; set; }
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateModified { get; set; }
+        public bool Active { get; set; }
     }
 }

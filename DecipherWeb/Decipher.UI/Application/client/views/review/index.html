@@ -3,10 +3,16 @@
     <div class="searchBar">
         <form ng-submit="Search()">
             <input type="text" placeholder="{{customStrings['Review-SearchBox']}}" ng-model="search.Term"/>
-            <input type="submit" ng-value="customStrings['Review-SearchButton']"/>
+            <input ng-if="search.Term == null || search.Term == '' || search.Term != result.Search.Term" type="submit" ng-value="customStrings['Review-SearchButton']"/>
+            <div ng-if="result.Search.Term != null && result.Search.Term != ''" class="clearSearch" ng-click="ClearSearch()">X</div>
         </form>
     </div>
     <div class="searchResults">
-
+        <div ng-repeat="item in result.Results" class="resultItem" ng-class="{'selected': item.PlaceID == selected}" ng-click="Select(item)">
+            <div class="distance">{{item.DistanceStr}}</div>
+            <div class="title">{{item.Name}}</div>
+            <div class="desc">{{item.Description}}</div>
+        </div>
     </div>
+    <a class="btn-default" ng-click="Next()">{{customStrings['Review-Next']}}</a>
 </div>
