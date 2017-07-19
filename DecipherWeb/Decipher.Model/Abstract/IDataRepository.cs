@@ -111,6 +111,8 @@ namespace Decipher.Model.Abstract
         ReviewSummary GetReviewSummary(ReviewFilter filters);
         ReviewFilter GetReviewFilters(ReviewFilter entity);
         bool RecalculateReviewScores();
+        Review GetReviewForSubmission(int reviewID);
+        bool SubmitReview(Review entity);
         #endregion
 
         #region Translations

@@ -121,6 +121,8 @@
           <Property Name="VisitDate" Type="datetime" />
           <Property Name="Reported" Type="bit" Nullable="false" />
           <Property Name="Score" Type="int" Nullable="false" />
+          <Property Name="Additional" Type="text" />
+          <Property Name="Submitted" Type="bit" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateModified" Type="datetime" Nullable="false" />
         </EntityType>
@@ -713,6 +715,8 @@
           <NavigationProperty Name="Place" Relationship="Decipher.Model.Entities.FK_Reviews_Places" FromRole="Review" ToRole="Place" />
           <NavigationProperty Name="ReviewResponses" Relationship="Decipher.Model.Entities.FK_ReviewResponses_Reviews" FromRole="Review" ToRole="ReviewRespons" />
           <NavigationProperty Name="User" Relationship="Decipher.Model.Entities.FK_Reviews_Users" FromRole="Review" ToRole="User" />
+          <Property Name="Additional" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Submitted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Translation">
           <Key>
@@ -1129,6 +1133,8 @@
           <EntitySetMapping Name="Reviews">
             <EntityTypeMapping TypeName="Decipher.Model.Entities.Review">
               <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="Submitted" ColumnName="Submitted" />
+                <ScalarProperty Name="Additional" ColumnName="Additional" />
                 <ScalarProperty Name="DateModified" ColumnName="DateModified" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Score" ColumnName="Score" />

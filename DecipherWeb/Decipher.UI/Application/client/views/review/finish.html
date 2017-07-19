@@ -1,1 +1,13 @@
-﻿Review Finish
+﻿<div ng-controller="ReviewFinish">
+    <h1>{{customStrings['ReviewFinish-Header']}}</h1>
+    <form ng-submit="Submit()">
+        <div class="pageContainer">
+            <h3>{{customStrings['ReviewFinish-Additional']}}</h3>
+            <textarea ng-model="review.Additional"></textarea>
+            <div ng-if="review.City != null && review.City.ReportEmail != null && review.City.ReportEmail != ''" class="singleSelect" ng-class="{'selected': review.Reported}" ng-click="Select()">
+                {{customStrings['ReviewFinish-ReportTo']}} {{review.City.ReportName}}
+            </div>
+        </div>
+        <input type="submit" class="btn btn-default" ng-value="customStrings['ReviewFinish-Submit']" />
+    </form>
+</div>

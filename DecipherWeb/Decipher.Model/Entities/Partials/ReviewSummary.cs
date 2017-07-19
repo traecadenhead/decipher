@@ -13,5 +13,6 @@ namespace Decipher.Model.Entities
         public List<Question> Questions { get; set; }
         public List<Descriptor> UserDescriptors { get; set; }
         public List<Review> Reviews { get; set; }
+        public List<string> Comments { get; set; }
     }
 }

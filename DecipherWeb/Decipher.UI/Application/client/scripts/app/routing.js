@@ -40,6 +40,26 @@
             }
         }
     })
+    .state('ReviewSummary', {
+        url: '/app/review/summary/{placeID}',
+        views: {
+            "mainContainer": {
+                templateUrl: function ($stateParams) {
+                    return '/Application/client/views/review/summary.html';
+                }
+            }
+        }
+    })
+    .state('ReviewDetail', {
+        url: '/app/review/detail/{reviewID}',
+        views: {
+            "mainContainer": {
+                templateUrl: function ($stateParams) {
+                    return '/Application/client/views/review/detail.html';
+                }
+            }
+        }
+    })
     .state('Review', {
         url: '/app/review',
         views: {

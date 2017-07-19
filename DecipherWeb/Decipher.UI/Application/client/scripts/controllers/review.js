@@ -287,3 +287,148 @@
     ReviewQuestions.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams"];
     app.controller("ReviewQuestions", ReviewQuestions);
 }(angular.module("app")));
+
+// Finish
+(function (app) {
+    var ReviewFinish = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams) {
+        $scope.customStrings = [];
+        $scope.review = null;
+
+        var Load = function () {
+            deviceSvc.GetCustomStrings().then(function (data) {
+                angular.forEach(data, function (item) {
+                    $scope.customStrings[item.CustomStringID] = item.Text;
+                });
+            });
+            db.Get("review", $stateParams.reviewID, false, "forsubmit").then(function (data) {
+                $scope.review = data;
+            });            
+        };
+
+        Load();
+
+        $scope.Select = function () {
+            if ($scope.review.Reported == true) {
+                $scope.review.Reported = false;
+            }
+            else {
+                $scope.review.Reported = true;
+            }
+        };
+
+        $scope.Submit = function () {
+            db.Save("review", $scope.review, "submit").then(function (result) {
+                if (result) {
+                    $state.go("ReviewSummary", {"placeID": $scope.review.PlaceID});
+                }
+                else {
+                    console.log("submit didn't work");
+                }
+            });
+        };
+
+        $rootScope.$on("Refresh", function () {
+            Load();
+        });
+    };
+
+    ReviewFinish.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams"];
+    app.controller("ReviewFinish", ReviewFinish);
+}(angular.module("app")));
+
+// Detail
+(function (app) {
+    var ReviewDetail = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams) {
+        
+        $scope.entity = null;
+        $scope.customStrings = [];
+
+        var Load = function () {
+            db.Get("review", $stateParams.reviewID).then(function (data) {
+                $scope.entity = data;
+            });
+            deviceSvc.GetCustomStrings().then(function (data) {
+                angular.forEach(data, function (item) {
+                    $scope.customStrings[item.CustomStringID] = item.Text;
+                });
+            });
+        };
+
+        Load();
+
+        $rootScope.$on("Refresh", function () {
+            Load();
+        });
+    };
+
+    ReviewDetail.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams"];
+    app.controller("ReviewDetail", ReviewDetail);
+}(angular.module("app")));
+
+// Review Summary
+(function (app) {
+    var ReviewSummary = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams) {
+
+        $scope.entity = { UserDescriptors: [] };
+        $scope.customStrings = [];
+        $scope.showFilters = false;
+
+        var Load = function () {
+            deviceSvc.GetCustomStrings().then(function (data) {
+                angular.forEach(data, function (item) {
+                    $scope.customStrings[item.CustomStringID] = item.Text;
+                });
+            });
+            $timeout(function () {
+                $scope.Select();
+            }, 1);
+        };
+
+        Load();
+
+        $scope.ToggleFilters = function () {
+            if($scope.showFilters){
+                $scope.showFilters = false;
+            }
+            else {
+                $scope.showFilters = true;
+            }
+        };
+
+        $scope.Select = function (item) {
+            if (item != undefined && item != null) {
+                if (item.Selected == true) {
+                    item.Selected = false;
+                }
+                else {
+                    item.Selected = true;
+                }
+            }
+            var filters = {
+                Descriptors: [],
+                Places: [
+                    { PlaceID: $stateParams.placeID }
+                ]
+            };
+            angular.forEach($scope.entity.UserDescriptors, function (item) {
+                if (item.Selected) {
+                    filters.Descriptors.push(item);
+                }
+            });
+            db.Post("review", "summary", filters).then(function (data) {
+                $scope.entity = data;
+            });
+        };
+
+        $scope.LoadReview = function (review) {
+            $state.go("ReviewDetail", { "reviewID": review.ReviewID });
+        };
+
+        $rootScope.$on("Refresh", function () {
+            Load();
+        });
+    };
+
+    ReviewSummary.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams"];
+    app.controller("ReviewSummary", ReviewSummary);
+}(angular.module("app")));

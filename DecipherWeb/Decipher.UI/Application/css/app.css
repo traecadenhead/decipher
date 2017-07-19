@@ -121,13 +121,13 @@ div.bottomNav a.navItem:nth-child(even){
 
 h1{
     background: #39BBD5;
-    width: 100%;
-    line-height: 90px;
+    line-height: 40px;
     font-size: 24px;
     color: #FFFFFF;
     margin-top: 0px;
     margin-bottom: 0px;
     text-transform: uppercase;
+    padding: 20px 20px;
 }
 
 h1.question{
@@ -144,13 +144,28 @@ h1.question{
 }
 
 h2{
-    font-size: 24px; 
+    font-size: 24px;
     color: #39BBD5;
+    margin: 10px 20px;
 }
 
 h3{
     font-size: 16px; 
     color: #D43281; 
+}
+
+h4{
+    font-size: 24px;
+    color: #ABACAB;
+    line-height: 40px;
+    margin: 10px 20px;
+}
+
+h5{
+    font-size: 16px;
+    color: #ABACAB;
+    font-style: italic;
+    margin-top: 0px;
 }
 
 #profileTagList{
@@ -191,6 +206,7 @@ h3{
     border: none;
     text-transform: uppercase;
     cursor: pointer;
+    text-decoration: none;
 }
 
 div.searchBar{
@@ -395,6 +411,84 @@ ul.responseTags li.selected{
     margin: auto;
     text-align: center;
     width: 100%;
+}
+
+.pageContainer textarea{
+    width: 80%;
+    margin: auto;
+    height: 200px;
+}
+
+.singleSelect{
+    background: #D8D8D8;
+    font-size: 24px;
+    color: #A1A2A1;
+    list-style: none;
+    padding-left: 0px;
+    text-transform: none;
+    margin: auto;
+    line-height: 32px;
+    cursor: pointer;
+    margin-top: 20px;
+    padding: 20px;
+    display: table;
+}
+
+.singleSelect.selected{
+    background: #39BBD5;
+    color: #FFFFFF;
+}
+
+.singleSelect.small{
+    font-size: 16px;
+    padding: 5px 5px;
+}
+
+.singleSelect.small.selected{
+    background: #39BBD5;
+    color: #FFFFFF;
+}
+
+div.questionHold{
+    display: block;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+ul.tagList{
+    display: block;
+    margin-left: 0px;
+    padding-left: 0px;
+    padding-top: 0px;
+}
+
+ul.tagList li{
+    display: block;
+}
+
+ul.tagList li.comment{
+    margin: 20px 20px;
+}
+
+ul.tagList.identifiers{
+    display: block;
+    overflow: auto;
+    margin: 20px 20px;
+}
+
+ul.tagList.identifiers li{
+    float: left;
+    padding: 5px;
+    margin: 5px;
+    border: solid 1px #ABACAB;
+    font-size: 12px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+ul.tagList.identifiers li.selected{
+    background: #39BBD5;
+    color: #FFFFFF;
 }
 
 @media (min-width: 768px){

@@ -116,6 +116,8 @@
     <Property Name="VisitDate" Type="datetime" />
     <Property Name="Reported" Type="bit" Nullable="false" />
     <Property Name="Score" Type="int" Nullable="false" />
+    <Property Name="Additional" Type="text" />
+    <Property Name="Submitted" Type="bit" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>

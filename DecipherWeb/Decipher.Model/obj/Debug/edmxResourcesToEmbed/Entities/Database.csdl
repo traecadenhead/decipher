@@ -223,6 +223,8 @@
     <NavigationProperty Name="Place" Relationship="Decipher.Model.Entities.FK_Reviews_Places" FromRole="Review" ToRole="Place" />
     <NavigationProperty Name="ReviewResponses" Relationship="Decipher.Model.Entities.FK_ReviewResponses_Reviews" FromRole="Review" ToRole="ReviewRespons" />
     <NavigationProperty Name="User" Relationship="Decipher.Model.Entities.FK_Reviews_Users" FromRole="Review" ToRole="User" />
+    <Property Name="Additional" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Submitted" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Translation">
     <Key>

@@ -38,6 +38,10 @@
     <Text>Next</Text>
   </CustomString>
   <CustomString>
+    <CustomStringID>Review-StartNew</CustomStringID>
+    <Text>Start a New Review</Text>
+  </CustomString>
+  <CustomString>
     <CustomStringID>ReviewIdentify-Header</CustomStringID>
     <Text>Step 1 - Identify Yourself</Text>
   </CustomString>
@@ -68,6 +72,42 @@
   <CustomString>
     <CustomStringID>ReviewQuestions-Next</CustomStringID>
     <Text>Next</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewFinish-Header</CustomStringID>
+    <Text>Step 4 - Wrap Up</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewFinish-Additional</CustomStringID>
+    <Text>Any additional comments?</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewFinish-ReportTo</CustomStringID>
+    <Text>Report to</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewFinish-Submit</CustomStringID>
+    <Text>Submit Review</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-ReviewsOf</CustomStringID>
+    <Text>Reviews of</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-Show</CustomStringID>
+    <Text>Filter Reviews</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-FilterNote</CustomStringID>
+    <Text>Note: if no filters are selected, by default all reviews are shown.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-ReviewsFound</CustomStringID>
+    <Text>reviews found.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-Review</CustomStringID>
+    <Text>Review</Text>
   </CustomString>
   <!--BEGIN: Original app strings
   <CustomString>

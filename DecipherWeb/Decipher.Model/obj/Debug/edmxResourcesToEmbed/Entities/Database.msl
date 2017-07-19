@@ -119,6 +119,8 @@
     <EntitySetMapping Name="Reviews">
       <EntityTypeMapping TypeName="Decipher.Model.Entities.Review">
         <MappingFragment StoreEntitySet="Reviews">
+          <ScalarProperty Name="Submitted" ColumnName="Submitted" />
+          <ScalarProperty Name="Additional" ColumnName="Additional" />
           <ScalarProperty Name="DateModified" ColumnName="DateModified" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="Score" ColumnName="Score" />

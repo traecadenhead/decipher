@@ -149,9 +149,9 @@ namespace Decipher.Model.Concrete
                 NameValueCollection r = new NameValueCollection();
                 r.Add("ReportName", city.ReportName);
                 r.Add("CityName", city.Name);
-                r.Add("PlaceName", review.Place.Name);
+                r.Add("PlaceName", review.CurrentPlace.Name);
                 r.Add("Url", SiteAddress + "/app/review/detail/" + review.ReviewID);
-                SendTemplateEmail(r, "Report.xml", city.ReportEmail, "An experience at " + review.Place.Name);
+                SendTemplateEmail(r, "Report.xml", city.ReportEmail, "An experience at " + review.CurrentPlace.Name);
                 return true;
             }
             catch(Exception ex)
@@ -221,14 +221,15 @@ namespace Decipher.Model.Concrete
                         }
                     }
                 }
-                
+
                 var summary = new ReviewSummary
                 {
                     Name = "Review Summary",
                     Description = String.Empty,
                     Questions = new List<Question>(),
                     UserDescriptors = new List<Descriptor>(),
-                    Reviews = applyReviews.Select(n => n.Review).OrderByDescending(n => n.DateCreated).ToList()
+                    Reviews = applyReviews.Select(n => n.Review).OrderByDescending(n => n.DateCreated).ToList(),
+                    Comments = applyReviews.Where(n => n.Review.Additional != null && n.Review.Additional != "").OrderByDescending(n => n.Review.DateCreated).Select(n => n.Review.Additional).ToList()
                 };
                 // specific place requested so give the name of the place
                 if(filters.Places != null && filters.Places.Count == 1)
@@ -394,6 +395,44 @@ namespace Decipher.Model.Concrete
                 }
                 db.SaveChanges();
                 return true;
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return false;
+        }
+
+        public Review GetReviewForSubmission(int reviewID)
+        {
+            try
+            {
+                var entity = Reviews.Where(n => n.ReviewID == reviewID).Select(n => new { City = n.Place.Zip1.City, Review = n, Place = n.Place }).FirstOrDefault();
+                var review = entity.Review;
+                review.City = entity.City;
+                review.CurrentPlace = entity.Place;
+                return review;
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return null;
+        }
+
+        public bool SubmitReview(Review entity)
+        {
+            try
+            {
+                entity.Submitted = true;
+                if (SaveReview(entity))
+                {
+                    if (entity.Reported)
+                    {
+                        SendReviewToCity(entity, entity.City);
+                    }
+                    return true;
+                }
             }
             catch(Exception ex)
             {
