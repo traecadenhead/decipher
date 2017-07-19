@@ -205,6 +205,8 @@
     <Content Include="Application\client\scripts\services\root.js" />
     <Content Include="Application\client\views\home\index.html" />
     <Content Include="Application\client\views\home\page.html" />
+    <Content Include="Application\client\views\review\begin.html" />
+    <Content Include="Application\client\views\review\finish.html" />
     <Content Include="Application\client\views\review\identify.html" />
     <Content Include="Application\client\views\review\index.html" />
     <Content Include="Application\client\views\review\questions.html" />

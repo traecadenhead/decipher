@@ -10,12 +10,32 @@
             }
         }
     })
+    .state('ReviewBegin', {
+        url: '/app/review/begin/{placeID}',
+        views: {
+            "mainContainer": {
+                templateUrl: function ($stateParams) {
+                    return '/Application/client/views/review/begin.html';
+                }
+            }
+        }
+    })
     .state('ReviewQuestions', {
         url: '/app/review/questions/{placeID}',
         views: {
             "mainContainer": {
                 templateUrl: function ($stateParams) {
                     return '/Application/client/views/review/questions.html';
+                }
+            }
+        }
+    })
+    .state('ReviewFinish', {
+        url: '/app/review/finish/{reviewID}',
+        views: {
+            "mainContainer": {
+                templateUrl: function ($stateParams) {
+                    return '/Application/client/views/review/finish.html';
                 }
             }
         }

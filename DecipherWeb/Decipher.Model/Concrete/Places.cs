@@ -81,6 +81,10 @@ namespace Decipher.Model.Concrete
                         return true;
                     }
                 }
+                else
+                {
+                    HttpContext.Current.Trace.Warn("couldn't validate");
+                }
             }
             catch (Exception ex)
             {
@@ -137,19 +141,19 @@ namespace Decipher.Model.Concrete
                             Results = new List<Place>(),
                             Response = "Results"
                         };
-                        // don't need zips anymore
-                        //var zips = Zips.Where(n => n.CityID == entity.City.CityID).ToList();
+                        var zips = Zips.Where(n => n.CityID == entity.City.CityID).ToList();
                         var types = Types.ToList();
                         var reviews = Reviews.Where(n => n.Place.Zip1.CityID == entity.City.CityID).ToList();
                         foreach (var place in results.Results)
                         {
-                            // don't need zips anymore
                             // For each result, get nearest zip / demographics and distance
-                            //place.Zip = DetermineNearestZipForPlace(place, entity.City.CityID, zips);
+                            place.Zip = DetermineNearestZipForPlace(place, entity.City.CityID, zips);
                             //if (!String.IsNullOrEmpty(place.Zip))
                             //{
                             //    place.DefaultZip = zips.Where(n => n.Zip1 == place.Zip).FirstOrDefault();
                             //}
+                            // LATER: use Translated Name for other languages. We don't want to replace Name since it's saving
+                            place.TranslatedName = place.Name;
                             place.DistanceInMeters = place.Location.GetDistanceTo(entity.Location);
                             place.Types = new List<Entities.Type>();
                             foreach (string typeID in place.TypesList)
@@ -167,7 +171,10 @@ namespace Decipher.Model.Concrete
                             }
                             rtn.Results.Add(place);
                         }
-                        rtn.Results = rtn.Results.OrderBy(n => n.Distance.GetValueOrDefault()).ToList();
+                        if (String.IsNullOrEmpty(entity.Term))
+                        {
+                            rtn.Results = rtn.Results.Where(n => n.Distance.GetValueOrDefault() <= 1).OrderBy(n => n.Distance.GetValueOrDefault()).ToList();
+                        }
                         rtn.Search = entity;
                         return rtn;
                     }

@@ -126,9 +126,22 @@ namespace Decipher.Model.Entities
         {
             get
             {
-                return "X% Positive Experience";
+                if (!String.IsNullOrEmpty(Address))
+                {
+                    try
+                    {
+                        // just show the first line of address
+                        string[] arr = Address.Split(',');
+                        return arr[0];
+                    }
+                    catch { }
+                    return Address;
+                }
+                return String.Empty;
             }
         }
+
+        public string TranslatedName { get; set; }
     }
 
     public class PlaceJson

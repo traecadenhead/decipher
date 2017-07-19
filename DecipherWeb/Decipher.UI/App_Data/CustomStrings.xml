@@ -53,6 +53,22 @@
     <CustomStringID>ReviewIdentify-Next</CustomStringID>
     <Text>Next</Text>
   </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewBegin-Header</CustomStringID>
+    <Text>Step 3 - 20 Questions!</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewBegin-Message</CustomStringID>
+    <Text>On average, users finish in 2 minutes.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewBegin-Start</CustomStringID>
+    <Text>Start</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewQuestions-Next</CustomStringID>
+    <Text>Next</Text>
+  </CustomString>
   <!--BEGIN: Original app strings
   <CustomString>
     <CustomStringID>Header-Decipher</CustomStringID>

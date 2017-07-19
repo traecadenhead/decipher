@@ -1,1 +1,14 @@
-﻿Questions here.
+﻿<div ng-controller="ReviewQuestions">
+    <h1 class="question">{{question.Text}}</h1>
+    <form ng-submit="Submit()">
+        <div class="pageContainer">
+            <ul class="responseTags" ng-class="{'small': question.Descriptors.length <= 2, 'normal': question.Descriptors.length > 2 && question.Descriptors.length <= 4, 'large': question.Descriptors.length > 4}">
+                <li ng-repeat="item in question.Descriptors" ng-click="Select(item)" ng-class="{'selected': item.Selected == true}">{{item.Name}}</li>
+            </ul>            
+        </div>
+        <div class="questionIndex">
+            {{questionNum}} / {{questionCount}}
+        </div>
+        <input type="submit" class="btn btn-default" ng-value="customStrings['ReviewQuestions-Next']" />
+    </form>
+</div>

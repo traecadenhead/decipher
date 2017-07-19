@@ -54,6 +54,13 @@ namespace Decipher.Model.Concrete
                 {
                     dict.Add("pagetoken", search.Token);
                 }
+                else if (!String.IsNullOrEmpty(search.Term))
+                {
+                    // search by name
+                    dict.Add("location", search.Location.Latitude.ToString() + "," + search.Location.Longitude.ToString());
+                    dict.Add("keyword", search.Term);
+                    dict.Add("rankby", "distance");
+                }
                 else
                 {
                     dict.Add("location", search.Location.Latitude.ToString() + "," + search.Location.Longitude.ToString());
