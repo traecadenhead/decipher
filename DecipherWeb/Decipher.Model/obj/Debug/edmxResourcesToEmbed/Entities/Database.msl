@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Cities">
       <EntityTypeMapping TypeName="Decipher.Model.Entities.City">
         <MappingFragment StoreEntitySet="Cities">
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
           <ScalarProperty Name="DateModified" ColumnName="DateModified" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="ReportName" ColumnName="ReportName" />
@@ -68,6 +69,7 @@
     <EntitySetMapping Name="Places">
       <EntityTypeMapping TypeName="Decipher.Model.Entities.Place">
         <MappingFragment StoreEntitySet="Places">
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
           <ScalarProperty Name="DateModified" ColumnName="DateModified" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="Longitude" ColumnName="Longitude" />
@@ -75,7 +77,6 @@
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="GoogleRating" ColumnName="GoogleRating" />
           <ScalarProperty Name="Cost" ColumnName="Cost" />
-          <ScalarProperty Name="Zip" ColumnName="Zip" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="PlaceID" ColumnName="PlaceID" />
         </MappingFragment>
@@ -168,6 +169,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="Decipher.Model.Entities.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
           <ScalarProperty Name="DateModified" ColumnName="DateModified" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />

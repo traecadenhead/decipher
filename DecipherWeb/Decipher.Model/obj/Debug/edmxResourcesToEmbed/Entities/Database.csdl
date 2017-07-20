@@ -42,10 +42,6 @@
       <End Role="Language" EntitySet="Languages" />
       <End Role="User" EntitySet="Users" />
     </AssociationSet>
-    <AssociationSet Name="FK_Places_Zips" Association="Decipher.Model.Entities.FK_Places_Zips">
-      <End Role="Zip" EntitySet="Zips" />
-      <End Role="Place" EntitySet="Places" />
-    </AssociationSet>
     <AssociationSet Name="FK_PlaceTypes_Places" Association="Decipher.Model.Entities.FK_PlaceTypes_Places">
       <End Role="Place" EntitySet="Places" />
       <End Role="PlaceType" EntitySet="PlaceTypes" />
@@ -86,6 +82,14 @@
       <End Role="Zip" EntitySet="Zips" />
       <End Role="ZipType" EntitySet="ZipTypes" />
     </AssociationSet>
+    <AssociationSet Name="FK_Places_Cities" Association="Decipher.Model.Entities.FK_Places_Cities">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Place" EntitySet="Places" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Cities" Association="Decipher.Model.Entities.FK_Users_Cities">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="City">
     <Key>
@@ -103,6 +107,9 @@
     <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Zips" Relationship="Decipher.Model.Entities.FK_Zips_Cities" FromRole="City" ToRole="Zip" />
+    <NavigationProperty Name="Places" Relationship="Decipher.Model.Entities.FK_Places_Cities" FromRole="City" ToRole="Place" />
+    <NavigationProperty Name="Users" Relationship="Decipher.Model.Entities.FK_Users_Cities" FromRole="City" ToRole="User" />
+    <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Demographic">
     <Key>
@@ -158,7 +165,6 @@
     </Key>
     <Property Name="PlaceID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="Zip" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Cost" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="GoogleRating" Type="Decimal" Precision="6" Scale="2" />
     <Property Name="Address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
@@ -166,9 +172,10 @@
     <Property Name="Longitude" Type="Double" Nullable="false" />
     <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
-    <NavigationProperty Name="Zip1" Relationship="Decipher.Model.Entities.FK_Places_Zips" FromRole="Place" ToRole="Zip" />
     <NavigationProperty Name="PlaceTypes" Relationship="Decipher.Model.Entities.FK_PlaceTypes_Places" FromRole="Place" ToRole="PlaceType" />
     <NavigationProperty Name="Reviews" Relationship="Decipher.Model.Entities.FK_Reviews_Places" FromRole="Place" ToRole="Review" />
+    <Property Name="CityID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="City" Relationship="Decipher.Model.Entities.FK_Places_Cities" FromRole="Place" ToRole="City" />
   </EntityType>
   <EntityType Name="PlaceType">
     <Key>
@@ -272,6 +279,8 @@
     <NavigationProperty Name="Language" Relationship="Decipher.Model.Entities.FK_Users_Languages" FromRole="User" ToRole="Language" />
     <NavigationProperty Name="Reviews" Relationship="Decipher.Model.Entities.FK_Reviews_Users" FromRole="User" ToRole="Review" />
     <NavigationProperty Name="UserDescriptors" Relationship="Decipher.Model.Entities.FK_UserDescriptors_Users" FromRole="User" ToRole="UserDescriptor" />
+    <Property Name="CityID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="City" Relationship="Decipher.Model.Entities.FK_Users_Cities" FromRole="User" ToRole="City" />
   </EntityType>
   <EntityType Name="ZipDemographic">
     <Key>
@@ -297,7 +306,6 @@
     <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="City" Relationship="Decipher.Model.Entities.FK_Zips_Cities" FromRole="Zip" ToRole="City" />
-    <NavigationProperty Name="Places" Relationship="Decipher.Model.Entities.FK_Places_Zips" FromRole="Zip" ToRole="Place" />
     <NavigationProperty Name="ZipDemographics" Relationship="Decipher.Model.Entities.FK_ZipDemographics_Zips" FromRole="Zip" ToRole="ZipDemographic" />
     <NavigationProperty Name="ZipTypes" Relationship="Decipher.Model.Entities.FK_ZipTypes_Zips" FromRole="Zip" ToRole="ZipType" />
   </EntityType>
@@ -382,18 +390,6 @@
       </Principal>
       <Dependent Role="User">
         <PropertyRef Name="LanguageID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Places_Zips">
-    <End Type="Decipher.Model.Entities.Zip" Role="Zip" Multiplicity="1" />
-    <End Type="Decipher.Model.Entities.Place" Role="Place" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Zip">
-        <PropertyRef Name="Zip1" />
-      </Principal>
-      <Dependent Role="Place">
-        <PropertyRef Name="Zip" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -514,6 +510,30 @@
       </Principal>
       <Dependent Role="ZipType">
         <PropertyRef Name="Zip" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Places_Cities">
+    <End Type="Decipher.Model.Entities.City" Role="City" Multiplicity="1" />
+    <End Type="Decipher.Model.Entities.Place" Role="Place" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="Place">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Cities">
+    <End Type="Decipher.Model.Entities.City" Role="City" Multiplicity="1" />
+    <End Type="Decipher.Model.Entities.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="CityID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

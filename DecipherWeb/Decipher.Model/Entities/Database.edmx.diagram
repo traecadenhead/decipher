@@ -28,7 +28,6 @@
         <AssociationConnector Association="Decipher.Model.Entities.FK_UserDescriptors_Descriptors" />
         <AssociationConnector Association="Decipher.Model.Entities.FK_Translations_Languages" />
         <AssociationConnector Association="Decipher.Model.Entities.FK_Users_Languages" />
-        <AssociationConnector Association="Decipher.Model.Entities.FK_Places_Zips" />
         <AssociationConnector Association="Decipher.Model.Entities.FK_PlaceTypes_Places" />
         <AssociationConnector Association="Decipher.Model.Entities.FK_Reviews_Places" />
         <AssociationConnector Association="Decipher.Model.Entities.FK_PlaceTypes_Types" />
@@ -39,6 +38,8 @@
         <AssociationConnector Association="Decipher.Model.Entities.FK_UserDescriptors_Users" />
         <AssociationConnector Association="Decipher.Model.Entities.FK_ZipDemographics_Zips" />
         <AssociationConnector Association="Decipher.Model.Entities.FK_ZipTypes_Zips" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_Places_Cities" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_Users_Cities" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -56,7 +56,7 @@ namespace Decipher.Model.Entities
                 }
                 else
                 {
-                    return "NA";
+                    return String.Empty;
                 }
             }
         }
@@ -97,7 +97,7 @@ namespace Decipher.Model.Entities
 
         public List<string> TypesList { get; set; }
 
-        public City City { get; set; }
+        public City CurrentCity { get; set; }
         
         public bool HasReviews { get; set; }
 
@@ -148,7 +148,7 @@ namespace Decipher.Model.Entities
     {
         [JsonIgnore]
         [IgnoreDataMember]
-        public virtual Zip Zip1 { get; set; }
+        public virtual City City { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]

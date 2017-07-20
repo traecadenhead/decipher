@@ -175,20 +175,20 @@ namespace Decipher.Model.Concrete
                         allReviews.AddRange(Reviews.Where(n => n.PlaceID == placeItem.PlaceID).Select(n => new ReviewContainer { Review = n, Responses = n.ReviewResponses, User = n.User, UserDescriptors = n.User.UserDescriptors }).ToList());
                     }
                 }
-                else if(filters.Zips != null && filters.Zips.Count > 0)
-                {
-                    // zips were selected. Add reviews for those zips
-                    foreach(var zipItem in filters.Zips)
-                    {
-                        allReviews.AddRange(Reviews.Where(n => n.Place.Zip == zipItem.Zip1).Select(n => new ReviewContainer { Review = n, Responses = n.ReviewResponses, User = n.User, UserDescriptors = n.User.UserDescriptors }).ToList());
-                    }
-                }
+                //else if(filters.Zips != null && filters.Zips.Count > 0)
+                //{
+                //    // zips were selected. Add reviews for those zips
+                //    foreach(var zipItem in filters.Zips)
+                //    {
+                //        allReviews.AddRange(Reviews.Where(n => n.Place.Zip == zipItem.Zip1).Select(n => new ReviewContainer { Review = n, Responses = n.ReviewResponses, User = n.User, UserDescriptors = n.User.UserDescriptors }).ToList());
+                //    }
+                //}
                 else if (filters.Cities != null && filters.Cities.Count > 0)
                 {
                     // city was selected. Add review for selected cities
                     foreach(var cityItem in filters.Cities)
                     {
-                        allReviews.AddRange(Reviews.Where(n => n.Place.Zip1.CityID == cityItem.CityID).Select(n => new ReviewContainer { Review = n, Responses = n.ReviewResponses, User = n.User, UserDescriptors = n.User.UserDescriptors }).ToList());
+                        allReviews.AddRange(Reviews.Where(n => n.Place.CityID == cityItem.CityID).Select(n => new ReviewContainer { Review = n, Responses = n.ReviewResponses, User = n.User, UserDescriptors = n.User.UserDescriptors }).ToList());
                     }
                 }
                 var allDescriptors = Descriptors.Where(n => n.DescriptorType == "Question").ToList();
@@ -303,10 +303,10 @@ namespace Decipher.Model.Concrete
                         chosenPlaces.AddRange(entity.Places.Where(n => n.Selected == true).ToList());
                     }
                     entity.Places = new List<Place>();
-                    foreach(var zip in entity.Zips.Where(n => n.Selected == true).ToList())
-                    {
-                        entity.Places.AddRange(Places.Where(n => n.Zip == zip.Zip1).ToList());
-                    }
+                    //foreach(var zip in entity.Zips.Where(n => n.Selected == true).ToList())
+                    //{
+                    //    entity.Places.AddRange(Places.Where(n => n.Zip == zip.Zip1).ToList());
+                    //}
                     foreach(var chosenPlace in chosenPlaces)
                     {
                         var selPlace = entity.Places.Where(n => n.PlaceID == chosenPlace.PlaceID).FirstOrDefault();
@@ -407,7 +407,7 @@ namespace Decipher.Model.Concrete
         {
             try
             {
-                var entity = Reviews.Where(n => n.ReviewID == reviewID).Select(n => new { City = n.Place.Zip1.City, Review = n, Place = n.Place }).FirstOrDefault();
+                var entity = Reviews.Where(n => n.ReviewID == reviewID).Select(n => new { City = n.Place.City, Review = n, Place = n.Place }).FirstOrDefault();
                 var review = entity.Review;
                 review.City = entity.City;
                 review.CurrentPlace = entity.Place;

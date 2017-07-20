@@ -240,47 +240,28 @@ namespace Decipher.Model.Concrete
                 string response = GooglePlacesAPIRequest("details", dict);
                 JObject json = JObject.Parse(response);
                 JToken item = (JToken)json["result"];
-                string zip = null;
-                foreach(var c in item["address_components"].Children())
+                JToken geo = item["geometry"];
+                JToken loc = geo["location"];
+                List<string> types = new List<string>();
+                foreach (string t in item["types"])
                 {
-                    bool isZip = false;
-                    foreach(string t in c["types"])
-                    {
-                        if(t == "postal_code")
-                        {
-                            isZip = true;
-                        }
-                    }
-                    if (isZip)
-                    {
-                        zip = SafeJsonString(c, "short_name");
-                        if(zip.Length > 5)
-                        {
-                            zip = zip.Substring(0, 5);
-                        }
-                    }
-                }
-                if (!String.IsNullOrEmpty(zip))
+                    types.Add(t);
+                }                
+                Place place = new Place
                 {
-                    JToken geo = item["geometry"];
-                    JToken loc = geo["location"];
-                    List<string> types = new List<string>();
-                    foreach (string t in item["types"])
-                    {
-                        types.Add(t);
-                    }
-                    Place place = new Place
-                    {
-                        PlaceID = placeID,
-                        Name = SafeJsonString(item, "name"),
-                        Address = SafeJsonString(item, "formatted_address"),
-                        Zip = zip,
-                        Latitude = SafeJsonFloat(loc, "lat"),
-                        Longitude = SafeJsonFloat(loc, "lng"),
-                        GoogleRating = SafeJsonDecimal(item, "rating"),
-                        Cost = SafeJsonInt(item, "price_level").ToString(),
-                        TypesList = types
-                    };
+                    PlaceID = placeID,
+                    Name = SafeJsonString(item, "name"),
+                    Address = SafeJsonString(item, "formatted_address"),
+                    Latitude = SafeJsonFloat(loc, "lat"),
+                    Longitude = SafeJsonFloat(loc, "lng"),
+                    GoogleRating = SafeJsonDecimal(item, "rating"),
+                    Cost = SafeJsonInt(item, "price_level").ToString(),
+                    TypesList = types
+                };
+                var city = DetermineNearestCity(new GeoCoordinate(place.Latitude, place.Longitude));
+                if (city != null)
+                {
+                    place.CityID = city.CityID;
                     return place;
                 }
             }

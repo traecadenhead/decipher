@@ -209,7 +209,7 @@
     <Content Include="Application\client\views\review\detail.html" />
     <Content Include="Application\client\views\review\finish.html" />
     <Content Include="Application\client\views\review\identify.html" />
-    <Content Include="Application\client\views\review\index.html" />
+    <Content Include="Application\client\views\review\pick.html" />
     <Content Include="Application\client\views\review\questions.html" />
     <Content Include="Application\client\views\review\summary.html" />
     <Content Include="Application\css\app.css" />
@@ -523,6 +523,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\API\BaseController.cs" />
+    <Compile Include="Controllers\API\CityController.cs" />
     <Compile Include="Controllers\API\CustomStringController.cs" />
     <Compile Include="Controllers\API\LanguageController.cs" />
     <Compile Include="Controllers\API\ListController.cs" />

@@ -143,7 +143,7 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
-        private City DetermineNearestCity(GeoCoordinate location)
+        public City DetermineNearestCity(GeoCoordinate location)
         {
             try
             {
@@ -151,6 +151,21 @@ namespace Decipher.Model.Concrete
                 return cities.Where(n => new GeoCoordinate(n.Latitude, n.Longitude).GetDistanceTo(location) <= ConvertMilesToMeters(n.Radius)).FirstOrDefault();
             }
             catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return null;
+        }
+
+        public City GetDefaultCity()
+        {
+            try
+            {
+                string defaultCity = GetConfig("DefaultCity", "Austin, TX");
+                var city = Cities.Where(n => n.Name == defaultCity).FirstOrDefault();
+                return city;
+            }
+            catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.ToString());
             }

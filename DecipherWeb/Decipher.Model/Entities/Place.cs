@@ -23,7 +23,6 @@ namespace Decipher.Model.Entities
     
         public string PlaceID { get; set; }
         public string Name { get; set; }
-        public string Zip { get; set; }
         public string Cost { get; set; }
         public Nullable<decimal> GoogleRating { get; set; }
         public string Address { get; set; }
@@ -31,11 +30,12 @@ namespace Decipher.Model.Entities
         public double Longitude { get; set; }
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateModified { get; set; }
+        public int CityID { get; set; }
     
-        public virtual Zip Zip1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlaceType> PlaceTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+        public virtual City City { get; set; }
     }
 }

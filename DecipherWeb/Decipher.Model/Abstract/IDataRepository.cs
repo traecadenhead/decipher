@@ -23,6 +23,8 @@ namespace Decipher.Model.Abstract
         bool DeleteCity(int id);
         bool AssociateAllCityZips();
         bool AssociateCityZips(int cityID);
+        City DetermineNearestCity(GeoCoordinate location);
+        City GetDefaultCity();
         #endregion
 
         #region CustomStrings

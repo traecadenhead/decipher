@@ -18,6 +18,8 @@ namespace Decipher.Model.Entities
         public City()
         {
             this.Zips = new HashSet<Zip>();
+            this.Places = new HashSet<Place>();
+            this.Users = new HashSet<User>();
         }
     
         public int CityID { get; set; }
@@ -31,8 +33,13 @@ namespace Decipher.Model.Entities
         public string ReportName { get; set; }
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateModified { get; set; }
+        public string DisplayName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zip> Zips { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Place> Places { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }
