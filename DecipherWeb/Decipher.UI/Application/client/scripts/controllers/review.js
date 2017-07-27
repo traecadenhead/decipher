@@ -1,6 +1,6 @@
 ﻿// Identify
 (function (app) {
-    var ReviewIdentify = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $window) {
+    var ReviewIdentify = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $window, $stateParams) {
         $scope.user = {};
         $scope.customStrings = [];
 
@@ -38,7 +38,7 @@
                 if (result > 0) {
                     amplify.store("UserID", result);
                     db.Get("user", result, true).then(function (data) {
-                        $state.go("ReviewPick");
+                        $state.go("ReviewQuestions", {"placeID": $stateParams.placeID});
                     });
                 }
             });
@@ -54,7 +54,7 @@
         });
     };    
 
-    ReviewIdentify.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$window"];
+    ReviewIdentify.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$window", "$stateParams"];
     app.controller("ReviewIdentify", ReviewIdentify);
 }(angular.module("app")));
 
@@ -67,17 +67,12 @@
         $scope.selected = null;
 
         var Load = function () {
-            if (amplify.store("UserID") == null) {
-                $state.go("Review");
-            }
-            else {
-                var city = amplify.store("City");
-                $scope.search.User = {
-                    UserID: amplify.store("UserID"),
-                    Language: amplify.store("Language"),
-                    CityID: city.CityID
-                };
-            }
+            var city = amplify.store("City");
+            $scope.search.User = {
+                UserID: amplify.store("UserID"),
+                Language: amplify.store("Language"),
+                CityID: city.CityID
+            };
             deviceSvc.GetCustomStrings().then(function (data) {
                 angular.forEach(data, function (item) {
                     $scope.customStrings[item.CustomStringID] = item.Text;
@@ -115,12 +110,25 @@
         };
 
         $scope.Search = function () {
-            if ($scope.search.Location == null) {
-                $scope.UseCurrentLocation();
+            if ($scope.search.Term != null && $scope.search.Term != '') {
+                if ($scope.search.Location == null) {
+                    $scope.UseCurrentLocation();
+                }
+                else {
+                    // already have the location
+                    Submit();
+                }
             }
             else {
-                // already have the location
-                Submit();
+                Focus();
+            }
+        };
+
+        var Focus = function () {
+            var element = $window.document.getElementById('term');
+            if (element)
+            {
+                element.focus();
             }
         };
 
@@ -138,7 +146,7 @@
             }
         };
 
-        var Submit = function () {
+        var Submit = function () {            
             db.Post("place", "find", $scope.search).then(function (data) {
                 $scope.result = data;
             });
@@ -149,7 +157,7 @@
 
                 db.Save("place", $scope.selected).then(function (result) {
                     if (result) {
-                        $state.go("ReviewBegin", { "placeID": $scope.selected.PlaceID });
+                        $state.go("ReviewIdentify", { "placeID": $scope.selected.PlaceID });
                     }
                     else {
                         console.log("couldn't save place");
@@ -278,6 +286,9 @@
                 item.Selected = false;
             }
             else {
+                angular.forEach($scope.question.Descriptors, function (d) {
+                    d.Selected = false;
+                });
                 item.Selected = true;
             }
         };

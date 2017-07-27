@@ -45,10 +45,7 @@
 		</tr>
 		<tr>
 			<td id="body">
-        <p>${ReportName} of ${CityName},</p>
-        <p>A user of the Decipher Austin app wants to report to you an experience they have had at a local place of business, ${PlaceName}. To see the full review, please visit below:</p>
-        <p><a href="${Url}">${Url}</a></p>
-        ${Contact}
+        ${Message}
       </td>
 		</tr>
 		<tr>

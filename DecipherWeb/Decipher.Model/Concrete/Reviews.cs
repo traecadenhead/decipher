@@ -95,10 +95,10 @@ namespace Decipher.Model.Concrete
         {
             try
             {
-                var entity = Reviews.Where(n => n.ReviewID == reviewID).Select(n => new { Review = n, Responses = n.ReviewResponses }).FirstOrDefault();
+                var entity = Reviews.Where(n => n.ReviewID == reviewID).Select(n => new { Review = n, Responses = n.ReviewResponses, QuestionSetID = n.Place.City.QuestionSetID }).FirstOrDefault();
                 if (entity != null)
                 {
-                    var questions = Questions.OrderBy(n => n.Ordinal).ToList();
+                    var questions = Questions.Where(n => n.QuestionSetID == entity.QuestionSetID).OrderBy(n => n.Ordinal).ToList();
                     HttpContext.Current.Trace.Warn(questions.Count + " questions");
                     var quesDescriptors = Descriptors.Where(n => n.DescriptorType == "Question").ToList();
                     HttpContext.Current.Trace.Warn(quesDescriptors.Count + " descriptors");
@@ -151,6 +151,12 @@ namespace Decipher.Model.Concrete
                 r.Add("CityName", city.Name);
                 r.Add("PlaceName", review.CurrentPlace.Name);
                 r.Add("Url", SiteAddress + "/app/review/detail/" + review.ReviewID);
+                string contact = String.Empty;
+                if (!String.IsNullOrEmpty(review.Email))
+                {
+                    contact += "<p>You may contact this user at " + review.Email + ".</p>";
+                }
+                r.Add("Contact", contact);
                 SendTemplateEmail(r, "Report.xml", city.ReportEmail, "An experience at " + review.CurrentPlace.Name);
                 return true;
             }
@@ -427,6 +433,10 @@ namespace Decipher.Model.Concrete
                 entity.Submitted = true;
                 if (SaveReview(entity))
                 {
+                    if (!String.IsNullOrEmpty(entity.Email))
+                    {
+                        SendReviewToUser(entity);
+                    }
                     if (entity.Reported)
                     {
                         SendReviewToCity(entity, entity.City);
@@ -439,6 +449,59 @@ namespace Decipher.Model.Concrete
                 HttpContext.Current.Trace.Warn(ex.ToString());
             }
             return false;
+        }
+
+        public bool SendReviewToUser(Review entity)
+        {
+            try
+            {
+                string str = GenerateReviewString(entity.ReviewID);
+                HttpContext.Current.Trace.Warn("generated string: " + str);
+                if (!String.IsNullOrEmpty(str))
+                {
+                    HttpContext.Current.Trace.Warn("sending email");
+                    SendEmail(entity.Email, "Your Review", str);
+                    return true;
+                }
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return false;
+        }
+
+        public string GenerateReviewString(int reviewID)
+        {
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                var entity = GetReview(reviewID);
+                sb.Append("<h1>" + entity.CurrentPlace.Name + "</h1>");
+                sb.Append("<h2>" + entity.CurrentPlace.Address + "</h2>");
+                sb.Append("<h4>" + entity.IdentifierList + "</h4>");
+                sb.Append("<h5>" + entity.DateCreatedStr + "</h5>");
+                foreach(var question in entity.Questions)
+                {
+                    sb.Append("<div style=\"margin: 10px 0px\">");
+                    sb.Append("<h3>" + question.Text + "</h3>");
+                    foreach(var desc in question.Descriptors)
+                    {
+                        sb.Append("<div>" + desc.Name + "</div>");
+                    }
+                    sb.Append("</div>");
+                }
+                if (!String.IsNullOrEmpty(entity.Additional))
+                {
+                    sb.Append("<p>" + entity.Additional + "</p>");
+                }
+                return sb.ToString();
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return null;
         }
 
         # endregion

@@ -21,8 +21,8 @@ namespace Decipher.Model.Abstract
         IQueryable<City> Cities { get; }
         bool SaveCity(City entity);
         bool DeleteCity(int id);
-        bool AssociateAllCityZips();
-        bool AssociateCityZips(int cityID);
+        //bool AssociateAllCityZips();
+        //bool AssociateCityZips(int cityID);
         City DetermineNearestCity(GeoCoordinate location);
         City GetDefaultCity();
         #endregion
@@ -96,6 +96,13 @@ namespace Decipher.Model.Abstract
         bool SaveQuestion(Question entity);
         bool DeleteQuestion(int id);
         bool OrderQuestions(string data);
+        #endregion
+
+        #region QuestionSets
+        IQueryable<QuestionSet> QuestionSets { get; }
+        bool SaveQuestionSet(QuestionSet entity);
+        bool DeleteQuestionSet(int id);
+        List<SelectListItem> ListQuestionSets(string defaultValue = "", string emptyTitle = null);
         #endregion
 
         #region ReviewResponses

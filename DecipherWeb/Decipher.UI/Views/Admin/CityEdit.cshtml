@@ -19,9 +19,21 @@
 {
     <table>
         <tr>
-            <td class="label">City Name:</td>
+            <td class="label">City Full Name:</td>
             <td class="field">
                 @Html.TextBox("Name", Model.Name, new { required = "required" })
+            </td>
+        </tr>
+        <tr>
+            <td class="label">City Display Name:</td>
+            <td class="field">
+                @Html.TextBox("DisplayName", Model.DisplayName, new { required = "required" })
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Question Set:</td>
+            <td class="field">
+                @Html.DropDownList("QuestionSetID")
             </td>
         </tr>
         <tr>
@@ -34,12 +46,6 @@
             <td class="label">City Center Longitude:</td>
             <td class="field">
                 @Html.TextBox("Longitude", Model.Longitude, new { pattern = "?+[0-9]+([.][0-9]+)?", required = "required" })
-            </td>
-        </tr>
-        <tr>
-            <td class="label">ZIP Code at Center of City:</td>
-            <td class="field">
-                @Html.TextBox("CenterZip", Model.CenterZip, new { required = "required" })
             </td>
         </tr>
         <tr>
@@ -65,6 +71,7 @@
             <td class="field">
                 @Html.Hidden("CityID")
                 @Html.Hidden("ZipsAssociated")
+                @Html.Hidden("CenterZip", "")
                 @Html.Hidden("DateCreated")
                 <input type="submit" value="Save" />
             </td>

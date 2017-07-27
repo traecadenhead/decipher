@@ -1,7 +1,7 @@
 ﻿var routingFunction = function ($stateProvider, $httpProvider, $locationProvider, $urlRouterProvider, $urlMatcherFactory) {
     $stateProvider
-    .state('Review', {
-        url: '/app/review/identify',
+    .state('ReviewIdentify', {
+        url: '/app/review/identify/{placeID}',
         views: {
             "mainContainer": {
                 templateUrl: function ($stateParams) {
@@ -60,7 +60,7 @@
             }
         }
     })
-    .state('ReviewPick', {
+    .state('Review', {
         url: '/app/review/pick',
         views: {
             "mainContainer": {

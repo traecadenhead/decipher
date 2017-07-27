@@ -43,5 +43,9 @@ namespace Decipher.Model.Entities
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual ICollection<User> Users { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public virtual QuestionSet QuestionSet { get; set; }
     }
 }

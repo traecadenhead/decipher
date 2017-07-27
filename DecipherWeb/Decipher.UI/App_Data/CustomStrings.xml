@@ -11,7 +11,7 @@
   </CustomString>
   <CustomString>
     <CustomStringID>Review-PageTitle</CustomStringID>
-    <Text>Step 2 - Pick a Place</Text>
+    <Text>Step 1 - Pick a Place</Text>
   </CustomString>
   <CustomString>
     <CustomStringID>Review-SearchBox</CustomStringID>
@@ -43,7 +43,7 @@
   </CustomString>
   <CustomString>
     <CustomStringID>ReviewIdentify-Header</CustomStringID>
-    <Text>Step 1 - Identify Yourself</Text>
+    <Text>Step 2 - Identify Yourself</Text>
   </CustomString>
   <CustomString>
     <CustomStringID>ReviewIdentify-Question</CustomStringID>
@@ -59,7 +59,7 @@
   </CustomString>
   <CustomString>
     <CustomStringID>ReviewBegin-Header</CustomStringID>
-    <Text>Step 3 - 20 Questions!</Text>
+    <Text>Step 3 - A Few Questions</Text>
   </CustomString>
   <CustomString>
     <CustomStringID>ReviewBegin-Message</CustomStringID>
@@ -88,6 +88,10 @@
   <CustomString>
     <CustomStringID>ReviewFinish-Submit</CustomStringID>
     <Text>Submit Review</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewFinish-Email</CustomStringID>
+    <Text>If you would like to receive a copy of your review, please provide your email address.</Text>
   </CustomString>
   <CustomString>
     <CustomStringID>ReviewSummary-ReviewsOf</CustomStringID>

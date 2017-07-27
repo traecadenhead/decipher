@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Decipher.Model.Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="DecipherEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Cities" EntityType="Decipher.Model.Entities.City" />
     <EntitySet Name="Demographics" EntityType="Decipher.Model.Entities.Demographic" />
     <EntitySet Name="Descriptors" EntityType="Decipher.Model.Entities.Descriptor" />
     <EntitySet Name="Languages" EntityType="Decipher.Model.Entities.Language" />
@@ -18,10 +17,6 @@
     <EntitySet Name="ZipDemographics" EntityType="Decipher.Model.Entities.ZipDemographic" />
     <EntitySet Name="Zips" EntityType="Decipher.Model.Entities.Zip" />
     <EntitySet Name="ZipTypes" EntityType="Decipher.Model.Entities.ZipType" />
-    <AssociationSet Name="FK_Zips_Cities" Association="Decipher.Model.Entities.FK_Zips_Cities">
-      <End Role="City" EntitySet="Cities" />
-      <End Role="Zip" EntitySet="Zips" />
-    </AssociationSet>
     <AssociationSet Name="FK_ZipDemographics_Demographics" Association="Decipher.Model.Entities.FK_ZipDemographics_Demographics">
       <End Role="Demographic" EntitySet="Demographics" />
       <End Role="ZipDemographic" EntitySet="ZipDemographics" />
@@ -82,6 +77,16 @@
       <End Role="Zip" EntitySet="Zips" />
       <End Role="ZipType" EntitySet="ZipTypes" />
     </AssociationSet>
+    <EntitySet Name="QuestionSets" EntityType="Decipher.Model.Entities.QuestionSet" />
+    <AssociationSet Name="FK_Questions_QuestionSets" Association="Decipher.Model.Entities.FK_Questions_QuestionSets">
+      <End Role="QuestionSet" EntitySet="QuestionSets" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <EntitySet Name="Cities" EntityType="Decipher.Model.Entities.City" />
+    <AssociationSet Name="FK_Cities_QuestionSets" Association="Decipher.Model.Entities.FK_Cities_QuestionSets">
+      <End Role="QuestionSet" EntitySet="QuestionSets" />
+      <End Role="City" EntitySet="Cities" />
+    </AssociationSet>
     <AssociationSet Name="FK_Places_Cities" Association="Decipher.Model.Entities.FK_Places_Cities">
       <End Role="City" EntitySet="Cities" />
       <End Role="Place" EntitySet="Places" />
@@ -90,27 +95,11 @@
       <End Role="City" EntitySet="Cities" />
       <End Role="User" EntitySet="Users" />
     </AssociationSet>
+    <AssociationSet Name="FK_Zips_Cities" Association="Decipher.Model.Entities.FK_Zips_Cities">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Zip" EntitySet="Zips" />
+    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="City">
-    <Key>
-      <PropertyRef Name="CityID" />
-    </Key>
-    <Property Name="CityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="Latitude" Type="Double" Nullable="false" />
-    <Property Name="Longitude" Type="Double" Nullable="false" />
-    <Property Name="CenterZip" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Radius" Type="Int32" Nullable="false" />
-    <Property Name="ZipsAssociated" Type="Boolean" Nullable="false" />
-    <Property Name="ReportEmail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="ReportName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
-    <NavigationProperty Name="Zips" Relationship="Decipher.Model.Entities.FK_Zips_Cities" FromRole="City" ToRole="Zip" />
-    <NavigationProperty Name="Places" Relationship="Decipher.Model.Entities.FK_Places_Cities" FromRole="City" ToRole="Place" />
-    <NavigationProperty Name="Users" Relationship="Decipher.Model.Entities.FK_Users_Cities" FromRole="City" ToRole="User" />
-    <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="Demographic">
     <Key>
       <PropertyRef Name="DemographicID" />
@@ -199,6 +188,8 @@
     <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="ReviewResponses" Relationship="Decipher.Model.Entities.FK_ReviewResponses_Questions" FromRole="Question" ToRole="ReviewRespons" />
+    <Property Name="QuestionSetID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="QuestionSet" Relationship="Decipher.Model.Entities.FK_Questions_QuestionSets" FromRole="Question" ToRole="QuestionSet" />
   </EntityType>
   <EntityType Name="ReviewResponse">
     <Key>
@@ -232,6 +223,7 @@
     <NavigationProperty Name="User" Relationship="Decipher.Model.Entities.FK_Reviews_Users" FromRole="Review" ToRole="User" />
     <Property Name="Additional" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="Submitted" Type="Boolean" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Translation">
     <Key>
@@ -305,9 +297,9 @@
     <Property Name="Longitude" Type="Double" />
     <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
-    <NavigationProperty Name="City" Relationship="Decipher.Model.Entities.FK_Zips_Cities" FromRole="Zip" ToRole="City" />
     <NavigationProperty Name="ZipDemographics" Relationship="Decipher.Model.Entities.FK_ZipDemographics_Zips" FromRole="Zip" ToRole="ZipDemographic" />
     <NavigationProperty Name="ZipTypes" Relationship="Decipher.Model.Entities.FK_ZipTypes_Zips" FromRole="Zip" ToRole="ZipType" />
+    <NavigationProperty Name="City" Relationship="Decipher.Model.Entities.FK_Zips_Cities" FromRole="Zip" ToRole="City" />
   </EntityType>
   <EntityType Name="ZipType">
     <Key>
@@ -321,18 +313,6 @@
     <NavigationProperty Name="Type" Relationship="Decipher.Model.Entities.FK_ZipTypes_Types" FromRole="ZipType" ToRole="Type" />
     <NavigationProperty Name="Zip1" Relationship="Decipher.Model.Entities.FK_ZipTypes_Zips" FromRole="ZipType" ToRole="Zip" />
   </EntityType>
-  <Association Name="FK_Zips_Cities">
-    <End Type="Decipher.Model.Entities.City" Role="City" Multiplicity="0..1" />
-    <End Type="Decipher.Model.Entities.Zip" Role="Zip" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="City">
-        <PropertyRef Name="CityID" />
-      </Principal>
-      <Dependent Role="Zip">
-        <PropertyRef Name="CityID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_ZipDemographics_Demographics">
     <End Type="Decipher.Model.Entities.Demographic" Role="Demographic" Multiplicity="1" />
     <End Type="Decipher.Model.Entities.ZipDemographic" Role="ZipDemographic" Multiplicity="*" />
@@ -513,6 +493,62 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="QuestionSet">
+    <Key>
+      <PropertyRef Name="QuestionSetID" />
+    </Key>
+    <Property Name="QuestionSetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Questions" Relationship="Decipher.Model.Entities.FK_Questions_QuestionSets" FromRole="QuestionSet" ToRole="Question" />
+    <NavigationProperty Name="Cities" Relationship="Decipher.Model.Entities.FK_Cities_QuestionSets" FromRole="QuestionSet" ToRole="City" />
+  </EntityType>
+  <Association Name="FK_Questions_QuestionSets">
+    <End Type="Decipher.Model.Entities.QuestionSet" Role="QuestionSet" Multiplicity="1" />
+    <End Type="Decipher.Model.Entities.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionSet">
+        <PropertyRef Name="QuestionSetID" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="QuestionSetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="CityID" />
+    </Key>
+    <Property Name="CityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionSetID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Latitude" Type="Double" Nullable="false" />
+    <Property Name="Longitude" Type="Double" Nullable="false" />
+    <Property Name="Radius" Type="Int32" Nullable="false" />
+    <Property Name="ZipsAssociated" Type="Boolean" Nullable="false" />
+    <Property Name="ReportEmail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ReportName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="QuestionSet" Relationship="Decipher.Model.Entities.FK_Cities_QuestionSets" FromRole="City" ToRole="QuestionSet" />
+    <NavigationProperty Name="Places" Relationship="Decipher.Model.Entities.FK_Places_Cities" FromRole="City" ToRole="Place" />
+    <NavigationProperty Name="Users" Relationship="Decipher.Model.Entities.FK_Users_Cities" FromRole="City" ToRole="User" />
+    <NavigationProperty Name="Zips" Relationship="Decipher.Model.Entities.FK_Zips_Cities" FromRole="City" ToRole="Zip" />
+  </EntityType>
+  <Association Name="FK_Cities_QuestionSets">
+    <End Type="Decipher.Model.Entities.QuestionSet" Role="QuestionSet" Multiplicity="1" />
+    <End Type="Decipher.Model.Entities.City" Role="City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionSet">
+        <PropertyRef Name="QuestionSetID" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="QuestionSetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Places_Cities">
     <End Type="Decipher.Model.Entities.City" Role="City" Multiplicity="1" />
     <End Type="Decipher.Model.Entities.Place" Role="Place" Multiplicity="*" />
@@ -533,6 +569,18 @@
         <PropertyRef Name="CityID" />
       </Principal>
       <Dependent Role="User">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zips_Cities">
+    <End Type="Decipher.Model.Entities.City" Role="City" Multiplicity="0..1" />
+    <End Type="Decipher.Model.Entities.Zip" Role="Zip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="Zip">
         <PropertyRef Name="CityID" />
       </Dependent>
     </ReferentialConstraint>

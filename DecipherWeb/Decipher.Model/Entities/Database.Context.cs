@@ -25,7 +25,6 @@ namespace Decipher.Model.Entities
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Demographic> Demographics { get; set; }
         public virtual DbSet<Descriptor> Descriptors { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
@@ -42,5 +41,7 @@ namespace Decipher.Model.Entities
         public virtual DbSet<ZipDemographic> ZipDemographics { get; set; }
         public virtual DbSet<Zip> Zips { get; set; }
         public virtual DbSet<ZipType> ZipTypes { get; set; }
+        public virtual DbSet<QuestionSet> QuestionSets { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
     }
 }

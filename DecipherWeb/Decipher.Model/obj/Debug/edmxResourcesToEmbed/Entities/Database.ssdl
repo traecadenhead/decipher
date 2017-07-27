@@ -5,11 +5,11 @@
       <PropertyRef Name="CityID" />
     </Key>
     <Property Name="CityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionSetID" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="DisplayName" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="Latitude" Type="float" Nullable="false" />
     <Property Name="Longitude" Type="float" Nullable="false" />
-    <Property Name="CenterZip" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Radius" Type="int" Nullable="false" />
     <Property Name="ZipsAssociated" Type="bit" Nullable="false" />
     <Property Name="ReportEmail" Type="varchar" MaxLength="200" />
@@ -90,8 +90,18 @@
       <PropertyRef Name="QuestionID" />
     </Key>
     <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionSetID" Type="int" Nullable="false" />
     <Property Name="Text" Type="varchar" MaxLength="2000" Nullable="false" />
     <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QuestionSets">
+    <Key>
+      <PropertyRef Name="QuestionSetID" />
+    </Key>
+    <Property Name="QuestionSetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
@@ -119,6 +129,7 @@
     <Property Name="Score" Type="int" Nullable="false" />
     <Property Name="Additional" Type="text" />
     <Property Name="Submitted" Type="bit" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
@@ -194,6 +205,18 @@
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
+  <Association Name="FK_Cities_QuestionSets">
+    <End Role="QuestionSets" Type="Self.QuestionSets" Multiplicity="1" />
+    <End Role="Cities" Type="Self.Cities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionSets">
+        <PropertyRef Name="QuestionSetID" />
+      </Principal>
+      <Dependent Role="Cities">
+        <PropertyRef Name="QuestionSetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Places_Cities">
     <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
     <End Role="Places" Type="Self.Places" Multiplicity="*" />
@@ -227,6 +250,18 @@
       </Principal>
       <Dependent Role="PlaceTypes">
         <PropertyRef Name="TypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Questions_QuestionSets">
+    <End Role="QuestionSets" Type="Self.QuestionSets" Multiplicity="1" />
+    <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionSets">
+        <PropertyRef Name="QuestionSetID" />
+      </Principal>
+      <Dependent Role="Questions">
+        <PropertyRef Name="QuestionSetID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -419,6 +454,7 @@
     <EntitySet Name="Places" EntityType="Self.Places" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PlaceTypes" EntityType="Self.PlaceTypes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QuestionSets" EntityType="Self.QuestionSets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ReviewResponses" EntityType="Self.ReviewResponses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Translations" EntityType="Self.Translations" Schema="dbo" store:Type="Tables" />
@@ -428,6 +464,10 @@
     <EntitySet Name="ZipDemographics" EntityType="Self.ZipDemographics" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Zips" EntityType="Self.Zips" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ZipTypes" EntityType="Self.ZipTypes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Cities_QuestionSets" Association="Self.FK_Cities_QuestionSets">
+      <End Role="QuestionSets" EntitySet="QuestionSets" />
+      <End Role="Cities" EntitySet="Cities" />
+    </AssociationSet>
     <AssociationSet Name="FK_Places_Cities" Association="Self.FK_Places_Cities">
       <End Role="Cities" EntitySet="Cities" />
       <End Role="Places" EntitySet="Places" />
@@ -439,6 +479,10 @@
     <AssociationSet Name="FK_PlaceTypes_Types" Association="Self.FK_PlaceTypes_Types">
       <End Role="Types" EntitySet="Types" />
       <End Role="PlaceTypes" EntitySet="PlaceTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Questions_QuestionSets" Association="Self.FK_Questions_QuestionSets">
+      <End Role="QuestionSets" EntitySet="QuestionSets" />
+      <End Role="Questions" EntitySet="Questions" />
     </AssociationSet>
     <AssociationSet Name="FK_ReviewResponses_Descriptors" Association="Self.FK_ReviewResponses_Descriptors">
       <End Role="Descriptors" EntitySet="Descriptors" />

@@ -289,7 +289,7 @@ namespace Decipher.Model.Concrete
                 var place = GetPlace(placeID);
                 if (place != null)
                 {                    
-                    place.Questions = Questions.OrderBy(n => n.Ordinal).ToList();
+                    place.Questions = Questions.Where(n => n.QuestionSetID == place.CurrentCity.QuestionSetID).OrderBy(n => n.Ordinal).ToList();
                     var descriptors = Descriptors.Where(n => n.DescriptorType == "Question").OrderBy(n => n.Name).ToList();
                     foreach(var question in place.Questions)
                     {
@@ -462,11 +462,12 @@ namespace Decipher.Model.Concrete
             try
             {
                 // maybe in future, if place not found in DB get it from Google Places
-                var place = Places.Where(n => n.PlaceID == placeID).FirstOrDefault();
+                var place = Places.Where(n => n.PlaceID == placeID).Select(n => new { Place = n, City = n.City }).FirstOrDefault();
                 if(place != null)
                 {
-                    place.City = DetermineNearestCity(place.Location);
-                    return place;
+                    var entity = place.Place;
+                    entity.CurrentCity = place.City;
+                    return entity;
                 }                
             }
             catch(Exception ex)

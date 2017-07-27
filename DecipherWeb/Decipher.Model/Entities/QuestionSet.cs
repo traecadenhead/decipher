@@ -12,27 +12,23 @@ namespace Decipher.Model.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Zip
+    public partial class QuestionSet
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Zip()
+        public QuestionSet()
         {
-            this.ZipDemographics = new HashSet<ZipDemographic>();
-            this.ZipTypes = new HashSet<ZipType>();
+            this.Questions = new HashSet<Question>();
+            this.Cities = new HashSet<City>();
         }
     
-        public string Zip1 { get; set; }
-        public Nullable<int> CityID { get; set; }
-        public double DiversityIndex { get; set; }
-        public Nullable<double> Latitude { get; set; }
-        public Nullable<double> Longitude { get; set; }
+        public int QuestionSetID { get; set; }
+        public string Name { get; set; }
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateModified { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ZipDemographic> ZipDemographics { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ZipType> ZipTypes { get; set; }
-        public virtual City City { get; set; }
+        public virtual ICollection<City> Cities { get; set; }
     }
 }
