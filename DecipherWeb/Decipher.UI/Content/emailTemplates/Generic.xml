@@ -1,0 +1,59 @@
+﻿<email:message xmlns:email="decipheraustin.com/email">
+  <email:header>
+    <email:priority>Normal</email:priority>
+  </email:header>
+  <email:body format="Html" encoding="UTF8">
+    <![CDATA[
+        
+	<style type="text/css">
+		body td
+        {
+            font: normal 14px arial;
+			color: #333;
+        }
+		
+		td#header{
+		    padding-left: 10px; 
+			padding-right: 10px;
+		}
+		
+		td#footer{
+			height: 25px;
+			width: 100%;
+			padding-left: 10px; 
+			padding-right: 10px;			
+		}
+		
+		td#body{
+			width: 100%;
+			padding-top: 20px;
+			padding-bottom: 20px;
+			padding-left: 10px; 
+			padding-right: 10px;
+			text-align: left;
+			vertical-align: top;
+			color: #000000;
+			border-left: solid 1px #E8E7F6;
+			border-right: solid 1px #E8E7F6;
+			font: normal 14px arial;
+		}
+	</style>
+	<body>
+    <table cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+			<td id="header"></td>
+		</tr>
+		<tr>
+			<td id="body">
+        ${Message}
+      </td>
+		</tr>
+		<tr>
+			<td id="footer">
+			</td>
+		</tr>
+	</table>
+	</body>
+    ]]>
+  </email:body>
+</email:message>

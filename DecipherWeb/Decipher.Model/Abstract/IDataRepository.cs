@@ -21,8 +21,10 @@ namespace Decipher.Model.Abstract
         IQueryable<City> Cities { get; }
         bool SaveCity(City entity);
         bool DeleteCity(int id);
-        bool AssociateAllCityZips();
-        bool AssociateCityZips(int cityID);
+        //bool AssociateAllCityZips();
+        //bool AssociateCityZips(int cityID);
+        City DetermineNearestCity(GeoCoordinate location);
+        City GetDefaultCity();
         #endregion
 
         #region CustomStrings
@@ -76,6 +78,7 @@ namespace Decipher.Model.Abstract
         bool DeletePlace(int id);
         List<SelectListItem> ListPlaceDistances(string defaultValue = "", string emptyText = "");
         PlaceResult SearchPlaces(Search entity);
+        PlaceResult NearbyPlaces(Search entity);
         Place GetPlaceForReview(string placeID);
         bool ImportPlace(string placeID);
         bool ImportPlacesInCity(int cityID, string type = null);
@@ -95,6 +98,13 @@ namespace Decipher.Model.Abstract
         bool OrderQuestions(string data);
         #endregion
 
+        #region QuestionSets
+        IQueryable<QuestionSet> QuestionSets { get; }
+        bool SaveQuestionSet(QuestionSet entity);
+        bool DeleteQuestionSet(int id);
+        List<SelectListItem> ListQuestionSets(string defaultValue = "", string emptyTitle = null);
+        #endregion
+
         #region ReviewResponses
         IQueryable<ReviewResponse> ReviewResponses { get; }
         bool SaveReviewResponse(ReviewResponse entity);
@@ -110,6 +120,8 @@ namespace Decipher.Model.Abstract
         ReviewSummary GetReviewSummary(ReviewFilter filters);
         ReviewFilter GetReviewFilters(ReviewFilter entity);
         bool RecalculateReviewScores();
+        Review GetReviewForSubmission(int reviewID);
+        bool SubmitReview(Review entity);
         #endregion
 
         #region Translations

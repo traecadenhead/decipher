@@ -104,6 +104,7 @@
     <Compile Include="Concrete\Places.cs" />
     <Compile Include="Concrete\PlaceTypes.cs" />
     <Compile Include="Concrete\Questions.cs" />
+    <Compile Include="Concrete\QuestionSets.cs" />
     <Compile Include="Concrete\Repository.cs" />
     <Compile Include="Concrete\ReviewResponses.cs" />
     <Compile Include="Concrete\Reviews.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Entities\Partials\PlaceResult.cs" />
     <Compile Include="Entities\Partials\PlaceType.cs" />
     <Compile Include="Entities\Partials\Question.cs" />
+    <Compile Include="Entities\Partials\QuestionSet.cs" />
     <Compile Include="Entities\Partials\Review.cs" />
     <Compile Include="Entities\Partials\ReviewContainer.cs" />
     <Compile Include="Entities\Partials\ReviewFilter.cs" />
@@ -177,6 +179,9 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Question.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\QuestionSet.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Review.cs">

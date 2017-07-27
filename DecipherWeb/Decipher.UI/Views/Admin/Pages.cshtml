@@ -16,6 +16,16 @@
             <table cellpadding="8">
                 <tr>
                     <td>@item.Title</td>
+                    <td>
+                        @if (item.Active)
+                        {
+                            <text>Active</text>
+                        }
+                        else
+                        {
+                            <text>Not Active</text>
+                        }
+                    </td>
                     <td>@Html.ActionLink("Edit", "PageEdit", new { id = item.PageID })</td>
                     <td>
                         @using (Html.BeginForm("PageRemove", "Admin", FormMethod.Post, new { @class = "remove" }))

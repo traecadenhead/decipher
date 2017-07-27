@@ -28,6 +28,9 @@ namespace Decipher.Model.Entities
         public int Score { get; set; }
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateModified { get; set; }
+        public string Additional { get; set; }
+        public bool Submitted { get; set; }
+        public string Email { get; set; }
     
         public virtual Place Place { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

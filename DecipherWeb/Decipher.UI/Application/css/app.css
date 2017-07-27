@@ -1,4 +1,10 @@
 ﻿@font-face{
+    font-family: 'SFUIText-Regular';
+    font-style: normal;
+    src: url('../fonts/Open_Sans/OpenSans-Regular.ttf');
+}
+
+@font-face{
     font-family: 'OpenSans';
     font-style: normal;
     src: url('../fonts/Open_Sans/OpenSans-Regular.ttf');
@@ -56,399 +62,479 @@ body
 {
     padding-top: 0px;
     padding-bottom: 20px;
-    font-family: OpenSans;
+    font-family: SFUIText-Regular;
+    margin: 0px;
+    background: #F4F4F4;
 }
 
 a{
     cursor: pointer;
 }
 
-.navbar-fixed-top
-{
-    position: relative;
-    top: 0px;
-}
-
-ul.nav li select{
-    margin-top: 10px;
-}
-
-.pageContent{
-    font-family: Zilla;
-}
-
-.jumbotron p{
-    font-size: 18px;
-    font-family: Zilla;
-}
-
-h2{
-    font-size: 24px;
-}
-
-.hide{
-    display: none;
-}
-
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
-}
-
-.navbar-inverse .navbar-nav > li.current > a{
-    color: #ffffff;
-    font-weight: bold;
-}
-
-/* Loading Screen */
-
-.loadingScreenContainer{
-    position: relative;
-    overflow: hidden;
-}
-
-.loadingScreen{
-    width: 100%;
-    height: 100%;
-}
-
-.loadingScreenOverlay {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: url(../img/decipher_logo-landing.png);
-    opacity: 1;
-    background-repeat: no-repeat;
-    background-size: 540px 391px;
-    background-position: center center;
-}
-
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    height: 30px;
-    width: 100%;
-    border-radius: 10px;
-    border: solid 1px;
-    padding-left: 10px;
-}
-
-input[type=submit]{
-    height: 50px;
-    width: 50%;
-    margin: auto;
+.mainContainer{
     text-align: center;
-    border-radius: 20px;
-}
-
-ul.tagList{
-    list-style: none;
-    margin-left: 0px;
-    padding-left: 0px;
-    overflow: auto;
-}
-
-ul.tagList li{
-    float: left;
-    margin-left: 0px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
-
-.descriptor {
-    padding: 8px;
-    background-color: lightgray;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.field .descriptor{
-    display: table;
-    margin-top: 5px;
-}
-
-.descriptor.selected {
-    background-color: #eac419;
-}
-
-ul.tagList.resizable{
-    font-size: 24pt;
-}
-
-.btn-default{
-    font-size: 20pt;
-    margin-top: 20px;
-    background-color: #3bbcd6;
-    color: #ffffff;
-    border-radius: 15px;
-}
-
-.btn-default:hover{
-    background-color: #3bbcd6;
-}
-
-#primaryHold .loading{
-    display: block;
-    margin: auto;
-    text-align: center;
-}
-
-.categoryItem .label{
-    color: #000000;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-    margin-left: 0px;
-    padding-left: 0px;
-    height: auto;
-}
-
-.categoryItem .field{
-    margin-top: 0px;
-    padding-top: 0px;
-}
-
-ul.findResults{
-    margin-left: 0px;
-    padding-left: 0px;
-    list-style: none;
-}
-
-ul.findResults li{
-    margin-left: 0px;
-    background-color: #ffffff;
-    padding: 10px;
-    font-size: 13pt;
-}
-
-ul.findResults li:nth-child(even){
-    background-color: lightblue;
-}
-
-ul.findResults li .name{
-    display: block;
-}
-
-ul.findResults li .types{
-    display: inline;
-    font-size: 65%;
-    font-style: italic;
-    padding-right: 10px;
-}
-
-ul.findResults li .diversity{
-    display: inline;
-    font-size: 65%;
-    padding-right: 10px;
-}
-
-ul.findResults li .distance{
-    display: inline;
-    font-size: 65%;
-    padding-right: 10px;
-}
-
-a.reviewBtn{
-    padding: 8px;
-    background-color: lightgray;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-a.reviewBtn span{
-    display: none;
-}
-
-td.label{
-    color: #000000;
-}
-
-.questionHold{
-    display: block;
-}
-
-.questionHold textarea{
-    display: block;
-    width: 100%;
-    height: 100px;
-    margin-bottom: 20px;
-}
-
-.question{
-    font-size: 14pt;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-.categoryItem{
-    margin-top: 25px;
-}
-
-.categoryItem .label{
-    font-size: 12pt;
-}
-
-.categoryItem .field{
-    margin-top: 5px;
-}
-
-#map_canvas, .angular-google-map-container{
-    width: 100%;
-    height: 450px;
-}
-
-div.filters{
-    display: block;
-}
-
-div.filters .filter{
-    display: block;
-    background-color: #ffffff;
-    padding: 20px;
-}
-
-div.filters .topFilterNav{
-    display: block;
-}
-
-div.filters .topFilterNav ul.navList{
-    list-style: none;
-    margin-left: 0px;
-    padding-left: 0px;
-    overflow: auto;
-    margin-bottom: 0px;
-}
-
-div.filters .topFilterNav ul.navList li{
-    display: block;
-    float: left;
-    background-color: #cccccc;
-    padding: 10px;
-    margin-right: 10px;
-    font-size: 16pt;
-}
-
-div.filters .topFilterNav ul.navList li.selected{
-    background-color: #ffffff;
-}
-
-div.filters .topFilterNav ul.navList li a{
-    display: block;
-}
-
-div.filters .bottomFilterNav{
-    display: block;
-}
-
-div.filters .bottomFilterNav ul.navList{
-    list-style: none;
-    margin-left: 0px;
-    padding-left: 0px;
-    margin-top: 20px;
-    overflow: auto;
-}
-
-div.filters .bottomFilterNav ul.navList li{
-    display: block;
-    float: right;
-    background-color: #3bbcd6;
-    padding: 10px;
-    font-size: 16pt;
-    margin-right: 10px;
-    color: #ffffff;
-    border-radius: 10px;
-}
-
-div.filters .bottomFilterNav ul.navList li a{
-    display: block;
-    color: #ffffff;
 }
 
 div.logoContainer{
     display: table;
-    background-color: #eee;
-    padding: 10px;
-    position: absolute;
+    width: 100%;
+    height: auto;
 }
 
-div.logoContainer a.logo{
+div.logo{
     background: url(../img/decipher_logo-cropped.png) center center no-repeat;
-    height: 66px;
-    width: 120px;
-    display: block;
-    background-size: 120px 66px;
-    text-indent: -9999px;
+    background-size: 240px 129px;
+    width: 240px;
+    height: 129px;
+    margin: auto;
+    display: table-cell;
+    vertical-align: middle;
 }
 
-div.logoContainer .city{
+div.logoSub{
+    font-family: SFUIText-Regular;
+    font-size: 36px;
+    color: #39BBD5;
+    text-transform: uppercase;
+    margin-top: 180px;
+}
+
+div.bottomNav{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+
+div.bottomNav .languageList select{
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+div.bottomNav a.navItem{    
+    font-size: 24px;
+    color: #FFFFFF;
+    background: #39BBD5;
+    line-height: 75px;
     display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+div.bottomNav a.navItem:nth-child(even){
+    background: #F1C300;     
+}
+
+h1{
+    background: #39BBD5;
+    line-height: 40px;
+    font-size: 24px;
+    color: #FFFFFF;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+    padding: 20px 20px;
+}
+
+h1.question{
+    text-transform: none;
+    padding: 20px 20px;
+    line-height: normal;
+    width: auto;
+}
+
+.pageContainer{
+    max-width: 600px;
+    margin: auto;
+    margin-bottom: 75px;
+}
+
+.pageContainer .pageContent{
+    text-align: left;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+h2{
+    font-size: 24px;
+    color: #39BBD5;
+    margin: 10px 20px;
+}
+
+h3{
+    font-size: 16px; 
+    color: #D43281; 
+}
+
+h4{
+    font-size: 24px;
+    color: #ABACAB;
+    line-height: 40px;
+    margin: 10px 20px;
+}
+
+h5{
+    font-size: 16px;
+    color: #ABACAB;
+    font-style: italic;
+    margin-top: 0px;
+}
+
+#profileTagList{
+    margin-left: 0px;
+    padding-left: 0px;
+    overflow: auto;
+}
+
+#profileTagList li{
+    background: #D8D8D8;
+    font-size: 12px;
+    color: #A1A2A1;
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
+    text-transform: uppercase;
+    float: left;
+    width: 50%;
+    margin-bottom: 5px;
+    line-height: 32px;
+    cursor: pointer;
+}
+
+#profileTagList li.selected{
+    background: #39BBD5;
+    color: #FFFFFF;
+}
+
+.btn-default{
+    background: #F1C300;
+    width: 100%;
+    line-height: 75px;
+    font-size: 24px;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    color: #FFFFFF;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+div.searchBar{
+    display: block;
+    margin: 0px 5px;
+    background: url(../img/burger.png) 20px center no-repeat #ffffff;
+    background-size: 20px 16px;
+    position: relative;
+}
+
+div.searchBar input[type=text]{
+    display: block;
+    border: none;
+    margin-left: 50px;
+    padding: 15px;
+    font-size: 18px;
+    color: #A1A2A1;
+}
+
+::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder, :-moz-placeholder{
+    color: lightgrey;
+}
+
+div.searchBar input[type=submit]{
+    background: url(../img/search.png) center center no-repeat;
+    background-size: 24px 24px;
+    height: 24px;
+    width: 24px;
+    float: right;
+    text-indent: -9999px;
+    border: none;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
+
+div.searchBar .clearSearch{
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-weight: bold;
+    color: #A1A2A1;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+div.searchResults{
+    display: block;
+}
+
+div.searchResults .resultItem{
+    display: block;
+    overflow: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+    color: #ABACAB;
+}
+
+div.searchResults .resultItem.selected{
+    background: #39BBD5;
+    color: #FFFFFF;
+}
+
+div.searchResults .resultItem .title{
+    display: block;
+    width: 65%;
+    text-align: left;
+    margin-left: 20px;
+    font-size: 24px;    
+}
+
+div.searchResults .resultItem .distance{
+    display: block;
+    float: right;
+    margin-right: 20px;
+    font-size: 14px;
+    margin-top: 8px;
+
+}
+
+div.searchResults .resultItem .desc{
+    display: block;
+    text-align: left;
+    margin-left: 20px;
+    font-size: 24px;
+    color: #D43281;
+}
+
+ul.responseTags{
+    margin-left: 0px;
+    padding-left: 0px;
+    overflow: auto;
+}
+
+ul.responseTags.small{
+    border: 1px solid #39BBD5;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+ul.responseTags.normal{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+ul.responseTags.large{
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 1px solid #39BBD5;
+}
+
+ul.responseTags li{
+    background: #D8D8D8;
+    font-size: 12px;
+    color: #A1A2A1;
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
+    text-transform: uppercase;
+    float: left;
+    width: 49%;
+    margin-bottom: 5px;
+    line-height: 32px;
+    cursor: pointer;
+}
+
+ul.responseTags.small li{
+    font-size: 24px;
+    text-transform: none;
+    width: auto;
+    float: none;
+    background: none;
+    line-height: 120px;
+    margin-bottom: 0px;
+}
+
+ul.responseTags.normal li:nth-child(1){
+    border-bottom: solid 1px #979797;
+}
+
+ul.responseTags.normal li{
+    font-size: 24px;
+    color: #39BBD5;
+    text-transform: none;
+    background: none;
+    padding: 40px 0px;
+    margin-bottom: 0px;
+}
+
+ul.responseTags.normal li:nth-child(1){
+    border-left: solid 1px #39BBD5;
+    border-top: solid 1px #39BBD5;
+    border-bottom: solid 1px #979797;
+    border-right: solid 1px #979797;
+}
+
+ul.responseTags.normal li:nth-child(2){
+    border-left: none;
+    border-top: solid 1px #39BBD5;
+    border-bottom: solid 1px #979797;
+    border-right: solid 1px #39BBD5;
+}
+
+ul.responseTags.normal li:nth-child(3){
+    border-left: solid 1px #39BBD5;
+    border-top: none;
+    border-bottom: solid 1px #39BBD5;
+    border-right: solid 1px #979797;
+}
+
+ul.responseTags.normal li:nth-child(4){
+    border-left: none;
+    border-top: none;
+    border-bottom: solid 1px #39BBD5;
+    border-right: solid 1px #39BBD5;
+}
+
+ul.responseTags.large li{
+    float: none;
+    width: auto;
+    margin-bottom: 0px;
+    background: none;
+    font-size: 24px;
+    color: #39BBD5;
+    text-transform: none;
+    line-height: 40px;
+}
+
+ul.responseTags li.selected{
+    background: #39BBD5;
+    color: #FFFFFF;
+}
+
+.questionIndex{
+    position: fixed;
+    bottom: 80px;
+    font-size: 24px;
+    color: #39BBD5;
     margin: auto;
     text-align: center;
-    font-size: 14pt;
-    margin-bottom: 0px;
-    color: #717275;
+    width: 100%;
 }
 
-.container>.navbar-collapse{
-    margin-left: 150px;
+.pageContainer textarea{
+    width: 80%;
+    margin: auto;
+    height: 100px;
+}
+
+.singleSelect{
+    background: #D8D8D8;
+    font-size: 16px;
+    color: #A1A2A1;
+    list-style: none;
+    padding-left: 0px;
+    text-transform: none;
+    margin: auto;
+    line-height: 32px;
+    cursor: pointer;
+    margin-top: 10px;
+    padding: 10px;
+    display: table;
+    margin-bottom: 10px;
+}
+
+.singleSelect.selected{
+    background: #39BBD5;
+    color: #FFFFFF;
+}
+
+.singleSelect.small{
+    font-size: 16px;
+    padding: 5px 5px;
+}
+
+.singleSelect.small.selected{
+    background: #39BBD5;
+    color: #FFFFFF;
+}
+
+div.questionHold{
+    display: block;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+ul.tagList{
+    display: block;
+    margin-left: 0px;
+    padding-left: 0px;
+    padding-top: 0px;
+}
+
+ul.tagList li{
+    display: block;
+}
+
+ul.tagList li.comment{
+    margin: 20px 20px;
+}
+
+ul.tagList.identifiers{
+    display: block;
+    overflow: auto;
+    margin: 20px 20px;
+}
+
+ul.tagList.identifiers li{
+    float: left;
+    padding: 5px;
+    margin: 5px;
+    border: solid 1px #ABACAB;
+    font-size: 12px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+ul.tagList.identifiers li.selected{
+    background: #39BBD5;
+    color: #FFFFFF;
+}
+
+.questionIndex{
+    position: fixed;
+    bottom: 80px;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+}
+
+.progressContainer{
+    display: table;
+    width: 200px;
+    height: 20px;
+    border: solid 1px #979797;
+    margin: auto;
+}
+
+.progressFill{
+    background-color: #39BBD5;
+    height: 20px;
+}
+
+div.categoryItem .itemField input{
+    height: 20px;
+    width: 80%;
 }
 
 @media (min-width: 768px){
-    .jumbotron h1{
-        font-size: 48px;
-    }
+    /* tablet and computer */
 }
 
 @media (max-width: 767px) {    
+    /* phone */
 
-    .mainContainer{
-        padding-top: 40px;
-    }
-
-    input[type=submit]{
-        width: auto;
-        font-size: 16pt;
-    }
-
-    ul.findResults li .types{
-        display: block;
-    }
-
-    ul.findResults li .diversity{
-        display: block;
-    }
-
-    ul.findResults li .distance{
-        display: block;
-    }
-
-    a.reviewBtn{
-        margin-top: 5px;
-        display: table;
-    }
-
-    #map_canvas, .angular-google-map-container {
-        height: 350px;
-    }
-
-    .loadingScreenOverlay{
-        background-size: 270px 195px;
-    }
-
-    div.filters .topFilterNav ul.navList li{
-        padding: 5px;
-        margin-right: 3px;
-        font-size: 11pt;
-    }
 }

@@ -1,0 +1,28 @@
+﻿<div ng-controller="ReviewSummary">
+    <div ng-if="entity != null && entity.Name != null">
+        <h1>{{customStrings['ReviewSummary-ReviewsOf']}} {{entity.Name}}</h1>
+        <p ng-if="entity.Description != null && entity.Description != ''">{{entity.Description}}</p>
+        <h2>{{customStrings['ReviewSummary-Show']}}</h2>
+        <ul class="tagList">
+            <li ng-repeat="item in entity.UserDescriptors" class="descriptor" ng-click="Select(item)" ng-class="{'selected': item.Selected == true}">
+                {{item.Name}}
+            </li>
+        </ul>
+        <p>{{customStrings['ReviewSummary-FilterNote']}}</p>
+        <p>{{entity.Reviews.length}} {{customStrings['ReviewSummary-ReviewsFound']}}</p>
+        <div ng-repeat="question in entity.Questions" class="questionHold">
+            <h2>{{question.Text}}</h2>
+            <ul class="tagList resizable">
+                <li ng-repeat="item in question.Descriptors" class="descriptor" ng-style="{'font-size': item.NumPct + '%'}">
+                    {{item.Name}}
+                </li>
+            </ul>
+            <p ng-repeat="detail in question.Details">
+                {{detail}}
+            </p>
+        </div>
+        <p ng-repeat="review in entity.Reviews">
+            <a ng-click="LoadReview(review)">{{review.DateCreatedStr}} {{customStrings['ReviewSummary-Review']}}</a>
+        </p>
+    </div>
+</div>

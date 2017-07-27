@@ -17,7 +17,6 @@ namespace Decipher.Model.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Zip()
         {
-            this.Places = new HashSet<Place>();
             this.ZipDemographics = new HashSet<ZipDemographic>();
             this.ZipTypes = new HashSet<ZipType>();
         }
@@ -30,12 +29,10 @@ namespace Decipher.Model.Entities
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateModified { get; set; }
     
-        public virtual City City { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Place> Places { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ZipDemographic> ZipDemographics { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ZipType> ZipTypes { get; set; }
+        public virtual City City { get; set; }
     }
 }

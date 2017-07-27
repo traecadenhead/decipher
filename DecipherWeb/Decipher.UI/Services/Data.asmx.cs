@@ -20,19 +20,19 @@ namespace Decipher.UI.Services
     public class Data : System.Web.Services.WebService
     {
 
-        [WebMethod]
-        public bool AssociateZips()
-        {
-            IDataRepository db = new Repository();
-            return db.AssociateAllCityZips();
-        }
+        //[WebMethod]
+        //public bool AssociateZips()
+        //{
+        //    IDataRepository db = new Repository();
+        //    return db.AssociateAllCityZips();
+        //}
 
-        [WebMethod]
-        public bool AssociateCityZips(int cityID)
-        {
-            IDataRepository db = new Repository();
-            return db.AssociateCityZips(cityID);
-        }
+        //[WebMethod]
+        //public bool AssociateCityZips(int cityID)
+        //{
+        //    IDataRepository db = new Repository();
+        //    return db.AssociateCityZips(cityID);
+        //}
 
         [WebMethod]
         public bool ImportCityPlaces(int cityID, string type = null)

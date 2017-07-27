@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Xml;
 using System.Xml.Linq;
 using System.Data;
+using System.Device.Location;
 using Decipher.Model.Abstract;
 using Decipher.Model.Entities;
 
@@ -38,7 +39,7 @@ namespace Decipher.Model.Concrete
                 if (ValidateUser(entity))
                 {
                     entity.DateModified = DateTime.Now;
-                    var original = db.Users.Find(entity.UserID);
+                    var original = db.Users.Where(n => n.UserID == entity.UserID).FirstOrDefault();
                     if (original != null)
                     {
                         entity.DateCreated = original.DateCreated;
@@ -123,11 +124,16 @@ namespace Decipher.Model.Concrete
                 if(userID == 0)
                 {
                     // get a new user
-                    var user = new User { UserID = 0 };
+                    var user = new User { UserID = 0, CityID = entity.CityID, Language = entity.Language };
                     if (SaveUser(user))
                     {
                         userID = user.UserID;
                     }
+                }
+                else
+                {
+                    // saves city and language if changed
+                    SaveUser(entity);
                 }
                 HttpContext.Current.Trace.Warn("UserID: " + userID);
                 if(userID > 0)

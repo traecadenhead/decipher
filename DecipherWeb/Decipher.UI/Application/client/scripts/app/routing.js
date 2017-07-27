@@ -1,41 +1,41 @@
 ﻿var routingFunction = function ($stateProvider, $httpProvider, $locationProvider, $urlRouterProvider, $urlMatcherFactory) {
     $stateProvider
-    .state('Identify', {
-        url: '/app/user/identify',
+    .state('ReviewIdentify', {
+        url: '/app/review/identify/{placeID}',
         views: {
             "mainContainer": {
                 templateUrl: function ($stateParams) {
-                    return '/Application/client/views/user/identify.html';
+                    return '/Application/client/views/review/identify.html';
                 }
             }
         }
     })
-    .state('Find', {
-        url: '/app/find',
+    .state('ReviewBegin', {
+        url: '/app/review/begin/{placeID}',
         views: {
             "mainContainer": {
                 templateUrl: function ($stateParams) {
-                    return '/Application/client/views/find/index.html';
+                    return '/Application/client/views/review/begin.html';
                 }
             }
         }
     })
-    .state('Data', {
-        url: '/app/data',
+    .state('ReviewQuestions', {
+        url: '/app/review/questions/{placeID}',
         views: {
             "mainContainer": {
                 templateUrl: function ($stateParams) {
-                    return '/Application/client/views/data/index.html';
+                    return '/Application/client/views/review/questions.html';
                 }
             }
         }
     })
-    .state('ReviewSubmit', {
-        url: '/app/review/submit/{placeID}',
+    .state('ReviewFinish', {
+        url: '/app/review/finish/{reviewID}',
         views: {
             "mainContainer": {
                 templateUrl: function ($stateParams) {
-                    return '/Application/client/views/review/submit.html';
+                    return '/Application/client/views/review/finish.html';
                 }
             }
         }
@@ -56,6 +56,16 @@
             "mainContainer": {
                 templateUrl: function ($stateParams) {
                     return '/Application/client/views/review/detail.html';
+                }
+            }
+        }
+    })
+    .state('Review', {
+        url: '/app/review/pick',
+        views: {
+            "mainContainer": {
+                templateUrl: function ($stateParams) {
+                    return '/Application/client/views/review/pick.html';
                 }
             }
         }

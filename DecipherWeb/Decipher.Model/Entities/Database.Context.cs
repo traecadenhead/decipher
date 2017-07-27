@@ -25,22 +25,23 @@ namespace Decipher.Model.Entities
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Demographic> Demographics { get; set; }
         public virtual DbSet<Descriptor> Descriptors { get; set; }
+        public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<Place> Places { get; set; }
         public virtual DbSet<PlaceType> PlaceTypes { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<ReviewResponse> ReviewResponses { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
+        public virtual DbSet<Translation> Translations { get; set; }
         public virtual DbSet<Type> Types { get; set; }
         public virtual DbSet<UserDescriptor> UserDescriptors { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<ZipDemographic> ZipDemographics { get; set; }
         public virtual DbSet<Zip> Zips { get; set; }
         public virtual DbSet<ZipType> ZipTypes { get; set; }
-        public virtual DbSet<Language> Languages { get; set; }
-        public virtual DbSet<Translation> Translations { get; set; }
+        public virtual DbSet<QuestionSet> QuestionSets { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
     }
 }

@@ -1,6 +1,119 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <CustomStrings>
-  <!--Header-->
+  <!-- BEGIN: New app strings-->
+  <CustomString>
+    <CustomStringID>Home-Austin</CustomStringID>
+    <Text>Austin</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Home-LeaveReview</CustomStringID>
+    <Text>Leave a Review</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Review-PageTitle</CustomStringID>
+    <Text>Step 1 - Pick a Place</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Review-SearchBox</CustomStringID>
+    <Text>Name of Place</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Review-SearchButton</CustomStringID>
+    <Text>Search</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Review-CurrentLocation</CustomStringID>
+    <Text>Use My Current Location</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Review-NoLocation</CustomStringID>
+    <Text>To review a place near you, you must allow the app to use your device's location. Please make sure your location services are enabled on your device.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Review-NoPlace</CustomStringID>
+    <Text>To proceed, please pick a place first.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Review-Next</CustomStringID>
+    <Text>Next</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>Review-StartNew</CustomStringID>
+    <Text>Start a New Review</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewIdentify-Header</CustomStringID>
+    <Text>Step 2 - Identify Yourself</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewIdentify-Question</CustomStringID>
+    <Text>How do you identify?</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewIdentify-Message</CustomStringID>
+    <Text>You are totally anonymous in this process.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewIdentify-Next</CustomStringID>
+    <Text>Next</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewBegin-Header</CustomStringID>
+    <Text>Step 3 - A Few Questions</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewBegin-Message</CustomStringID>
+    <Text>On average, users finish in 2 minutes.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewBegin-Start</CustomStringID>
+    <Text>Start</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewQuestions-Next</CustomStringID>
+    <Text>Next</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewFinish-Header</CustomStringID>
+    <Text>Step 4 - Wrap Up</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewFinish-Additional</CustomStringID>
+    <Text>Any additional comments?</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewFinish-ReportTo</CustomStringID>
+    <Text>Report to</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewFinish-Submit</CustomStringID>
+    <Text>Submit Review</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewFinish-Email</CustomStringID>
+    <Text>If you would like to receive a copy of your review, please provide your email address.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-ReviewsOf</CustomStringID>
+    <Text>Reviews of</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-Show</CustomStringID>
+    <Text>Filter Reviews</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-FilterNote</CustomStringID>
+    <Text>Note: if no filters are selected, by default all reviews are shown.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-ReviewsFound</CustomStringID>
+    <Text>reviews found.</Text>
+  </CustomString>
+  <CustomString>
+    <CustomStringID>ReviewSummary-Review</CustomStringID>
+    <Text>Review</Text>
+  </CustomString>
+  <!--BEGIN: Original app strings
   <CustomString>
     <CustomStringID>Header-Decipher</CustomStringID>
     <Text>Decipher</Text>
@@ -21,12 +134,10 @@
     <CustomStringID>Header-Data</CustomStringID>
     <Text>See the Data</Text>
   </CustomString>
-  <!--Footer-->
   <CustomString>
     <CustomStringID>Footer-Copyright</CustomStringID>
     <Text>2017 - Decipher Austin</Text>
   </CustomString>
-  <!--Identify-->
   <CustomString>
     <CustomStringID>Identify-PageTitle</CustomStringID>
     <Text>How do you identify?</Text>
@@ -35,7 +146,6 @@
     <CustomStringID>Identify-Next</CustomStringID>
     <Text>Next</Text>
   </CustomString>
-  <!--See the Data-->
   <CustomString>
     <CustomStringID>Data-PageTitle</CustomStringID>
     <Text>See the Data</Text>
@@ -72,7 +182,6 @@
     <CustomStringID>Data-ReviewsFound</CustomStringID>
     <Text>reviews found.</Text>
   </CustomString>
-  <!--Find a Place CustomStrings-->
   <CustomString>
     <CustomStringID>Find-PageTitle</CustomStringID>
     <Text>Find a Place</Text>
@@ -165,7 +274,6 @@
     <CustomStringID>Find-NoReviewsAlert</CustomStringID>
     <Text>There are no reviews of this place yet. If you visit, please be sure to add one!</Text>
   </CustomString>
-  <!--Review Detail-->
   <CustomString>
     <CustomStringID>ReviewDetail-ReviewOf</CustomStringID>
     <Text>Review of</Text>
@@ -178,7 +286,6 @@
     <CustomStringID>ReviewDetail-ReviewerIdentity</CustomStringID>
     <Text>Reviewer Identifies As</Text>
   </CustomString>
-  <!--Review Submit-->
   <CustomString>
     <CustomStringID>ReviewSubmit-Review</CustomStringID>
     <Text>Review</Text>
@@ -199,7 +306,6 @@
     <CustomStringID>ReviewSubmit-ThanksMessage</CustomStringID>
     <Text>Thanks for sharing your experience. The more we share, the better experiences everyone will have!</Text>
   </CustomString>
-  <!--Review Summary-->
   <CustomString>
     <CustomStringID>ReviewSummary-ReviewsOf</CustomStringID>
     <Text>Reviews of</Text>
@@ -219,5 +325,5 @@
   <CustomString>
     <CustomStringID>ReviewSummary-Review</CustomStringID>
     <Text>Review</Text>
-  </CustomString>
+  </CustomString>-->
 </CustomStrings>

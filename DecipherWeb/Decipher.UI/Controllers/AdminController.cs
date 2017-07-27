@@ -54,8 +54,9 @@ namespace Decipher.UI.Controllers
             var entity = db.Cities.Where(n => n.CityID == id).FirstOrDefault();
             if(entity == null)
             {
-                entity = new City { Radius = 30 };
+                entity = new City { Radius = 30, QuestionSetID = 0 };
             }
+            ViewBag.QuestionSetID = db.ListQuestionSets(entity.QuestionSetID.ToString());
             return View(entity);
         }
 
@@ -70,6 +71,7 @@ namespace Decipher.UI.Controllers
             else
             {
                 ViewBag.Messages = db.WarningMessage("Sorry, your changes to the city could not be saved.");
+                ViewBag.QuestionSetID = db.ListQuestionSets(entity.QuestionSetID.ToString());
                 return View(entity);
             }
         }

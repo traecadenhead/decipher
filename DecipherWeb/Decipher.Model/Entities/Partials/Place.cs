@@ -27,17 +27,36 @@ namespace Decipher.Model.Entities
             }
         }
 
+        public Double? DistanceInFeet
+        {
+            get
+            {
+                if(DistanceInMeters.HasValue)
+                {
+                    return DistanceInMeters.Value * 3.28084;
+                }
+                return null;
+            }
+        }
+
         public string DistanceStr
         {
             get
             {
                 if (Distance.HasValue)
                 {
-                    return Distance.Value.ToString("0.0");
+                    if (DistanceInMeters.Value <= 500)
+                    {
+                        return DistanceInFeet.Value.ToString("0") + " feet";
+                    }
+                    else
+                    {
+                        return Distance.Value.ToString("0.0") + " miles";
+                    }
                 }
                 else
                 {
-                    return "NA";
+                    return String.Empty;
                 }
             }
         }
@@ -78,7 +97,7 @@ namespace Decipher.Model.Entities
 
         public List<string> TypesList { get; set; }
 
-        public City City { get; set; }
+        public City CurrentCity { get; set; }
         
         public bool HasReviews { get; set; }
 
@@ -102,13 +121,34 @@ namespace Decipher.Model.Entities
                 }
             }
         }
+
+        public string Description
+        {
+            get
+            {
+                if (!String.IsNullOrEmpty(Address))
+                {
+                    try
+                    {
+                        // just show the first line of address
+                        string[] arr = Address.Split(',');
+                        return arr[0];
+                    }
+                    catch { }
+                    return Address;
+                }
+                return String.Empty;
+            }
+        }
+
+        public string TranslatedName { get; set; }
     }
 
     public class PlaceJson
     {
         [JsonIgnore]
         [IgnoreDataMember]
-        public virtual Zip Zip1 { get; set; }
+        public virtual City City { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]

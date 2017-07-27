@@ -25,8 +25,10 @@ namespace Decipher.Model.Entities
         public int Ordinal { get; set; }
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateModified { get; set; }
+        public int QuestionSetID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReviewResponse> ReviewResponses { get; set; }
+        public virtual QuestionSet QuestionSet { get; set; }
     }
 }

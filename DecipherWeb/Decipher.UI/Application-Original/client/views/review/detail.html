@@ -1,0 +1,22 @@
+﻿<div ng-controller="ReviewDetail">
+    <h1>{{customStrings['ReviewDetail-ReviewOf']}} {{entity.CurrentPlace.Name}}</h1>
+    <p ng-if="entity.CurrentPlace.Address != null && entity.CurrentPlace.Address != ''">{{entity.CurrentPlace.Address}}</p>
+    <p>{{customStrings['ReviewDetail-ReviewedOn']}} {{entity.DateCreatedStr}}</p>
+    <h2>{{customStrings['ReviewDetail-ReviewerIdentity']}}Reviewer Identifies As</h2>
+    <ul class="tagList">
+        <li ng-repeat="item in entity.CurrentUser.Descriptors" class="descriptor">
+            {{item.Name}}
+        </li>
+    </ul>
+    <div ng-repeat="question in entity.Questions" class="questionHold">
+        <h2>{{question.Text}}</h2>
+        <ul class="tagList">
+            <li ng-repeat="item in question.Descriptors" class="descriptor">
+                {{item.Name}}
+            </li>
+        </ul>
+        <p ng-if="question.Detail != null && question.Detail != ''">
+            {{question.Detail}}
+        </p>
+    </div>
+</div>

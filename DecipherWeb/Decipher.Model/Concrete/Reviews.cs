@@ -95,10 +95,10 @@ namespace Decipher.Model.Concrete
         {
             try
             {
-                var entity = Reviews.Where(n => n.ReviewID == reviewID).Select(n => new { Review = n, Responses = n.ReviewResponses }).FirstOrDefault();
+                var entity = Reviews.Where(n => n.ReviewID == reviewID).Select(n => new { Review = n, Responses = n.ReviewResponses, QuestionSetID = n.Place.City.QuestionSetID }).FirstOrDefault();
                 if (entity != null)
                 {
-                    var questions = Questions.OrderBy(n => n.Ordinal).ToList();
+                    var questions = Questions.Where(n => n.QuestionSetID == entity.QuestionSetID).OrderBy(n => n.Ordinal).ToList();
                     HttpContext.Current.Trace.Warn(questions.Count + " questions");
                     var quesDescriptors = Descriptors.Where(n => n.DescriptorType == "Question").ToList();
                     HttpContext.Current.Trace.Warn(quesDescriptors.Count + " descriptors");
@@ -149,9 +149,15 @@ namespace Decipher.Model.Concrete
                 NameValueCollection r = new NameValueCollection();
                 r.Add("ReportName", city.ReportName);
                 r.Add("CityName", city.Name);
-                r.Add("PlaceName", review.Place.Name);
+                r.Add("PlaceName", review.CurrentPlace.Name);
                 r.Add("Url", SiteAddress + "/app/review/detail/" + review.ReviewID);
-                SendTemplateEmail(r, "Report.xml", city.ReportEmail, "An experience at " + review.Place.Name);
+                string contact = String.Empty;
+                if (!String.IsNullOrEmpty(review.Email))
+                {
+                    contact += "<p>You may contact this user at " + review.Email + ".</p>";
+                }
+                r.Add("Contact", contact);
+                SendTemplateEmail(r, "Report.xml", city.ReportEmail, "An experience at " + review.CurrentPlace.Name);
                 return true;
             }
             catch(Exception ex)
@@ -175,20 +181,20 @@ namespace Decipher.Model.Concrete
                         allReviews.AddRange(Reviews.Where(n => n.PlaceID == placeItem.PlaceID).Select(n => new ReviewContainer { Review = n, Responses = n.ReviewResponses, User = n.User, UserDescriptors = n.User.UserDescriptors }).ToList());
                     }
                 }
-                else if(filters.Zips != null && filters.Zips.Count > 0)
-                {
-                    // zips were selected. Add reviews for those zips
-                    foreach(var zipItem in filters.Zips)
-                    {
-                        allReviews.AddRange(Reviews.Where(n => n.Place.Zip == zipItem.Zip1).Select(n => new ReviewContainer { Review = n, Responses = n.ReviewResponses, User = n.User, UserDescriptors = n.User.UserDescriptors }).ToList());
-                    }
-                }
+                //else if(filters.Zips != null && filters.Zips.Count > 0)
+                //{
+                //    // zips were selected. Add reviews for those zips
+                //    foreach(var zipItem in filters.Zips)
+                //    {
+                //        allReviews.AddRange(Reviews.Where(n => n.Place.Zip == zipItem.Zip1).Select(n => new ReviewContainer { Review = n, Responses = n.ReviewResponses, User = n.User, UserDescriptors = n.User.UserDescriptors }).ToList());
+                //    }
+                //}
                 else if (filters.Cities != null && filters.Cities.Count > 0)
                 {
                     // city was selected. Add review for selected cities
                     foreach(var cityItem in filters.Cities)
                     {
-                        allReviews.AddRange(Reviews.Where(n => n.Place.Zip1.CityID == cityItem.CityID).Select(n => new ReviewContainer { Review = n, Responses = n.ReviewResponses, User = n.User, UserDescriptors = n.User.UserDescriptors }).ToList());
+                        allReviews.AddRange(Reviews.Where(n => n.Place.CityID == cityItem.CityID).Select(n => new ReviewContainer { Review = n, Responses = n.ReviewResponses, User = n.User, UserDescriptors = n.User.UserDescriptors }).ToList());
                     }
                 }
                 var allDescriptors = Descriptors.Where(n => n.DescriptorType == "Question").ToList();
@@ -221,14 +227,15 @@ namespace Decipher.Model.Concrete
                         }
                     }
                 }
-                
+
                 var summary = new ReviewSummary
                 {
                     Name = "Review Summary",
                     Description = String.Empty,
                     Questions = new List<Question>(),
                     UserDescriptors = new List<Descriptor>(),
-                    Reviews = applyReviews.Select(n => n.Review).OrderByDescending(n => n.DateCreated).ToList()
+                    Reviews = applyReviews.Select(n => n.Review).OrderByDescending(n => n.DateCreated).ToList(),
+                    Comments = applyReviews.Where(n => n.Review.Additional != null && n.Review.Additional != "").OrderByDescending(n => n.Review.DateCreated).Select(n => n.Review.Additional).ToList()
                 };
                 // specific place requested so give the name of the place
                 if(filters.Places != null && filters.Places.Count == 1)
@@ -302,10 +309,10 @@ namespace Decipher.Model.Concrete
                         chosenPlaces.AddRange(entity.Places.Where(n => n.Selected == true).ToList());
                     }
                     entity.Places = new List<Place>();
-                    foreach(var zip in entity.Zips.Where(n => n.Selected == true).ToList())
-                    {
-                        entity.Places.AddRange(Places.Where(n => n.Zip == zip.Zip1).ToList());
-                    }
+                    //foreach(var zip in entity.Zips.Where(n => n.Selected == true).ToList())
+                    //{
+                    //    entity.Places.AddRange(Places.Where(n => n.Zip == zip.Zip1).ToList());
+                    //}
                     foreach(var chosenPlace in chosenPlaces)
                     {
                         var selPlace = entity.Places.Where(n => n.PlaceID == chosenPlace.PlaceID).FirstOrDefault();
@@ -400,6 +407,101 @@ namespace Decipher.Model.Concrete
                 HttpContext.Current.Trace.Warn(ex.ToString());
             }
             return false;
+        }
+
+        public Review GetReviewForSubmission(int reviewID)
+        {
+            try
+            {
+                var entity = Reviews.Where(n => n.ReviewID == reviewID).Select(n => new { City = n.Place.City, Review = n, Place = n.Place }).FirstOrDefault();
+                var review = entity.Review;
+                review.City = entity.City;
+                review.CurrentPlace = entity.Place;
+                return review;
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return null;
+        }
+
+        public bool SubmitReview(Review entity)
+        {
+            try
+            {
+                entity.Submitted = true;
+                if (SaveReview(entity))
+                {
+                    if (!String.IsNullOrEmpty(entity.Email))
+                    {
+                        SendReviewToUser(entity);
+                    }
+                    if (entity.Reported)
+                    {
+                        SendReviewToCity(entity, entity.City);
+                    }
+                    return true;
+                }
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return false;
+        }
+
+        public bool SendReviewToUser(Review entity)
+        {
+            try
+            {
+                string str = GenerateReviewString(entity.ReviewID);
+                HttpContext.Current.Trace.Warn("generated string: " + str);
+                if (!String.IsNullOrEmpty(str))
+                {
+                    HttpContext.Current.Trace.Warn("sending email");
+                    SendEmail(entity.Email, "Your Review", str);
+                    return true;
+                }
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return false;
+        }
+
+        public string GenerateReviewString(int reviewID)
+        {
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                var entity = GetReview(reviewID);
+                sb.Append("<h1>" + entity.CurrentPlace.Name + "</h1>");
+                sb.Append("<h2>" + entity.CurrentPlace.Address + "</h2>");
+                sb.Append("<h4>" + entity.IdentifierList + "</h4>");
+                sb.Append("<h5>" + entity.DateCreatedStr + "</h5>");
+                foreach(var question in entity.Questions)
+                {
+                    sb.Append("<div style=\"margin: 10px 0px\">");
+                    sb.Append("<h3>" + question.Text + "</h3>");
+                    foreach(var desc in question.Descriptors)
+                    {
+                        sb.Append("<div>" + desc.Name + "</div>");
+                    }
+                    sb.Append("</div>");
+                }
+                if (!String.IsNullOrEmpty(entity.Additional))
+                {
+                    sb.Append("<p>" + entity.Additional + "</p>");
+                }
+                return sb.ToString();
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return null;
         }
 
         # endregion

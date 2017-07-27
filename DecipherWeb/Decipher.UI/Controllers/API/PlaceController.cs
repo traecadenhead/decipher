@@ -18,6 +18,12 @@ namespace Decipher.UI.Controllers.API
             return db.SearchPlaces(entity);
         }
 
+        [HttpPost]
+        public PlaceResult Find(Search entity)
+        {
+            return db.NearbyPlaces(entity);
+        }
+
         [HttpGet]
         public GeoCoordinate GetLocation(string id)
         {

@@ -44,10 +44,6 @@ namespace Decipher.Model.Entities
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public virtual ICollection<Place> Places { get; set; }
-
-        [JsonIgnore]
-        [IgnoreDataMember]
         public virtual City City { get; set; }
 
         [JsonIgnore]

@@ -18,10 +18,22 @@ namespace Decipher.UI.Controllers.API
             return db.SaveReviewResponses(entity);
         }
 
+        [HttpPut]
+        public bool SaveSubmit(Review entity)
+        {
+            return db.SubmitReview(entity);
+        }
+
         [HttpGet]
         public Review Get(int id)
         {
             return db.GetReview(id);
+        }
+
+        [HttpGet]
+        public Review GetForSubmit(int id)
+        {
+            return db.GetReviewForSubmission(id);
         }
 
         [HttpPost]

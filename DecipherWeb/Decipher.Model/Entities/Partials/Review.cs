@@ -26,6 +26,28 @@ namespace Decipher.Model.Entities
                 return DateCreated.ToShortDateString();
             }
         }
+
+        public string IdentifierList
+        {
+            get
+            {
+                string str = "";
+                if(CurrentUser != null && CurrentUser.Descriptors != null)
+                {
+                    foreach(var desc in CurrentUser.Descriptors)
+                    {
+                        if (!String.IsNullOrEmpty(str))
+                        {
+                            str += ", ";
+                        }
+                        str += desc.Name;
+                    }
+                }
+                return str;
+            }
+        }
+
+        public City City{ get; set; }
     }
 
     public class ReviewJson

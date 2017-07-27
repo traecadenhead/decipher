@@ -35,5 +35,17 @@ namespace Decipher.Model.Entities
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual ICollection<Zip> Zips { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public virtual ICollection<Place> Places { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public virtual ICollection<User> Users { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public virtual QuestionSet QuestionSet { get; set; }
     }
 }

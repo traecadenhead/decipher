@@ -16,5 +16,7 @@ namespace Decipher.Model.Entities
         public string Keyword { get; set; }
         public string Token { get; set; }
         public City City { get; set; }
+        public string Term { get; set; }
+        public User User { get; set; }
     }
 }

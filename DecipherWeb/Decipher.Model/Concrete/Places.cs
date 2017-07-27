@@ -33,9 +33,9 @@ namespace Decipher.Model.Concrete
             {
                 ModelState.AddModelError("Name", "Name is a required field.");
             }
-            if (entity.Zip == null || entity.Zip.Trim().Length == 0)
+            if (entity.CityID == 0)
             {
-                ModelState.AddModelError("Zip", "Zip is a required field.");
+                ModelState.AddModelError("CityID", "CityID is a required field.");
             }
             if (entity.Address == null || entity.Address.Trim().Length == 0)
             {
@@ -81,6 +81,10 @@ namespace Decipher.Model.Concrete
                         return true;
                     }
                 }
+                else
+                {
+                    HttpContext.Current.Trace.Warn("couldn't validate");
+                }
             }
             catch (Exception ex)
             {
@@ -120,6 +124,92 @@ namespace Decipher.Model.Concrete
             return CreateList(dict, defaultValue, emptyText);
         }
 
+        public PlaceResult NearbyPlaces(Search entity)
+        {
+            try
+            {
+                entity.City = Cities.Where(n => n.CityID == entity.User.CityID).FirstOrDefault();
+                if (entity.City != null)
+                {
+                    // Search Google Places API
+                    bool userLocation = false;
+                    if(entity.Location != null)
+                    {
+                        userLocation = true;
+                    }
+                    else
+                    {
+                        entity.Location = new GeoCoordinate { Latitude = entity.City.Latitude, Longitude = entity.City.Longitude };
+                    }
+                    var results = NearbyPlacesFromGoogle(entity);
+                    if (results.NumResults > 0)
+                    {
+                        var rtn = new PlaceResult
+                        {
+                            NextToken = results.NextToken,
+                            Results = new List<Place>(),
+                            Response = "Results"
+                        };
+                        var types = Types.ToList();
+                        var reviews = Reviews.Where(n => n.Place.CityID == entity.City.CityID).ToList();
+                        foreach (var place in results.Results)
+                        {
+                            place.CityID = entity.City.CityID;
+                            // LATER: use Translated Name for other languages. We don't want to replace Name since it's saving
+                            place.TranslatedName = place.Name;
+                            if (userLocation)
+                            {
+                                place.DistanceInMeters = place.Location.GetDistanceTo(entity.Location);
+                            }
+                            place.Types = new List<Entities.Type>();
+                            foreach (string typeID in place.TypesList)
+                            {
+                                var type = types.Where(n => n.TypeID == typeID).FirstOrDefault();
+                                if (type != null)
+                                {
+                                    place.Types.Add(type);
+                                }
+                            }
+                            if (reviews.Where(n => n.PlaceID == place.PlaceID).Count() > 0)
+                            {
+                                place.HasReviews = true;
+                                place.AvgScore = Convert.ToDouble(reviews.Where(n => n.PlaceID == place.PlaceID).Select(n => n.Score).Sum()) / Convert.ToDouble(reviews.Where(n => n.PlaceID == place.PlaceID).Select(n => n.Score).Count());
+                            }
+                            rtn.Results.Add(place);
+                        }
+                        if (String.IsNullOrEmpty(entity.Term))
+                        {
+                            rtn.Results = rtn.Results.Where(n => n.Distance.GetValueOrDefault() <= 1).OrderBy(n => n.Distance.GetValueOrDefault()).ToList();
+                        }
+                        rtn.Search = entity;
+                        return rtn;
+                    }
+                }
+                else
+                {
+                    return new PlaceResult
+                    {
+                        Results = new List<Place>(),
+                        Response = "No City"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+                return new PlaceResult
+                {
+                    Results = new List<Place>(),
+                    Response = "Error"
+                };
+            }
+            return new PlaceResult
+            {
+                Results = new List<Place>(),
+                Response = "No Results"
+            };
+        }
+
         public PlaceResult SearchPlaces(Search entity)
         {
             try
@@ -138,17 +228,11 @@ namespace Decipher.Model.Concrete
                             Results = new List<Place>(),
                             Response = "Results"
                         };
-                        var zips = Zips.Where(n => n.CityID == entity.City.CityID).ToList();
                         var types = Types.ToList();
-                        var reviews = Reviews.Where(n => n.Place.Zip1.CityID == entity.City.CityID).ToList();
+                        var reviews = Reviews.Where(n => n.Place.CityID == entity.City.CityID).ToList();
                         foreach (var place in results.Results)
                         {
                             // For each result, get nearest zip / demographics and distance
-                            place.Zip = DetermineNearestZipForPlace(place, entity.City.CityID, zips);
-                            if (!String.IsNullOrEmpty(place.Zip))
-                            {
-                                place.DefaultZip = zips.Where(n => n.Zip1 == place.Zip).FirstOrDefault();
-                            }
                             place.DistanceInMeters = place.Location.GetDistanceTo(entity.Location);
                             if ((!entity.Distance.HasValue || place.Distance <= entity.Distance.Value) && (!entity.Diversity.HasValue || place.DefaultZip.DiversityIndex >= entity.Diversity.Value))
                             {
@@ -205,7 +289,7 @@ namespace Decipher.Model.Concrete
                 var place = GetPlace(placeID);
                 if (place != null)
                 {                    
-                    place.Questions = Questions.OrderBy(n => n.Ordinal).ToList();
+                    place.Questions = Questions.Where(n => n.QuestionSetID == place.CurrentCity.QuestionSetID).OrderBy(n => n.Ordinal).ToList();
                     var descriptors = Descriptors.Where(n => n.DescriptorType == "Question").OrderBy(n => n.Name).ToList();
                     foreach(var question in place.Questions)
                     {
@@ -320,7 +404,6 @@ namespace Decipher.Model.Concrete
                 var zips = Zips.Where(n => n.CityID == cityID).Where(n => n.Latitude != null).Where(n => n.Longitude != null).ToList();
                 foreach (var place in places)
                 {
-                    place.Zip = DetermineNearestZipForPlace(place, cityID, zips);
                     if (SavePlace(place))
                     {
                         if (place.TypesList.Count > 0)
@@ -379,11 +462,12 @@ namespace Decipher.Model.Concrete
             try
             {
                 // maybe in future, if place not found in DB get it from Google Places
-                var place = Places.Where(n => n.PlaceID == placeID).FirstOrDefault();
+                var place = Places.Where(n => n.PlaceID == placeID).Select(n => new { Place = n, City = n.City }).FirstOrDefault();
                 if(place != null)
                 {
-                    place.City = DetermineNearestCity(place.Location);
-                    return place;
+                    var entity = place.Place;
+                    entity.CurrentCity = place.City;
+                    return entity;
                 }                
             }
             catch(Exception ex)

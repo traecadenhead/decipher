@@ -1,28 +1,30 @@
 ﻿<div ng-controller="ReviewSummary">
-    <div ng-if="entity != null && entity.Name != null">
-        <h1>{{customStrings['ReviewSummary-ReviewsOf']}} {{entity.Name}}</h1>
-        <p ng-if="entity.Description != null && entity.Description != ''">{{entity.Description}}</p>
-        <h2>{{customStrings['ReviewSummary-Show']}}</h2>
-        <ul class="tagList">
-            <li ng-repeat="item in entity.UserDescriptors" class="descriptor" ng-click="Select(item)" ng-class="{'selected': item.Selected == true}">
+    <h1>{{entity.Name}}</h1>
+    <div class="pageContainer">
+        <h2 ng-if="entity.Description != null && entity.Description != ''">{{entity.Description}}</h2>
+        <div class="singleSelect small" ng-class="{'selected': showFilters}" ng-click="ToggleFilters()">{{customStrings['ReviewSummary-Show']}}</div>
+        <ul ng-if="showFilters" class="tagList identifiers">
+            <li ng-repeat="item in entity.UserDescriptors" ng-click="Select(item)" ng-class="{'selected': item.Selected == true}">
                 {{item.Name}}
             </li>
         </ul>
-        <p>{{customStrings['ReviewSummary-FilterNote']}}</p>
         <p>{{entity.Reviews.length}} {{customStrings['ReviewSummary-ReviewsFound']}}</p>
         <div ng-repeat="question in entity.Questions" class="questionHold">
-            <h2>{{question.Text}}</h2>
+            <h3>{{question.Text}}</h3>
             <ul class="tagList resizable">
-                <li ng-repeat="item in question.Descriptors" class="descriptor" ng-style="{'font-size': item.NumPct + '%'}">
-                    {{item.Name}}
+                <li ng-repeat="item in question.Descriptors" class="descriptor">
+                    {{item.Name}} ({{item.NumSelected}})
                 </li>
             </ul>
-            <p ng-repeat="detail in question.Details">
-                {{detail}}
-            </p>
         </div>
-        <p ng-repeat="review in entity.Reviews">
-            <a ng-click="LoadReview(review)">{{review.DateCreatedStr}} {{customStrings['ReviewSummary-Review']}}</a>
-        </p>
+        <div ng-if="entity.Comments != null && entity.Comments.length > 0" class="questionHold">
+            <h3>{{customStrings['ReviewFinish-Additional']}}</h3>
+            <ul class="tagList">
+                <li ng-repeat="comment in entity.Comments" class="comment">
+                    {{comment}}
+                </li>
+            </ul>
+        </div>
     </div>
+    <a class="btn-default" ui-sref="Review">{{customStrings['Review-StartNew']}}</a>
 </div>

@@ -14,6 +14,12 @@ namespace Decipher.UI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "AppOriginal",
+                url: "app-original/{*path}",
+                defaults: new { controller = "Home", action = "AppOriginal", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "App",
                 url: "app/{*path}",
                 defaults: new { controller = "Home", action = "App", id = UrlParameter.Optional }
