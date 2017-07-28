@@ -1,0 +1,15 @@
+﻿<div ng-controller="ReviewIdentify">
+    <h1>{{customStrings['ReviewIdentify-Header']}}</h1>
+    <form ng-submit="Submit()">
+        <div class="pageContainer">
+            <h3>{{customStrings['ReviewIdentify-Message']}}</h3>
+            <h2>{{customStrings['ReviewIdentify-Question']}}</h2>
+            <ul class="tagList" id="profileTagList">
+                <li ng-repeat="item in user.Descriptors" class="descriptor" ng-click="Select(item)" ng-class="{'selected': item.Selected == true}">
+                    {{item.Name}}
+                </li>
+            </ul>
+        </div>
+        <input type="submit" class="btn btn-default" ng-value="customStrings['ReviewIdentify-Next']" />
+    </form>
+</div>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="HandheldFriendly" content="true" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+        <meta http-equiv="Content-Security-Policy" content="default-src * 'self' gap:; img-src * 'self' data:; style-src * 'self' 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+        <link rel="stylesheet" type="text/css" href="js/loading-bar/loading-bar.css" />
+        <link rel="stylesheet" type="text/css" href="css/app.css" />
+        <title>Decipher City</title>
+    </head>
+    <body>
+        <div id="app">
+            <div class="container body-content">
+                <div ui-view="mainContainer" class="mainContainer"></div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript">
+                jQuery.event.props.push('dataTransfer');
+        </script>
+        <script type="text/javascript" src="js/amplify.min.js"></script>
+        <script type="text/javascript" src="js/injections.js"></script>
+        <script type="text/javascript" src="js/lodash.js"></script>
+        <script type="text/javascript" src="js/angular.min.js"></script>
+        <script type="text/javascript" src="js/angular-simple-logger.js"></script>
+        <script type="text/javascript" src="js/angular-ui-router.min.js"></script>
+        <script type="text/javascript" src="js/angular-animate.min.js"></script>
+        <script type="text/javascript" src="js/loading-bar/loading-bar.js"></script>
+        <script type="text/javascript" src="js/angular-sanitize.min.js"></script>
+        <script type="text/javascript" src="js/relative-paths-in-partial.js"></script>
+        <script type="text/javascript" src="js/angular-google-maps.min.js"></script>
+        <script type="text/javascript" src="js/angulartics/angulartics.js"></script>
+        <script type="text/javascript" src="js/angulartics/angulartics-ga.js"></script>
+        <script type="text/javascript" src="js/ui-bootstrap-tpls-2.5.0.min.js"></script>
+        <script type="text/javascript" src="client/scripts/app/config.js"></script>
+        <script type="text/javascript" src="client/scripts/app/routing.js"></script>
+        <script type="text/javascript" src="client/scripts/services/db.js"></script>
+        <script type="text/javascript" src="client/scripts/services/device.js"></script>
+        <script type="text/javascript" src="client/scripts/services/objectHandler.js"></script>
+        <script type="text/javascript" src="client/scripts/services/root.js"></script>
+        <script type="text/javascript" src="client/scripts/controllers/home.js"></script>
+        <script type="text/javascript" src="client/scripts/controllers/review.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript">
+            amplify.store("DeviceType", "Android");
+            amplify.store("AppVersion", "1.0.0-Android");
+        </script>
+        <script type="text/javascript">
+            document.addEventListener("deviceready", onDeviceReady, false);
+            document.addEventListener("resume", onResume, false);
+
+            function onResume(){
+                //InitPush();
+            };
+
+            function onDeviceReady(){
+                console.log("device ready");
+                //window.analytics.startTrackerWithId('UA-97545992-2');
+                angular.bootstrap(document, ['app']);
+                console.log("bootstrapped");
+                //InitPush();
+            }
+
+            var appPush = null;
+
+            function InitPush(){
+                appPush = PushNotification.init({
+                    "android": {
+                        "senderID": "1060098789268",
+                        "sound": "true",
+                        "icon": "icon"
+                     }
+                });
+
+                appPush.on('registration', function(data) {
+                    amplify.store("DeviceToken", data.registrationId);
+                });
+            }
+        </script>
+    </body>
+</html>

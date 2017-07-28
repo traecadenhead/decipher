@@ -1,0 +1,20 @@
+﻿<div ng-controller="ReviewPick">
+    <h1>{{customStrings['Review-PageTitle']}}</h1>
+    <div class="pageContainer">
+        <div class="searchBar">
+            <form ng-submit="Search()">
+                <input type="text" name="term" id="term" ng-model="search.Term" />
+                <input ng-if="search.Term == null || search.Term == '' || search.Term != result.Search.Term" type="submit" ng-value="customStrings['Review-SearchButton']" />
+                <div ng-if="result.Search.Term != null && result.Search.Term != '' && search.Term == result.Search.Term" class="clearSearch" ng-click="ClearSearch()">X</div>
+            </form>
+        </div>
+        <div class="searchResults">
+            <div ng-repeat="item in result.Results" class="resultItem" ng-class="{'selected': selected != null && item.PlaceID == selected.PlaceID}" ng-click="Select(item)">
+                <div class="distance">{{item.DistanceStr}}</div>
+                <div class="title">{{item.TranslatedName}}</div>
+                <div class="desc">{{item.Description}}</div>
+            </div>
+        </div>
+    </div>
+    <a class="btn-default" ng-click="Next()">{{customStrings['Review-Next']}}</a>
+</div>
