@@ -1,0 +1,6 @@
+C:\Users\traec_000\Source\Repos\Decipher\DecipherWeb\Decipher.PhoneGap\bin\Debug\Decipher.PhoneGap.exe.config
+C:\Users\traec_000\Source\Repos\Decipher\DecipherWeb\Decipher.PhoneGap\bin\Debug\Decipher.PhoneGap.exe
+C:\Users\traec_000\Source\Repos\Decipher\DecipherWeb\Decipher.PhoneGap\bin\Debug\Decipher.PhoneGap.pdb
+C:\Users\traec_000\Source\Repos\Decipher\DecipherWeb\Decipher.PhoneGap\obj\Debug\Decipher.PhoneGap.csprojResolveAssemblyReference.cache
+C:\Users\traec_000\Source\Repos\Decipher\DecipherWeb\Decipher.PhoneGap\obj\Debug\Decipher.PhoneGap.exe
+C:\Users\traec_000\Source\Repos\Decipher\DecipherWeb\Decipher.PhoneGap\obj\Debug\Decipher.PhoneGap.pdb

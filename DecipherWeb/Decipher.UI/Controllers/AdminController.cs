@@ -76,6 +76,23 @@ namespace Decipher.UI.Controllers
             }
         }
 
+        public ActionResult QuestionSets()
+        {
+            return View(db.QuestionSets.ToList());
+        }
+
+        public ActionResult QuestionSetEdit(int id)
+        {
+            var entity = db.QuestionSets.Where(n => n.QuestionSetID == id).FirstOrDefault();
+            if(entity == null)
+            {
+                entity = new QuestionSet();
+            }
+            return View(entity);
+        }
+
+        // TO DO: Post QuestionSetEdit
+
         public ActionResult Questions()
         {
             return View(db.Questions.OrderBy(n => n.Ordinal).ToList());
