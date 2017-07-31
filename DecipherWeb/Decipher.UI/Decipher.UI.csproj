@@ -237,6 +237,9 @@
     <Content Include="Application\js\loading-bar\loading-bar.min.css" />
     <Content Include="Application\js\loading-bar\loading-bar.min.js" />
     <Content Include="Application\js\lodash.js" />
+    <Content Include="Application\js\ng-device-detector.js" />
+    <Content Include="Application\js\ng-device-detector.min.js" />
+    <Content Include="Application\js\re-tree.js" />
     <Content Include="Application\js\relative-paths-in-partial.js" />
     <Content Include="Application\js\ui-bootstrap-tpls-2.5.0.min.js" />
     <Content Include="App_Data\Admins.xml" />

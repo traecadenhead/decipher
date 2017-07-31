@@ -28,5 +28,16 @@ namespace Decipher.UI.Controllers.API
         {
             return db.SaveUser(entity);
         }
+
+        [HttpPut]
+        public bool SaveDevice(UserDevice entity)
+        {
+            var version = db.AppVersions.Where(n => n.VersionNum == entity.AppVersion).FirstOrDefault();
+            if (version == null)
+            {
+                entity.AppVersion = db.AppVersions.Where(n => n.PlatformType == entity.DeviceType).OrderByDescending(n => n.VersionOrdinal).Select(n => n.VersionNum).FirstOrDefault();
+            }
+            return db.SaveUserDevice(entity);
+        }
     }
 }
