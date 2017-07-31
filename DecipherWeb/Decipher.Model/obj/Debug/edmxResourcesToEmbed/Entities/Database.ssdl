@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Decipher.Model.Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AppVersions">
+    <Key>
+      <PropertyRef Name="VersionNum" />
+    </Key>
+    <Property Name="VersionNum" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="VersionOrdinal" Type="int" Nullable="false" />
+    <Property Name="PlatformType" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
+  </EntityType>
   <EntityType Name="Cities">
     <Key>
       <PropertyRef Name="CityID" />
@@ -45,6 +55,34 @@
     </Key>
     <Property Name="LanguageID" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Notifications">
+    <Key>
+      <PropertyRef Name="NotificationID" />
+    </Key>
+    <Property Name="NotificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Message" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="Action" Type="varchar" MaxLength="200" />
+    <Property Name="AssociatedID" Type="varchar" MaxLength="50" />
+    <Property Name="Sound" Type="varchar" MaxLength="200" />
+    <Property Name="Distribute" Type="bit" Nullable="false" />
+    <Property Name="SendDate" Type="datetime" />
+    <Property Name="Sent" Type="bit" Nullable="false" />
+    <Property Name="AuthorID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NotificationTargets">
+    <Key>
+      <PropertyRef Name="NotificationTargetID" />
+    </Key>
+    <Property Name="NotificationTargetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NotificationID" Type="int" Nullable="false" />
+    <Property Name="TargetType" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="TargetID" Type="varchar" MaxLength="50" />
+    <Property Name="TargetName" Type="varchar" MaxLength="200" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
@@ -163,6 +201,35 @@
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
+  <EntityType Name="UserDevices">
+    <Key>
+      <PropertyRef Name="UserDeviceID" />
+    </Key>
+    <Property Name="UserDeviceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="DeviceType" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="DeviceID" Type="varchar" MaxLength="2000" Nullable="false" />
+    <Property Name="AppVersion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DeviceModel" Type="varchar" MaxLength="500" />
+    <Property Name="DevicePlatform" Type="varchar" MaxLength="500" />
+    <Property Name="DeviceVersion" Type="varchar" MaxLength="500" />
+    <Property Name="DeviceToken" Type="varchar" MaxLength="2000" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserNotifications">
+    <Key>
+      <PropertyRef Name="UserNotificationID" />
+    </Key>
+    <Property Name="UserNotificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NotificationID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Sent" Type="bit" Nullable="false" />
+    <Property Name="Archived" Type="bit" Nullable="false" />
+    <Property Name="Viewed" Type="bit" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
+  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserID" />
@@ -214,6 +281,18 @@
       </Principal>
       <Dependent Role="Cities">
         <PropertyRef Name="QuestionSetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NotificationTargets_Notifications">
+    <End Role="Notifications" Type="Self.Notifications" Multiplicity="1" />
+    <End Role="NotificationTargets" Type="Self.NotificationTargets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Notifications">
+        <PropertyRef Name="NotificationID" />
+      </Principal>
+      <Dependent Role="NotificationTargets">
+        <PropertyRef Name="NotificationID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -361,6 +440,54 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_UserDevices_AppVersions">
+    <End Role="AppVersions" Type="Self.AppVersions" Multiplicity="1" />
+    <End Role="UserDevices" Type="Self.UserDevices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppVersions">
+        <PropertyRef Name="VersionNum" />
+      </Principal>
+      <Dependent Role="UserDevices">
+        <PropertyRef Name="AppVersion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDevices_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="UserDevices" Type="Self.UserDevices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserDevices">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserNotifications_Notifications">
+    <End Role="Notifications" Type="Self.Notifications" Multiplicity="1" />
+    <End Role="UserNotifications" Type="Self.UserNotifications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Notifications">
+        <PropertyRef Name="NotificationID" />
+      </Principal>
+      <Dependent Role="UserNotifications">
+        <PropertyRef Name="NotificationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserNotifications_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="UserNotifications" Type="Self.UserNotifications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserNotifications">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Users_Cities">
     <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
     <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -446,10 +573,13 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="DecipherModelEntitiesStoreContainer">
+    <EntitySet Name="AppVersions" EntityType="Self.AppVersions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Demographics" EntityType="Self.Demographics" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Descriptors" EntityType="Self.Descriptors" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NotificationTargets" EntityType="Self.NotificationTargets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pages" EntityType="Self.Pages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Places" EntityType="Self.Places" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PlaceTypes" EntityType="Self.PlaceTypes" Schema="dbo" store:Type="Tables" />
@@ -460,6 +590,8 @@
     <EntitySet Name="Translations" EntityType="Self.Translations" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Types" EntityType="Self.Types" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserDescriptors" EntityType="Self.UserDescriptors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserDevices" EntityType="Self.UserDevices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserNotifications" EntityType="Self.UserNotifications" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ZipDemographics" EntityType="Self.ZipDemographics" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Zips" EntityType="Self.Zips" Schema="dbo" store:Type="Tables" />
@@ -467,6 +599,10 @@
     <AssociationSet Name="FK_Cities_QuestionSets" Association="Self.FK_Cities_QuestionSets">
       <End Role="QuestionSets" EntitySet="QuestionSets" />
       <End Role="Cities" EntitySet="Cities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NotificationTargets_Notifications" Association="Self.FK_NotificationTargets_Notifications">
+      <End Role="Notifications" EntitySet="Notifications" />
+      <End Role="NotificationTargets" EntitySet="NotificationTargets" />
     </AssociationSet>
     <AssociationSet Name="FK_Places_Cities" Association="Self.FK_Places_Cities">
       <End Role="Cities" EntitySet="Cities" />
@@ -515,6 +651,22 @@
     <AssociationSet Name="FK_UserDescriptors_Users" Association="Self.FK_UserDescriptors_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="UserDescriptors" EntitySet="UserDescriptors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDevices_AppVersions" Association="Self.FK_UserDevices_AppVersions">
+      <End Role="AppVersions" EntitySet="AppVersions" />
+      <End Role="UserDevices" EntitySet="UserDevices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDevices_Users" Association="Self.FK_UserDevices_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserDevices" EntitySet="UserDevices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserNotifications_Notifications" Association="Self.FK_UserNotifications_Notifications">
+      <End Role="Notifications" EntitySet="Notifications" />
+      <End Role="UserNotifications" EntitySet="UserNotifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserNotifications_Users" Association="Self.FK_UserNotifications_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserNotifications" EntitySet="UserNotifications" />
     </AssociationSet>
     <AssociationSet Name="FK_Users_Cities" Association="Self.FK_Users_Cities">
       <End Role="Cities" EntitySet="Cities" />

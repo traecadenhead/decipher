@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IDataRepository.cs" />
     <Compile Include="Concrete\Admins.cs" />
+    <Compile Include="Concrete\AppVersions.cs" />
     <Compile Include="Concrete\Cities.cs" />
     <Compile Include="Concrete\CustomStrings.cs" />
     <Compile Include="Concrete\Demographics.cs" />
@@ -100,6 +101,8 @@
     <Compile Include="Concrete\Helpers.cs" />
     <Compile Include="Concrete\Languages.cs" />
     <Compile Include="Concrete\Lists.cs" />
+    <Compile Include="Concrete\Notifications.cs" />
+    <Compile Include="Concrete\NotificationTargets.cs" />
     <Compile Include="Concrete\Pages.cs" />
     <Compile Include="Concrete\Places.cs" />
     <Compile Include="Concrete\PlaceTypes.cs" />
@@ -111,11 +114,16 @@
     <Compile Include="Concrete\Translations.cs" />
     <Compile Include="Concrete\Types.cs" />
     <Compile Include="Concrete\UserDescriptors.cs" />
+    <Compile Include="Concrete\UserDevices.cs" />
+    <Compile Include="Concrete\UserNotifications.cs" />
     <Compile Include="Concrete\Users.cs" />
     <Compile Include="Concrete\ZipCodeAPI.cs" />
     <Compile Include="Concrete\ZipDemographics.cs" />
     <Compile Include="Concrete\Zips.cs" />
     <Compile Include="Concrete\ZipTypes.cs" />
+    <Compile Include="Entities\AppVersion.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\City.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -143,11 +151,18 @@
     <Compile Include="Entities\Language.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Notification.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\NotificationTarget.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Page.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Partials\Admin.cs" />
     <Compile Include="Entities\Partials\APIResponse.cs" />
+    <Compile Include="Entities\Partials\AppVersion.cs" />
     <Compile Include="Entities\Partials\City.cs" />
     <Compile Include="Entities\Partials\CustomString.cs" />
     <Compile Include="Entities\Partials\Descriptor.cs" />
@@ -155,6 +170,8 @@
     <Compile Include="Entities\Partials\Language.cs" />
     <Compile Include="Entities\Partials\ListHolder.cs" />
     <Compile Include="Entities\Partials\ListItem.cs" />
+    <Compile Include="Entities\Partials\Notification.cs" />
+    <Compile Include="Entities\Partials\NotificationTarget.cs" />
     <Compile Include="Entities\Partials\Page.cs" />
     <Compile Include="Entities\Partials\Place.cs" />
     <Compile Include="Entities\Partials\PlaceResult.cs" />
@@ -171,6 +188,8 @@
     <Compile Include="Entities\Partials\Type.cs" />
     <Compile Include="Entities\Partials\User.cs" />
     <Compile Include="Entities\Partials\UserDescriptor.cs" />
+    <Compile Include="Entities\Partials\UserDevice.cs" />
+    <Compile Include="Entities\Partials\UserNotification.cs" />
     <Compile Include="Entities\Partials\Zip.cs" />
     <Compile Include="Entities\Place.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -200,6 +219,12 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\UserDescriptor.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\UserDevice.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\UserNotification.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Zip.cs">

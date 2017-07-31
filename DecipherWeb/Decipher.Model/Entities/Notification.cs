@@ -12,31 +12,29 @@ namespace Decipher.Model.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Notification
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public Notification()
         {
-            this.Reviews = new HashSet<Review>();
-            this.UserDescriptors = new HashSet<UserDescriptor>();
-            this.UserDevices = new HashSet<UserDevice>();
+            this.NotificationTargets = new HashSet<NotificationTarget>();
             this.UserNotifications = new HashSet<UserNotification>();
         }
     
-        public int UserID { get; set; }
-        public string LanguageID { get; set; }
+        public int NotificationID { get; set; }
+        public string Message { get; set; }
+        public string Action { get; set; }
+        public string AssociatedID { get; set; }
+        public string Sound { get; set; }
+        public bool Distribute { get; set; }
+        public Nullable<System.DateTime> SendDate { get; set; }
+        public bool Sent { get; set; }
+        public string AuthorID { get; set; }
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateModified { get; set; }
-        public int CityID { get; set; }
     
-        public virtual Language Language { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Review> Reviews { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserDescriptor> UserDescriptors { get; set; }
-        public virtual City City { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserDevice> UserDevices { get; set; }
+        public virtual ICollection<NotificationTarget> NotificationTargets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserNotification> UserNotifications { get; set; }
     }

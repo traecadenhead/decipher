@@ -43,6 +43,16 @@
         <AssociationConnector Association="Decipher.Model.Entities.FK_Places_Cities" />
         <AssociationConnector Association="Decipher.Model.Entities.FK_Users_Cities" />
         <AssociationConnector Association="Decipher.Model.Entities.FK_Zips_Cities" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.AppVersion" Width="1.5" PointX="8.25" PointY="24.25" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.Notification" Width="1.5" PointX="11.25" PointY="25.5" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.NotificationTarget" Width="1.5" PointX="13.5" PointY="26" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.UserDevice" Width="1.5" PointX="10.5" PointY="20.5" />
+        <EntityTypeShape EntityType="Decipher.Model.Entities.UserNotification" Width="1.5" PointX="13.5" PointY="20.875" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_UserDevices_AppVersions" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_NotificationTargets_Notifications" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_UserNotifications_Notifications" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_UserDevices_Users" />
+        <AssociationConnector Association="Decipher.Model.Entities.FK_UserNotifications_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

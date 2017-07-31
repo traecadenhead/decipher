@@ -43,5 +43,10 @@ namespace Decipher.Model.Entities
         public virtual DbSet<ZipType> ZipTypes { get; set; }
         public virtual DbSet<QuestionSet> QuestionSets { get; set; }
         public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<AppVersion> AppVersions { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<NotificationTarget> NotificationTargets { get; set; }
+        public virtual DbSet<UserDevice> UserDevices { get; set; }
+        public virtual DbSet<UserNotification> UserNotifications { get; set; }
     }
 }

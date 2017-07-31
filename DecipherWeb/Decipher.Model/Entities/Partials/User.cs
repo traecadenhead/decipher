@@ -32,5 +32,13 @@ namespace Decipher.Model.Entities
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual City City { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public virtual ICollection<UserDevice> UserDevices { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public virtual ICollection<UserNotification> UserNotifications { get; set; }
     }
 }

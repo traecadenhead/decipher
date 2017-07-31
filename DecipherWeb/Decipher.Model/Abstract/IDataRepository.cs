@@ -17,6 +17,12 @@ namespace Decipher.Model.Abstract
         List<string> GetRolesForAdmin(string username);
         #endregion
 
+        #region AppVersions
+        IQueryable<AppVersion> AppVersions { get; }
+        bool SaveAppVersion(AppVersion entity);
+        bool DeleteAppVersion(string versionNum);
+        #endregion
+
         #region Cities
         IQueryable<City> Cities { get; }
         bool SaveCity(City entity);
@@ -61,6 +67,18 @@ namespace Decipher.Model.Abstract
 
         #region Lists
         ListHolder GetListHolder();
+        #endregion
+
+        #region Notifications
+        IQueryable<Notification> Notifications { get; }
+        bool SaveNotification(Notification entity);
+        bool DeleteNotification(int id);
+        #endregion
+
+        #region NotificationTargets
+        IQueryable<NotificationTarget> NotificationTargets { get; }
+        bool SaveNotificationTarget(NotificationTarget entity);
+        bool DeleteNotificationTarget(int id);
         #endregion
 
         #region Pages
@@ -142,6 +160,18 @@ namespace Decipher.Model.Abstract
         IQueryable<UserDescriptor> UserDescriptors { get; }
         bool SaveUserDescriptor(UserDescriptor entity);
         bool DeleteUserDescriptor(int id);
+        #endregion
+
+        #region UserDevices
+        IQueryable<UserDevice> UserDevices { get; }
+        bool SaveUserDevice(UserDevice entity);
+        bool DeleteUserDevice(int id);
+        #endregion
+
+        #region UserNotifications
+        IQueryable<UserNotification> UserNotifications { get; }
+        bool SaveUserNotification(UserNotification entity);
+        bool DeleteUserNotification(int id);
         #endregion
 
         #region Users

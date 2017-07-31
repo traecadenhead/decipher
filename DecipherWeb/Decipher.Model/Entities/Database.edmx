@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Decipher.Model.Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AppVersions">
+          <Key>
+            <PropertyRef Name="VersionNum" />
+          </Key>
+          <Property Name="VersionNum" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="VersionOrdinal" Type="int" Nullable="false" />
+          <Property Name="PlatformType" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Cities">
           <Key>
             <PropertyRef Name="CityID" />
@@ -50,6 +60,34 @@
           </Key>
           <Property Name="LanguageID" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="NotificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="Action" Type="varchar" MaxLength="200" />
+          <Property Name="AssociatedID" Type="varchar" MaxLength="50" />
+          <Property Name="Sound" Type="varchar" MaxLength="200" />
+          <Property Name="Distribute" Type="bit" Nullable="false" />
+          <Property Name="SendDate" Type="datetime" />
+          <Property Name="Sent" Type="bit" Nullable="false" />
+          <Property Name="AuthorID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NotificationTargets">
+          <Key>
+            <PropertyRef Name="NotificationTargetID" />
+          </Key>
+          <Property Name="NotificationTargetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotificationID" Type="int" Nullable="false" />
+          <Property Name="TargetType" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="TargetID" Type="varchar" MaxLength="50" />
+          <Property Name="TargetName" Type="varchar" MaxLength="200" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateModified" Type="datetime" Nullable="false" />
         </EntityType>
@@ -168,6 +206,35 @@
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateModified" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserDevices">
+          <Key>
+            <PropertyRef Name="UserDeviceID" />
+          </Key>
+          <Property Name="UserDeviceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="DeviceType" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DeviceID" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="AppVersion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeviceModel" Type="varchar" MaxLength="500" />
+          <Property Name="DevicePlatform" Type="varchar" MaxLength="500" />
+          <Property Name="DeviceVersion" Type="varchar" MaxLength="500" />
+          <Property Name="DeviceToken" Type="varchar" MaxLength="2000" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserNotifications">
+          <Key>
+            <PropertyRef Name="UserNotificationID" />
+          </Key>
+          <Property Name="UserNotificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotificationID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Sent" Type="bit" Nullable="false" />
+          <Property Name="Archived" Type="bit" Nullable="false" />
+          <Property Name="Viewed" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserID" />
@@ -219,6 +286,18 @@
             </Principal>
             <Dependent Role="Cities">
               <PropertyRef Name="QuestionSetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NotificationTargets_Notifications">
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="1" />
+          <End Role="NotificationTargets" Type="Self.NotificationTargets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notifications">
+              <PropertyRef Name="NotificationID" />
+            </Principal>
+            <Dependent Role="NotificationTargets">
+              <PropertyRef Name="NotificationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -366,6 +445,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserDevices_AppVersions">
+          <End Role="AppVersions" Type="Self.AppVersions" Multiplicity="1" />
+          <End Role="UserDevices" Type="Self.UserDevices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppVersions">
+              <PropertyRef Name="VersionNum" />
+            </Principal>
+            <Dependent Role="UserDevices">
+              <PropertyRef Name="AppVersion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDevices_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserDevices" Type="Self.UserDevices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserDevices">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserNotifications_Notifications">
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="1" />
+          <End Role="UserNotifications" Type="Self.UserNotifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notifications">
+              <PropertyRef Name="NotificationID" />
+            </Principal>
+            <Dependent Role="UserNotifications">
+              <PropertyRef Name="NotificationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserNotifications_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserNotifications" Type="Self.UserNotifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserNotifications">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Users_Cities">
           <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -451,10 +578,13 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DecipherModelEntitiesStoreContainer">
+          <EntitySet Name="AppVersions" EntityType="Self.AppVersions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Demographics" EntityType="Self.Demographics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Descriptors" EntityType="Self.Descriptors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotificationTargets" EntityType="Self.NotificationTargets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pages" EntityType="Self.Pages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Places" EntityType="Self.Places" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlaceTypes" EntityType="Self.PlaceTypes" Schema="dbo" store:Type="Tables" />
@@ -465,6 +595,8 @@
           <EntitySet Name="Translations" EntityType="Self.Translations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Types" EntityType="Self.Types" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDescriptors" EntityType="Self.UserDescriptors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDevices" EntityType="Self.UserDevices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserNotifications" EntityType="Self.UserNotifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ZipDemographics" EntityType="Self.ZipDemographics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zips" EntityType="Self.Zips" Schema="dbo" store:Type="Tables" />
@@ -472,6 +604,10 @@
           <AssociationSet Name="FK_Cities_QuestionSets" Association="Self.FK_Cities_QuestionSets">
             <End Role="QuestionSets" EntitySet="QuestionSets" />
             <End Role="Cities" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NotificationTargets_Notifications" Association="Self.FK_NotificationTargets_Notifications">
+            <End Role="Notifications" EntitySet="Notifications" />
+            <End Role="NotificationTargets" EntitySet="NotificationTargets" />
           </AssociationSet>
           <AssociationSet Name="FK_Places_Cities" Association="Self.FK_Places_Cities">
             <End Role="Cities" EntitySet="Cities" />
@@ -520,6 +656,22 @@
           <AssociationSet Name="FK_UserDescriptors_Users" Association="Self.FK_UserDescriptors_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserDescriptors" EntitySet="UserDescriptors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDevices_AppVersions" Association="Self.FK_UserDevices_AppVersions">
+            <End Role="AppVersions" EntitySet="AppVersions" />
+            <End Role="UserDevices" EntitySet="UserDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDevices_Users" Association="Self.FK_UserDevices_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserDevices" EntitySet="UserDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserNotifications_Notifications" Association="Self.FK_UserNotifications_Notifications">
+            <End Role="Notifications" EntitySet="Notifications" />
+            <End Role="UserNotifications" EntitySet="UserNotifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserNotifications_Users" Association="Self.FK_UserNotifications_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserNotifications" EntitySet="UserNotifications" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Cities" Association="Self.FK_Users_Cities">
             <End Role="Cities" EntitySet="Cities" />
@@ -652,6 +804,31 @@
           <AssociationSet Name="FK_Zips_Cities" Association="Decipher.Model.Entities.FK_Zips_Cities">
             <End Role="City" EntitySet="Cities" />
             <End Role="Zip" EntitySet="Zips" />
+          </AssociationSet>
+          <EntitySet Name="AppVersions" EntityType="Decipher.Model.Entities.AppVersion" />
+          <EntitySet Name="Notifications" EntityType="Decipher.Model.Entities.Notification" />
+          <EntitySet Name="NotificationTargets" EntityType="Decipher.Model.Entities.NotificationTarget" />
+          <EntitySet Name="UserDevices" EntityType="Decipher.Model.Entities.UserDevice" />
+          <EntitySet Name="UserNotifications" EntityType="Decipher.Model.Entities.UserNotification" />
+          <AssociationSet Name="FK_UserDevices_AppVersions" Association="Decipher.Model.Entities.FK_UserDevices_AppVersions">
+            <End Role="AppVersion" EntitySet="AppVersions" />
+            <End Role="UserDevice" EntitySet="UserDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NotificationTargets_Notifications" Association="Decipher.Model.Entities.FK_NotificationTargets_Notifications">
+            <End Role="Notification" EntitySet="Notifications" />
+            <End Role="NotificationTarget" EntitySet="NotificationTargets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserNotifications_Notifications" Association="Decipher.Model.Entities.FK_UserNotifications_Notifications">
+            <End Role="Notification" EntitySet="Notifications" />
+            <End Role="UserNotification" EntitySet="UserNotifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDevices_Users" Association="Decipher.Model.Entities.FK_UserDevices_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserDevice" EntitySet="UserDevices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserNotifications_Users" Association="Decipher.Model.Entities.FK_UserNotifications_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserNotification" EntitySet="UserNotifications" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Demographic">
@@ -827,6 +1004,8 @@
           <NavigationProperty Name="UserDescriptors" Relationship="Decipher.Model.Entities.FK_UserDescriptors_Users" FromRole="User" ToRole="UserDescriptor" />
           <Property Name="CityID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="City" Relationship="Decipher.Model.Entities.FK_Users_Cities" FromRole="User" ToRole="City" />
+          <NavigationProperty Name="UserDevices" Relationship="Decipher.Model.Entities.FK_UserDevices_Users" FromRole="User" ToRole="UserDevice" />
+          <NavigationProperty Name="UserNotifications" Relationship="Decipher.Model.Entities.FK_UserNotifications_Users" FromRole="User" ToRole="UserNotification" />
         </EntityType>
         <EntityType Name="ZipDemographic">
           <Key>
@@ -1139,6 +1318,141 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AppVersion">
+          <Key>
+            <PropertyRef Name="VersionNum" />
+          </Key>
+          <Property Name="VersionNum" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VersionOrdinal" Type="Int32" Nullable="false" />
+          <Property Name="PlatformType" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserDevices" Relationship="Decipher.Model.Entities.FK_UserDevices_AppVersions" FromRole="AppVersion" ToRole="UserDevice" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="NotificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="Action" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AssociatedID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sound" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Distribute" Type="Boolean" Nullable="false" />
+          <Property Name="SendDate" Type="DateTime" Precision="3" />
+          <Property Name="Sent" Type="Boolean" Nullable="false" />
+          <Property Name="AuthorID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="NotificationTargets" Relationship="Decipher.Model.Entities.FK_NotificationTargets_Notifications" FromRole="Notification" ToRole="NotificationTarget" />
+          <NavigationProperty Name="UserNotifications" Relationship="Decipher.Model.Entities.FK_UserNotifications_Notifications" FromRole="Notification" ToRole="UserNotification" />
+        </EntityType>
+        <EntityType Name="NotificationTarget">
+          <Key>
+            <PropertyRef Name="NotificationTargetID" />
+          </Key>
+          <Property Name="NotificationTargetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotificationID" Type="Int32" Nullable="false" />
+          <Property Name="TargetType" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TargetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TargetName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Notification" Relationship="Decipher.Model.Entities.FK_NotificationTargets_Notifications" FromRole="NotificationTarget" ToRole="Notification" />
+        </EntityType>
+        <EntityType Name="UserDevice">
+          <Key>
+            <PropertyRef Name="UserDeviceID" />
+          </Key>
+          <Property Name="UserDeviceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DeviceType" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceID" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="AppVersion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceModel" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DevicePlatform" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceVersion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceToken" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AppVersion1" Relationship="Decipher.Model.Entities.FK_UserDevices_AppVersions" FromRole="UserDevice" ToRole="AppVersion" />
+          <NavigationProperty Name="User" Relationship="Decipher.Model.Entities.FK_UserDevices_Users" FromRole="UserDevice" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserNotification">
+          <Key>
+            <PropertyRef Name="UserNotificationID" />
+          </Key>
+          <Property Name="UserNotificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotificationID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Sent" Type="Boolean" Nullable="false" />
+          <Property Name="Archived" Type="Boolean" Nullable="false" />
+          <Property Name="Viewed" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Notification" Relationship="Decipher.Model.Entities.FK_UserNotifications_Notifications" FromRole="UserNotification" ToRole="Notification" />
+          <NavigationProperty Name="User" Relationship="Decipher.Model.Entities.FK_UserNotifications_Users" FromRole="UserNotification" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_UserDevices_AppVersions">
+          <End Type="Decipher.Model.Entities.AppVersion" Role="AppVersion" Multiplicity="1" />
+          <End Type="Decipher.Model.Entities.UserDevice" Role="UserDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppVersion">
+              <PropertyRef Name="VersionNum" />
+            </Principal>
+            <Dependent Role="UserDevice">
+              <PropertyRef Name="AppVersion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NotificationTargets_Notifications">
+          <End Type="Decipher.Model.Entities.Notification" Role="Notification" Multiplicity="1" />
+          <End Type="Decipher.Model.Entities.NotificationTarget" Role="NotificationTarget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notification">
+              <PropertyRef Name="NotificationID" />
+            </Principal>
+            <Dependent Role="NotificationTarget">
+              <PropertyRef Name="NotificationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserNotifications_Notifications">
+          <End Type="Decipher.Model.Entities.Notification" Role="Notification" Multiplicity="1" />
+          <End Type="Decipher.Model.Entities.UserNotification" Role="UserNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notification">
+              <PropertyRef Name="NotificationID" />
+            </Principal>
+            <Dependent Role="UserNotification">
+              <PropertyRef Name="NotificationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDevices_Users">
+          <End Type="Decipher.Model.Entities.User" Role="User" Multiplicity="1" />
+          <End Type="Decipher.Model.Entities.UserDevice" Role="UserDevice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserDevice">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserNotifications_Users">
+          <End Type="Decipher.Model.Entities.User" Role="User" Multiplicity="1" />
+          <End Type="Decipher.Model.Entities.UserNotification" Role="UserNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserNotification">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1365,6 +1679,78 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="QuestionSetID" ColumnName="QuestionSetID" />
                 <ScalarProperty Name="CityID" ColumnName="CityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppVersions">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.AppVersion">
+              <MappingFragment StoreEntitySet="AppVersions">
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="PlatformType" ColumnName="PlatformType" />
+                <ScalarProperty Name="VersionOrdinal" ColumnName="VersionOrdinal" />
+                <ScalarProperty Name="VersionNum" ColumnName="VersionNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="Sent" ColumnName="Sent" />
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="Distribute" ColumnName="Distribute" />
+                <ScalarProperty Name="Sound" ColumnName="Sound" />
+                <ScalarProperty Name="AssociatedID" ColumnName="AssociatedID" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotificationTargets">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.NotificationTarget">
+              <MappingFragment StoreEntitySet="NotificationTargets">
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="TargetName" ColumnName="TargetName" />
+                <ScalarProperty Name="TargetID" ColumnName="TargetID" />
+                <ScalarProperty Name="TargetType" ColumnName="TargetType" />
+                <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+                <ScalarProperty Name="NotificationTargetID" ColumnName="NotificationTargetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDevices">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.UserDevice">
+              <MappingFragment StoreEntitySet="UserDevices">
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DeviceToken" ColumnName="DeviceToken" />
+                <ScalarProperty Name="DeviceVersion" ColumnName="DeviceVersion" />
+                <ScalarProperty Name="DevicePlatform" ColumnName="DevicePlatform" />
+                <ScalarProperty Name="DeviceModel" ColumnName="DeviceModel" />
+                <ScalarProperty Name="AppVersion" ColumnName="AppVersion" />
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="DeviceType" ColumnName="DeviceType" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserDeviceID" ColumnName="UserDeviceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserNotifications">
+            <EntityTypeMapping TypeName="Decipher.Model.Entities.UserNotification">
+              <MappingFragment StoreEntitySet="UserNotifications">
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+                <ScalarProperty Name="Sent" ColumnName="Sent" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+                <ScalarProperty Name="UserNotificationID" ColumnName="UserNotificationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
