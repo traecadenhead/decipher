@@ -137,10 +137,6 @@
                         {
                             "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
                             "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
-                            "count": 1
                         }
                     ],
                     "/manifest": [

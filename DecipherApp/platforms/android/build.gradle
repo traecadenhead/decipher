@@ -43,7 +43,7 @@ allprojects {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.14.1'
+    gradleVersion = '3.3'
 }
 
 // Configuration properties. Set these via environment variables, build-extras.gradle, or gradle.properties.
@@ -251,7 +251,7 @@ dependencies {
     // SUB-PROJECT DEPENDENCIES START
     debugCompile(project(path: "CordovaLib", configuration: "debug"))
     releaseCompile(project(path: "CordovaLib", configuration: "release"))
-    compile "com.android.support:support-v13:25.1.0"
+    compile "com.android.support:support-v13:23+"
     compile "com.google.android.gms:play-services-gcm:9.8+"
     compile "me.leolin:ShortcutBadger:1.1.4@aar"
     // SUB-PROJECT DEPENDENCIES END
