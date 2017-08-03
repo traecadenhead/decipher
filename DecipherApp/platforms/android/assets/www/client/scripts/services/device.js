@@ -1,5 +1,50 @@
 (function (app) {
-    var deviceSvc = function (db, $rootScope, root, $q, $state, $http) {
+    var deviceSvc = function (db, $rootScope, root, $q, $state, $http, deviceDetector) {
+
+        var EstablishUser = function(){
+            var deferred = $q.defer();
+            var userID = amplify.store("UserID");
+            if (userID != null) {
+                var deviceType = amplify.store("DeviceType");
+                var appVersion = amplify.store("AppVersion");
+                if (deviceType == 'Web') {
+                    var memDevice = {
+                        DeviceType: deviceType,
+                        AppVersion: appVersion,
+                        DeviceID: userID + "-" + deviceDetector.device + "-" + deviceDetector.os,
+                        DeviceModel: deviceDetector.browser,
+                        DeviceVersion: deviceDetector.browser_version,
+                        DevicePlatform: deviceDetector.os,
+                        UserID: userID
+                    };
+                    db.Save('User', memDevice, 'Device').then(function (result) {
+                        deferred.resolve(result);
+                    });
+                }
+                else {
+                    var deviceToken = amplify.store("DeviceToken");
+                    if (deviceToken != null) {
+                        var memDevice = {
+                            DeviceType: deviceType,
+                            DeviceID: device.uuid,
+                            AppVersion: appVersion,
+                            DeviceModel: device.model,
+                            DevicePlatform: device.platform,
+                            DeviceVersion: device.version,
+                            DeviceToken: deviceToken,
+                            UserID: userID
+                        };
+                        db.Save('User', memDevice, 'Device').then(function (result) {
+                            deferred.resolve(result);
+                        })
+                    }
+                    else {
+                        deferred.resolve(false);
+                    }
+                }
+            }
+            return deferred.promise;
+        };
 
         var Alert = function (type, message, title, buttons) {
             var deviceType = amplify.store("DeviceType");
@@ -155,6 +200,7 @@
         };
 
         return {
+            EstablishUser: EstablishUser,
             Alert: Alert,
             OpenUrl: OpenUrl,
             CallAction: CallAction,
@@ -164,6 +210,6 @@
             GetLanguage: GetLanguage
         };
     };
-    deviceSvc.$inject = ["db", "$rootScope", "root", "$q", "$state", "$http"];
+    deviceSvc.$inject = ["db", "$rootScope", "root", "$q", "$state", "$http", "deviceDetector"];
     app.factory("deviceSvc", deviceSvc);
 }(angular.module('app')));

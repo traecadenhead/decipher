@@ -56,6 +56,8 @@
         <script type="text/javascript" src="js/angulartics/angulartics.js"></script>
         <script type="text/javascript" src="js/angulartics/angulartics-ga.js"></script>
         <script type="text/javascript" src="js/ui-bootstrap-tpls-2.5.0.min.js"></script>
+        <script type="text/javascript" src="js/re-tree.js"></script>
+        <script type="text/javascript" src="js/ng-device-detector.js"></script>
         <script type="text/javascript" src="client/scripts/app/config.js"></script>
         <script type="text/javascript" src="client/scripts/app/routing.js"></script>
         <script type="text/javascript" src="client/scripts/services/db.js"></script>
@@ -67,14 +69,14 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript">
             amplify.store("DeviceType", "Android");
-            amplify.store("AppVersion", "1.0.0-Android");
+            amplify.store("AppVersion", "1.0-Android");
         </script>
         <script type="text/javascript">
             document.addEventListener("deviceready", onDeviceReady, false);
             document.addEventListener("resume", onResume, false);
 
             function onResume(){
-                //InitPush();
+                InitPush();
             };
 
             function onDeviceReady(){
@@ -82,7 +84,7 @@
                 //window.analytics.startTrackerWithId('UA-97545992-2');
                 angular.bootstrap(document, ['app']);
                 console.log("bootstrapped");
-                //InitPush();
+                InitPush();
             }
 
             var appPush = null;
@@ -90,13 +92,14 @@
             function InitPush(){
                 appPush = PushNotification.init({
                     "android": {
-                        "senderID": "1060098789268",
+                        "senderID": "40798945938",
                         "sound": "true",
                         "icon": "icon"
                      }
                 });
 
                 appPush.on('registration', function(data) {
+                    console.log(data);
                     amplify.store("DeviceToken", data.registrationId);
                 });
             }

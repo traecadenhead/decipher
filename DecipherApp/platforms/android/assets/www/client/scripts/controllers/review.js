@@ -37,9 +37,11 @@
             db.Save("user", $scope.user).then(function (result) {
                 if (result > 0) {
                     amplify.store("UserID", result);
-                    db.Get("user", result, true).then(function (data) {
-                        $state.go("ReviewQuestions", {"placeID": $stateParams.placeID});
-                    });
+                    deviceSvc.EstablishUser().then(function () {
+                        db.Get("user", result, true).then(function (data) {
+                            $state.go("ReviewQuestions", { "placeID": $stateParams.placeID });
+                        });
+                    });                    
                 }
             });
         };
