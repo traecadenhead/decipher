@@ -170,12 +170,10 @@
     "phonegap-plugin-push": {
         "source": {
             "type": "registry",
-            "id": "phonegap-plugin-push@1.9.0"
+            "id": "phonegap-plugin-push@~1.9.0"
         },
         "is_top_level": true,
-        "variables": {
-            "SENDER_ID": "40798945938"
-        }
+        "variables": {}
     },
     "cordova-android-play-services-gradle-release": {
         "source": {
