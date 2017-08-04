@@ -1,10 +1,11 @@
 ﻿// Identify
 (function (app) {
-    var ReviewIdentify = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $window, $stateParams) {
+    var ReviewIdentify = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $window, $stateParams, ga) {
         $scope.user = {};
         $scope.customStrings = [];
 
         var Load = function () {
+            ga.TrackScreen("ReviewIdentify");
             // get descriptors list
             var userID = amplify.store("UserID");
             db.Get("user", userID).then(function (data) {
@@ -35,6 +36,7 @@
             $scope.user.CityID = city.CityID;
             $scope.user.Language = amplify.store("Language");
             db.Save("user", $scope.user).then(function (result) {
+                ga.TrackEvent("Review", "Identify");
                 if (result > 0) {
                     amplify.store("UserID", result);
                     deviceSvc.EstablishUser().then(function () {
@@ -56,19 +58,20 @@
         });
     };    
 
-    ReviewIdentify.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$window", "$stateParams"];
+    ReviewIdentify.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$window", "$stateParams", "ga"];
     app.controller("ReviewIdentify", ReviewIdentify);
 }(angular.module("app")));
 
 // Index
 (function (app) {
-    var ReviewPick = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $window) {
+    var ReviewPick = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $window, ga) {
         $scope.customStrings = [];
         $scope.search = {};
         $scope.result = null;
         $scope.selected = null;
 
         var Load = function () {
+            ga.TrackScreen("ReviewPick");
             var city = amplify.store("City");
             $scope.search.User = {
                 UserID: amplify.store("UserID"),
@@ -156,7 +159,7 @@
 
         $scope.Next = function () {
             if ($scope.selected != null) {
-
+                ga.TrackEvent("Review", "Pick");
                 db.Save("place", $scope.selected).then(function (result) {
                     if (result) {
                         $state.go("ReviewIdentify", { "placeID": $scope.selected.PlaceID });
@@ -177,16 +180,17 @@
         });
     };
 
-    ReviewPick.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$window"];
+    ReviewPick.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$window", "ga"];
     app.controller("ReviewPick", ReviewPick);
 }(angular.module("app")));
 
 // Begin
 (function (app) {
-    var ReviewBegin = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams, $window) {
+    var ReviewBegin = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams, $window, ga) {
         $scope.customStrings = [];
 
         var Load = function () {
+            ga.TrackEvent("ReviewBegin");
             if ($stateParams.placeID != undefined && $stateParams.placeID != null && $stateParams.placeID != '' && amplify.store("UserID") != null) {
                 deviceSvc.GetCustomStrings().then(function (data) {
                     angular.forEach(data, function (item) {
@@ -202,6 +206,7 @@
         Load();
 
         $scope.Submit = function () {
+            ga.TrackEvent("Review", "Begin");
             $state.go("ReviewQuestions", { "placeID": $stateParams.placeID });
         };
 
@@ -215,13 +220,13 @@
         });
     };
 
-    ReviewBegin.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams", "$window"];
+    ReviewBegin.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams", "$window", "ga"];
     app.controller("ReviewBegin", ReviewBegin);
 }(angular.module("app")));
 
 // Questions
 (function (app) {
-    var ReviewQuestions = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams, $window) {
+    var ReviewQuestions = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams, $window, ga) {
         $scope.place = null;
         $scope.question = {};
         $scope.review = null;
@@ -231,6 +236,7 @@
         $scope.questionNum = 0;
 
         var Load = function () {
+            ga.TrackScreen("ReviewQuestions");
             if (amplify.store("UserID") == null) {
                 $state.go("ReviewIdentify");
             } else if ($stateParams.placeID == undefined || $stateParams.placeID == null || $stateParams.placeID == '') {
@@ -275,6 +281,7 @@
                 if ($scope.question.index != null) {
                     $scope.question.index = 1;
                 }
+                ga.TrackEvent("Review", "Question", "Load", $scope.question.index);
             }
             else
             {
@@ -309,6 +316,7 @@
             });
             db.Save("review", $scope.review).then(function (result) {
                 if (result > 0) {
+                    ga.TrackEvent("Review", "Question", "Save", $scope.question.index);
                     $scope.review.ReviewID = result;
                     if ($scope.review.Report) {
                         $scope.review.Reported = true;
@@ -328,17 +336,18 @@
         });
     };
 
-    ReviewQuestions.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams", "$window"];
+    ReviewQuestions.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams", "$window", "ga"];
     app.controller("ReviewQuestions", ReviewQuestions);
 }(angular.module("app")));
 
 // Finish
 (function (app) {
-    var ReviewFinish = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams, $window) {
+    var ReviewFinish = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams, $window, ga) {
         $scope.customStrings = [];
         $scope.review = null;
 
         var Load = function () {
+            ga.TrackScreen("ReviewFinish");
             deviceSvc.GetCustomStrings().then(function (data) {
                 angular.forEach(data, function (item) {
                     $scope.customStrings[item.CustomStringID] = item.Text;
@@ -363,6 +372,7 @@
         $scope.Submit = function () {
             db.Save("review", $scope.review, "submit").then(function (result) {
                 if (result) {
+                    ga.TrackEvent("Review", "Finish");
                     $state.go("ReviewSummary", {"placeID": $scope.review.PlaceID});
                 }
                 else {
@@ -381,18 +391,20 @@
         });
     };
 
-    ReviewFinish.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams", "$window"];
+    ReviewFinish.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams", "$window", "ga"];
     app.controller("ReviewFinish", ReviewFinish);
 }(angular.module("app")));
 
 // Detail
 (function (app) {
-    var ReviewDetail = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams, $window) {
+    var ReviewDetail = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams, $window, ga) {
         
         $scope.entity = null;
         $scope.customStrings = [];
 
         var Load = function () {
+            ga.TrackScreen("ReviewDetail");
+            ga.TrackEvent("Review", "Detail", "Load", $stateParams.reviewID);
             db.Get("review", $stateParams.reviewID).then(function (data) {
                 $scope.entity = data;
             });
@@ -415,19 +427,21 @@
         });
     };
 
-    ReviewDetail.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams", "$window"];
+    ReviewDetail.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams", "$window", "ga"];
     app.controller("ReviewDetail", ReviewDetail);
 }(angular.module("app")));
 
 // Review Summary
 (function (app) {
-    var ReviewSummary = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams, $window) {
+    var ReviewSummary = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams, $window, ga) {
 
         $scope.entity = { UserDescriptors: [] };
         $scope.customStrings = [];
         $scope.showFilters = false;
 
         var Load = function () {
+            ga.TrackScreen("ReviewSummary");
+            ga.TrackEvent("Review", "Summary", "Load", $stateParams.placeID);
             deviceSvc.GetCustomStrings().then(function (data) {
                 angular.forEach(data, function (item) {
                     $scope.customStrings[item.CustomStringID] = item.Text;
@@ -488,6 +502,6 @@
         });
     };
 
-    ReviewSummary.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams", "$window"];
+    ReviewSummary.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams", "$window", "ga"];
     app.controller("ReviewSummary", ReviewSummary);
 }(angular.module("app")));

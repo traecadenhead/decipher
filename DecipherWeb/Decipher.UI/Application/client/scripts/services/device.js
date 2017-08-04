@@ -8,7 +8,7 @@
                 var deviceType = amplify.store("DeviceType");
                 var appVersion = amplify.store("AppVersion");
                 if (deviceType == 'Web') {
-                    var device = {
+                    var memDevice = {
                         DeviceType: deviceType,
                         AppVersion: appVersion,
                         DeviceID: userID + "-" + deviceDetector.device + "-" + deviceDetector.os,
@@ -17,14 +17,14 @@
                         DevicePlatform: deviceDetector.os,
                         UserID: userID
                     };
-                    db.Save('User', device, 'Device').then(function (result) {
+                    db.Save('User', memDevice, 'Device').then(function (result) {
                         deferred.resolve(result);
                     });
                 }
                 else {
                     var deviceToken = amplify.store("DeviceToken");
                     if (deviceToken != null) {
-                        var device = {
+                        var memDevice = {
                             DeviceType: deviceType,
                             DeviceID: device.uuid,
                             AppVersion: appVersion,
@@ -34,7 +34,7 @@
                             DeviceToken: deviceToken,
                             UserID: userID
                         };
-                        db.Save('User', device, 'Device').then(function (result) {
+                        db.Save('User', memDevice, 'Device').then(function (result) {
                             deferred.resolve(result);
                         })
                     }

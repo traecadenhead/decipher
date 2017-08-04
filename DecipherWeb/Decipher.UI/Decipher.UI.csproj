@@ -201,6 +201,8 @@
     <Content Include="Application\client\scripts\controllers\review.js" />
     <Content Include="Application\client\scripts\services\db.js" />
     <Content Include="Application\client\scripts\services\device.js" />
+    <Content Include="Application\client\scripts\services\ga-web.js" />
+    <Content Include="Application\client\scripts\services\ga.js" />
     <Content Include="Application\client\scripts\services\objectHandler.js" />
     <Content Include="Application\client\scripts\services\root.js" />
     <Content Include="Application\client\views\home\index.html" />
