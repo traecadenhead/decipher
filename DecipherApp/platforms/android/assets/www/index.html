@@ -64,6 +64,7 @@
         <script type="text/javascript" src="client/scripts/services/device.js"></script>
         <script type="text/javascript" src="client/scripts/services/objectHandler.js"></script>
         <script type="text/javascript" src="client/scripts/services/root.js"></script>
+        <script type="text/javascript" src="client/scripts/services/ga.js"></script>
         <script type="text/javascript" src="client/scripts/controllers/home.js"></script>
         <script type="text/javascript" src="client/scripts/controllers/review.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
@@ -81,7 +82,7 @@
 
             function onDeviceReady(){
                 console.log("device ready");
-                //window.analytics.startTrackerWithId('UA-97545992-2');
+                window.analytics.startTrackerWithId('UA-101659909-1');
                 angular.bootstrap(document, ['app']);
                 console.log("bootstrapped");
                 InitPush();

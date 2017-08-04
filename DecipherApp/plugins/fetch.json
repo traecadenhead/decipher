@@ -176,5 +176,21 @@
         "variables": {
             "SENDER_ID": "40798945938"
         }
+    },
+    "cordova-android-play-services-gradle-release": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-android-play-services-gradle-release"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-google-analytics": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-google-analytics"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

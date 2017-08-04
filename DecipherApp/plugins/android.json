@@ -67,6 +67,12 @@
         "phonegap-plugin-push": {
             "SENDER_ID": "40798945938",
             "PACKAGE_NAME": "com.deciphercity.app"
+        },
+        "cordova-plugin-google-analytics": {
+            "PACKAGE_NAME": "com.deciphercity.app"
+        },
+        "cordova-android-play-services-gradle-release": {
+            "PACKAGE_NAME": "com.deciphercity.app"
         }
     },
     "dependent_plugins": {

@@ -1,6 +1,6 @@
 ﻿// Index
 (function (app) {
-    var HomeIndex = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $window) {
+    var HomeIndex = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $window, ga) {
         $scope.pages = [];
         $scope.customStrings = [];
         $scope.city = { DisplayName: "City"};
@@ -8,6 +8,7 @@
         $scope.user = {};
 
         var Load = function () {
+            ga.TrackScreen("HomeIndex");
             db.List("page").then(function (data) {
                 console.log("got " + data.length + " pages");
                 $scope.pages = data;
@@ -65,6 +66,7 @@
         }
 
         $scope.ChangeLanguage = function () {
+            ga.TrackEvent("Preferences", "LanguageChange", "Language", $scope.user.Language);
             deviceSvc.SetLanguage($scope.user.Language);
             if (amplify.store("UserID") != null) {
                 // save user's language
@@ -93,13 +95,13 @@
         });
     };
 
-    HomeIndex.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$window"];
+    HomeIndex.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$window", "ga"];
     app.controller("HomeIndex", HomeIndex);
 }(angular.module("app")));
 
 // Page
 (function (app) {
-    var HomePage = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams, $window) {
+    var HomePage = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $stateParams, $window, ga) {
         $scope.page = {};
         $scope.customStrings = [];
 
@@ -112,6 +114,7 @@
             });
             db.Get("page", $stateParams.pageID).then(function (data) {
                 $scope.page = data;
+                ga.TrackScreen(data.Title);
                 $scope.page.Content = $sce.trustAsHtml(data.Content);
             });
         };
@@ -128,6 +131,6 @@
         });
     };
 
-    HomePage.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams", "$window"];
+    HomePage.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$stateParams", "$window", "ga"];
     app.controller("HomePage", HomePage);
 }(angular.module("app")));
