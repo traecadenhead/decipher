@@ -1,0 +1,7 @@
+﻿<div ng-controller="HomePage">
+    <h1>{{page.Title}}</h1>
+    <div class="pageContainer">
+        <div ng-bind-html="page.Content" class="pageContent"></div>
+    </div>
+    <a class="btn-default" ui-sref="Review">{{customStrings['Home-LeaveReview']}}</a>
+</div>

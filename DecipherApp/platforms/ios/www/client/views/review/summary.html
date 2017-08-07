@@ -1,0 +1,30 @@
+﻿<div ng-controller="ReviewSummary">
+    <h1>{{entity.Name}}</h1>
+    <div class="pageContainer">
+        <h2 ng-if="entity.Description != null && entity.Description != ''">{{entity.Description}}</h2>
+        <div class="singleSelect small" ng-class="{'selected': showFilters}" ng-click="ToggleFilters()">{{customStrings['ReviewSummary-Show']}}</div>
+        <ul ng-if="showFilters" class="tagList identifiers">
+            <li ng-repeat="item in entity.UserDescriptors" ng-click="Select(item)" ng-class="{'selected': item.Selected == true}">
+                {{item.Name}}
+            </li>
+        </ul>
+        <p>{{entity.Reviews.length}} {{customStrings['ReviewSummary-ReviewsFound']}}</p>
+        <div ng-repeat="question in entity.Questions" class="questionHold">
+            <h3>{{question.Text}}</h3>
+            <ul class="tagList resizable">
+                <li ng-repeat="item in question.Descriptors" class="descriptor">
+                    {{item.Name}} ({{item.NumSelected}})
+                </li>
+            </ul>
+        </div>
+        <div ng-if="entity.Comments != null && entity.Comments.length > 0" class="questionHold">
+            <h3>{{customStrings['ReviewFinish-Additional']}}</h3>
+            <ul class="tagList">
+                <li ng-repeat="comment in entity.Comments" class="comment">
+                    {{comment}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <a class="btn-default" ui-sref="Review">{{customStrings['Review-StartNew']}}</a>
+</div>
