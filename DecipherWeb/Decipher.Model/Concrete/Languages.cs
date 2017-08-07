@@ -90,6 +90,14 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
+        public List<SelectListItem> ListLanguages(string defaultValue = "", string emptyText = "")
+        {
+            var languages = Languages.OrderBy(n => n.Name).ToList();
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            languages.ForEach(n => dict.Add(n.LanguageID, n.Name));
+            return CreateList(dict, defaultValue, emptyText);
+        }
+
         # endregion
     }
 }

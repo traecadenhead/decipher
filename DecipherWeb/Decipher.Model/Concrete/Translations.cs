@@ -33,19 +33,23 @@ namespace Decipher.Model.Concrete
 
         public bool ValidateTranslation(Translation entity)
         {
+            bool valid = true;
             if (entity.TranslationID == null || entity.TranslationID.Trim().Length == 0)
             {
-                ModelState.AddModelError("TranslationID", "TranslationID is a required field.");
+                HttpContext.Current.Trace.Warn("TranslationID is a required field.");
+                valid = false;
             }
             if (entity.LanguageID == null || entity.LanguageID.Trim().Length == 0)
             {
-                ModelState.AddModelError("LanguageID", "LanguageID is a required field.");
+                HttpContext.Current.Trace.Warn("LanguageID is a required field.");
+                valid = false;
             }
             if (entity.Text == null || entity.Text.Trim().Length == 0)
             {
-                ModelState.AddModelError("Text", "Text is a required field.");
+                HttpContext.Current.Trace.Warn("Text is a required field.");
+                valid = false;
             }
-            return ModelState.IsValid;
+            return valid;
         }
 
         public bool SaveTranslation(Translation entity)
@@ -70,6 +74,14 @@ namespace Decipher.Model.Concrete
                     {
                         return true;
                     }
+                    else
+                    {
+                        HttpContext.Current.Trace.Warn("no changes saved");
+                    }
+                }
+                else
+                {
+                    HttpContext.Current.Trace.Warn("couldn't validate");
                 }
             }
             catch (Exception ex)
@@ -100,11 +112,34 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
+        public string TranslateString(string translationID, string text, string language = "en")
+        {
+            try
+            {
+                string[] arr = translationID.Split('.');
+                return TranslateString(arr[0], arr[1], arr[2], text, language);
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return text;
+        }
+
         public string TranslateString(string table, string id, string field, string text, string language = "en", List<Translation> translations = null)
         {
             try
             {
-                var trans = translations.Where(n => n.TranslationID == table + "." + id + "." + field + "." + language).FirstOrDefault();
+                Translation trans = null;
+                if (translations != null && translations.Count > 0)
+                {
+                    trans = translations.Where(n => n.TranslationID == table + "." + id + "." + field + "." + language).FirstOrDefault();                    
+                }
+                else
+                {
+                    string transID = table + "." + id + "." + field + "." + language;
+                    trans = Translations.Where(n => n.TranslationID == transID).FirstOrDefault();
+                }
                 if (trans == null)
                 {
                     string translated = GoogleTranslateString(text, language);
@@ -132,6 +167,83 @@ namespace Decipher.Model.Concrete
                 HttpContext.Current.Trace.Warn(ex.ToString());
             }
             return text;
+        }
+
+        public string GetOriginalTranslation(string translationID)
+        {
+            string str = String.Empty;
+            try
+            {
+                string[] arr = translationID.Split('.');
+                string type = arr[0];
+                string id = arr[1];
+                string field = arr[2];
+                switch (type)
+                {
+                    case "Questions":
+                        var q = Questions.Where(n => n.QuestionID.ToString() == id).FirstOrDefault();
+                        str = q.Text;
+                        break;
+                    case "Descriptors":
+                        var d = Descriptors.Where(n => n.DescriptorID.ToString() == id).FirstOrDefault();
+                        str = d.Name;
+                        break;
+                    case "Pages":
+                        var p = Pages.Where(n => n.PageID.ToString() == id).FirstOrDefault();
+                        if(field == "Title")
+                        {
+                            str = p.Title;
+                        }
+                        else if(field == "Content")
+                        {
+                            str = p.Content;
+                        }
+                        break;
+                }
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return str;
+        }
+
+        public bool SaveOriginalTranslation(string translationID, string text)
+        {
+            try
+            {
+                string[] arr = translationID.Split('.');
+                string type = arr[0];
+                string id = arr[1];
+                string field = arr[2];
+                switch (type)
+                {
+                    case "Questions":
+                        var q = Questions.Where(n => n.QuestionID.ToString() == id).FirstOrDefault();
+                        q.Text = text;
+                        return SaveQuestion(q);
+                    case "Descriptors":
+                        var d = Descriptors.Where(n => n.DescriptorID.ToString() == id).FirstOrDefault();
+                        d.Name = text;
+                        return SaveDescriptor(d);
+                    case "Pages":
+                        var p = Pages.Where(n => n.PageID.ToString() == id).FirstOrDefault();
+                        if (field == "Title")
+                        {
+                            p.Title = text;
+                        }
+                        else if (field == "Content")
+                        {
+                            p.Content = text;
+                        }
+                        return SavePage(p);
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return false;
         }
 
         #endregion

@@ -41,3 +41,20 @@ ul#Arrange li{
 td.label{
     color: #000000;
 }
+
+.translationForm{
+    margin-top: 20px;
+}
+
+.translationForm textarea{
+    width: 300px;
+    height: 200px;
+}
+
+ul.boxnav li.current{
+    background: #cccccc;
+}
+
+ul.boxnav li.current a{
+    color: #000000;
+}

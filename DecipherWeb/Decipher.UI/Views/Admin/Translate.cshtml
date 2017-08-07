@@ -1,0 +1,61 @@
+﻿@model Translation
+
+@{
+    ViewBag.Title = "Translate";
+    Layout = "~/Views/Shared/_BoxAdmin.cshtml";
+}
+
+<div class="translationForm">
+    @Html.Raw(TempData["Messages"])
+    @Html.Raw(ViewBag.Messages)
+
+    @using (Html.BeginForm())
+    {
+        <table>
+            <tr>
+                <td class="label">Translation:</td>
+                <td class="field">
+                    @Html.TextArea("Text")
+                </td>
+            </tr>
+            <tr>
+                <td class="label">&nbsp;</td>
+                <td class="field">
+                    @Html.Hidden("TranslationID")
+                    @Html.Hidden("TranslationBeginID")
+                    @Html.Hidden("LanguageID")
+                    @Html.Hidden("TinyMCE")
+                    @Html.Hidden("DateCreated")
+                    <input type="submit" value="Save" />
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+
+@section Navigation{
+    <ul class="nav navbar-nav boxnav">
+        @foreach (var language in (List<Language>)ViewBag.Languages)
+        {
+            if (Model.LanguageID == language.LanguageID)
+            {
+                <li class="current">
+                    @Html.ActionLink(language.Name, "Translate", new { transID = Model.TranslationBeginID, language = language.LanguageID, tinyMCE = Model.TinyMCE })
+                </li>
+            }
+            else
+            {
+                <li>
+                    @Html.ActionLink(language.Name, "Translate", new { transID = Model.TranslationBeginID, language = language.LanguageID, tinyMCE = Model.TinyMCE })
+                </li>
+            }
+        }
+    </ul>    
+}
+
+@section Scripts{
+    @if (Model.TinyMCE)
+    {
+        <script>tinymce.init({selector:'textarea', plugins: "code, fullscreen, link"})</script>
+    }
+}

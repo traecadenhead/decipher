@@ -1,0 +1,19 @@
+﻿@model List<QuestionSet>
+
+@{
+    ViewBag.Title = "Question Sets";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+@Html.Raw(TempData["Messages"])
+
+<p>@Html.ActionLink("Add Question Set", "QuestionSetEdit", new { id = 0 })</p>
+<table cellpadding="8">
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Name</td>
+        <td>@Html.ActionLink("Edit", "QuestionSetEdit", new { id = item.QuestionSetID })</td>
+    </tr>
+}
+</table>

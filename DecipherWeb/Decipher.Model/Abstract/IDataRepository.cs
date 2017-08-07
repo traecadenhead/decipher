@@ -63,6 +63,7 @@ namespace Decipher.Model.Abstract
         IQueryable<Language> Languages { get; }
         bool SaveLanguage(Language entity);
         bool DeleteLanguage(int id);
+        List<SelectListItem> ListLanguages(string defaultValue = "", string emptyText = "");
         #endregion
 
         #region Lists
@@ -113,7 +114,7 @@ namespace Decipher.Model.Abstract
         IQueryable<Question> Questions { get; }
         bool SaveQuestion(Question entity);
         bool DeleteQuestion(int id);
-        bool OrderQuestions(string data);
+        bool OrderQuestions(int questionSetID, string data);
         #endregion
 
         #region QuestionSets
@@ -146,6 +147,9 @@ namespace Decipher.Model.Abstract
         IQueryable<Translation> Translations { get; }
         bool SaveTranslation(Translation entity);
         bool DeleteTranslation(int id);
+        string GetOriginalTranslation(string translationID);
+        bool SaveOriginalTranslation(string translationID, string text);
+        string TranslateString(string translationID, string text, string language = "en");
         #endregion
 
         #region Types

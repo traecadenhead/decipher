@@ -1,0 +1,42 @@
+﻿@model QuestionSet
+
+@{
+    if (Model.QuestionSetID > 0)
+    {
+        ViewBag.Title = "Edit Question Set";
+    }
+    else
+    {
+        ViewBag.Title = "Add Question Set";
+    }
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+@Html.Raw(TempData["Messages"])
+@Html.Raw(ViewBag.Messages)
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td class="label">Question Set Name:</td>
+            <td class="field">
+                @Html.TextBox("Name", Model.Name, new { required = "required" })
+            </td>
+        </tr>
+        <tr>
+            <td class="label">&nbsp;</td>
+            <td class="field">
+                @Html.Hidden("QuestionSetID")
+                @Html.Hidden("DateCreated")
+                <input type="submit" value="Save" />
+            </td>
+        </tr>
+    </table>
+}
+<br />
+@if (Model.QuestionSetID > 0)
+{
+    <p>@Html.ActionLink("View Questions for This Question Set", "Questions", new { id = Model.QuestionSetID })</p>
+}
+<p>@Html.ActionLink("Return to Question Set List", "QuestionSets")</p>

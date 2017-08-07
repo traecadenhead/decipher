@@ -25,6 +25,12 @@
             </td>
         </tr>
         <tr>
+            <td class="label">Question Set:</td>
+            <td class="field">
+                @Html.DropDownList("QuestionSetID")
+            </td>
+        </tr>
+        <tr>
             <td class="label">&nbsp;</td>
             <td class="field">
                 @Html.Hidden("QuestionID")
@@ -81,9 +87,9 @@
             </table>
         }
 }
-
+<br />
 <p>
-    @Html.ActionLink("Back to Questions List", "Questions")
+    @Html.ActionLink("Back to Questions List", "Questions", new { id = Model.QuestionSetID })
 </p>
 
 @section Scripts{

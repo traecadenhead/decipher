@@ -348,6 +348,10 @@
     <Content Include="Application\fonts\Zilla_Slab\ZillaSlab-SemiBold.ttf" />
     <Content Include="Application\fonts\Zilla_Slab\ZillaSlab-SemiBoldItalic.ttf" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\fancybox\jquery.fancybox.css" />
+    <Content Include="Scripts\fancybox\jquery.fancybox.js" />
+    <Content Include="Scripts\fancybox\jquery.fancybox.min.css" />
+    <Content Include="Scripts\fancybox\jquery.fancybox.min.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
@@ -572,6 +576,10 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Views\Home\App.cshtml" />
+    <Content Include="Views\Admin\QuestionSets.cshtml" />
+    <Content Include="Views\Admin\QuestionSetEdit.cshtml" />
+    <Content Include="Views\Admin\Translate.cshtml" />
+    <Content Include="Views\Shared\_BoxAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

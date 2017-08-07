@@ -89,12 +89,12 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
-        public bool OrderQuestions(string data)
+        public bool OrderQuestions(int questionSetID, string data)
         {
             try
             {
                 string[] arr = data.Split('~');
-                var list = Questions.ToList();
+                var list = Questions.Where(n => n.QuestionSetID == questionSetID).ToList();
                 foreach (string item in arr)
                 {
                     string[] itemarr = item.Split('-');

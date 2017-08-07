@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Configuration;
 using Decipher.Model.Entities;
 
 namespace Decipher.UI.Controllers
@@ -91,30 +92,50 @@ namespace Decipher.UI.Controllers
             return View(entity);
         }
 
-        // TO DO: Post QuestionSetEdit
-
-        public ActionResult Questions()
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult QuestionSetEdit(QuestionSet entity)
         {
-            return View(db.Questions.OrderBy(n => n.Ordinal).ToList());
+            if (db.SaveQuestionSet(entity))
+            {
+                TempData["Messages"] = db.InfoMessage("The question set has been saved successfully.");
+                return RedirectToAction("QuestionSets");
+            }
+            else
+            {
+                ViewBag.Messages = db.WarningMessage("A problem ocurred while saving the question set.");
+                return View(entity);
+            }            
+        }
+
+        public ActionResult Questions(int? id = null)
+        {
+            if (!id.HasValue)
+            {
+                id = db.QuestionSets.Select(n => n.QuestionSetID).FirstOrDefault();
+            }
+            ViewBag.CurrentID = id.Value;
+            ViewBag.QuestionSetID = db.ListQuestionSets(id.Value.ToString());
+            return View(db.Questions.Where(n => n.QuestionSetID == id.Value).OrderBy(n => n.Ordinal).ToList());
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult QuestionsOrder(string data)
+        public ActionResult QuestionsOrder(int questionSetID, string data)
         {
-            return Content(db.OrderQuestions(data).ToString());
+            return Content(db.OrderQuestions(questionSetID, data).ToString());
         }
         
-        public ActionResult QuestionEdit(int id)
+        public ActionResult QuestionEdit(int id, int? questionSetID = null)
         {
             var question = db.Questions.Where(n => n.QuestionID == id).FirstOrDefault();
             if(question == null)
             {
-                question = new Question { QuestionID = 0 };
+                question = new Question { QuestionID = 0, QuestionSetID = questionSetID.GetValueOrDefault() };
             }
             else
             {
                 question.Descriptors = db.Descriptors.Where(n => n.DescriptorType == "Question").Where(n => n.AssociatedID == id).OrderBy(n => n.Ordinal).ThenBy(n => n.Name).ToList();
             }
+            ViewBag.QuestionSetID = db.ListQuestionSets(question.QuestionSetID.ToString(), "--SELECT--");
             return View(question);
         }
 
@@ -129,6 +150,7 @@ namespace Decipher.UI.Controllers
             else
             {
                 ViewBag.Messages = db.WarningMessage("A problem occurred while saving the question.");
+                ViewBag.QuestionSetID = db.ListQuestionSets(question.QuestionSetID.ToString(), "--SELECT--");
                 return View(question);
             }
         }
@@ -272,9 +294,74 @@ namespace Decipher.UI.Controllers
             return Content(false.ToString());
         }
 
+        public ActionResult Translate(string transID, string language = null, bool tinyMCE = false)
+        {
+            if (String.IsNullOrEmpty(language))
+            {
+                language = GetConfig("DefaultLanguage");
+            }
+            string fullID = transID + "." + language;
+            var entity = db.Translations.Where(n => n.TranslationID == fullID).FirstOrDefault();
+            if(entity == null)
+            {
+                entity = new Translation
+                {
+                    TranslationID = fullID,
+                    LanguageID = language,
+                    Text = String.Empty
+                };
+            }
+            if(language == GetConfig("DefaultLanguage"))
+            {
+                entity.Text = db.GetOriginalTranslation(transID);
+            }
+            else if (String.IsNullOrEmpty(entity.Text))
+            {
+                entity.Text = db.TranslateString(transID, db.GetOriginalTranslation(transID), entity.LanguageID);
+            }
+            entity.TranslationBeginID = transID;
+            entity.TinyMCE = tinyMCE;
+            ViewBag.Languages = db.Languages.OrderBy(n => n.Name).ToList();
+            return View(entity);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Translate(Translation entity)
+        {
+            if (db.SaveTranslation(entity))
+            {
+                if(entity.LanguageID == GetConfig("DefaultLanguage"))
+                {
+                    db.SaveOriginalTranslation(entity.TranslationBeginID, entity.Text);
+                }
+                TempData["Messages"] = db.InfoMessage("The translation has been saved.");
+                return RedirectToAction("Translate", new { transID = entity.TranslationBeginID, language = entity.LanguageID, tinyMCE = entity.TinyMCE });
+            }
+            else
+            {
+                ViewBag.Messages = db.WarningMessage("A problem occurred while saving the translation.");
+                ViewBag.Languages = db.Languages.OrderBy(n => n.Name).ToList();
+                return View(entity);
+            }
+        }
+
+        #region Helpers
         public ActionResult Hash(string id)
         {
             return Content(db.CreateSHAHash(id));
         }
+
+        public string GetConfig(string key, string defaultValue = "")
+        {
+            if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings[key]))
+            {
+                return ConfigurationManager.AppSettings[key];
+            }
+            else
+            {
+                return defaultValue;
+            }
+        }
+        #endregion
     }
 }

@@ -105,6 +105,10 @@ div.bottomNav{
     width: 100%;
 }
 
+.languageList{
+    display: none;
+}
+
 div.bottomNav .languageList select{
     width: 100%;
     padding: 10px 20px;

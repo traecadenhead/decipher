@@ -7,7 +7,9 @@
 
 @Html.Raw(TempData["Messages"])
 
-<p>@Html.ActionLink("Add Question", "QuestionEdit", new { id = 0 })</p>
+<p>@Html.ActionLink("Add Question", "QuestionEdit", new { id = 0, questionSetID = ViewBag.CurrentID })</p>
+<p>@Html.ActionLink("Manage Question Sets", "QuestionSets")</p>
+<p>@Html.DropDownList("QuestionSetID")</p>
 
 <ul id="Arrange">
     @foreach (var item in Model)
@@ -37,6 +39,10 @@
                 return confirm("Are you sure you want to remove this item?");
             });
 
+            $("#QuestionSetID").change(function(){
+                location.href = '@Url.Action("Questions", new { id = "" })/' + $(this).val();
+            });
+
             $("#Arrange").sortable({});
 
             $("#Arrange").bind('sortstop', function(event, ui) {
@@ -50,7 +56,7 @@
                     serialized += id + "-" + (currentItem + 1);
                 }
                 var url = "@Url.Action("QuestionsOrder", "Admin")";
-                $.post(url, { data: serialized}, function(data){
+                $.post(url, { questionSetID: @ViewBag.CurrentID, data: serialized}, function(data){
                 });
             });
         });
