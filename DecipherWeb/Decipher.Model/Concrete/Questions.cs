@@ -113,6 +113,39 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
+        public List<Question> TranslateQuestions(List<Question> questions, string language = "en", List<Translation> translations = null)
+        {
+            try
+            {
+                List<Question> list = new List<Question>();
+                if (translations == null)
+                {
+                    translations = Translations.Where(n => n.TranslationID.IndexOf("Questions.") == 0 || n.TranslationID.IndexOf("Descriptors.") == 0).Where(n => n.LanguageID == language).ToList();
+                }
+                foreach(var q in questions)
+                {
+                    var question = new Question { QuestionID = q.QuestionID };
+                    question = (Question)UpdateObject(question, q, "QuestionID");
+                    question.Text = TranslateString("Questions", q.QuestionID.ToString(), "Text", q.Text, language, translations);
+                    question.Descriptors = new List<Descriptor>();
+                    foreach(var d in q.Descriptors)
+                    {
+                        var desc = new Descriptor { DescriptorID = d.DescriptorID };
+                        desc = (Descriptor)UpdateObject(desc, d, "DescriptorID");
+                        desc.Name = TranslateString("Descriptors", d.DescriptorID.ToString(), "Name", d.Name, language, translations);
+                        question.Descriptors.Add(desc);
+                    }
+                    list.Add(question);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return questions;
+        }
+
         # endregion
     }
 }

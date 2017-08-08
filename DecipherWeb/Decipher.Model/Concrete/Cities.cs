@@ -177,12 +177,13 @@ namespace Decipher.Model.Concrete
         //    return false;
         //}
 
-        public City DetermineNearestCity(GeoCoordinate location)
+        public City DetermineNearestCity(GeoCoordinate location, string language = "en")
         {
             try
             {
                 var cities = Cities.ToList();
-                return cities.Where(n => new GeoCoordinate(n.Latitude, n.Longitude).GetDistanceTo(location) <= ConvertMilesToMeters(n.Radius)).FirstOrDefault();
+                var city = cities.Where(n => new GeoCoordinate(n.Latitude, n.Longitude).GetDistanceTo(location) <= ConvertMilesToMeters(n.Radius)).FirstOrDefault();
+                return TranslateCity(city, language);
             }
             catch(Exception ex)
             {
@@ -191,19 +192,41 @@ namespace Decipher.Model.Concrete
             return null;
         }
 
-        public City GetDefaultCity()
+        public City GetDefaultCity(string language = "en")
         {
             try
             {
                 string defaultCity = GetConfig("DefaultCity", "Austin, TX");
                 var city = Cities.Where(n => n.Name == defaultCity).FirstOrDefault();
-                return city;
+                return TranslateCity(city, language);
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.ToString());
             }
             return null;
+        }
+
+        public City TranslateCity(City city, string language = "en", List<Translation> translations = null)
+        {
+            try
+            {
+                if (translations == null)
+                {
+                    translations = Translations.Where(n => n.TranslationID.IndexOf("Cities." + city.CityID) == 0).Where(n => n.LanguageID == language).ToList();
+                }
+                var entity = new City { CityID = city.CityID };
+                entity = (City)UpdateObject(entity, city, "CityID");
+                entity.Name = TranslateString("Cities", city.CityID.ToString(), "Name", city.Name, language, translations);
+                entity.DisplayName = TranslateString("Cities", city.CityID.ToString(), "DisplayName", city.DisplayName, language, translations);
+                entity.ReportName = TranslateString("Cities", city.CityID.ToString(), "ReportName", city.ReportName, language, translations);
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return city;
         }
 
         # endregion

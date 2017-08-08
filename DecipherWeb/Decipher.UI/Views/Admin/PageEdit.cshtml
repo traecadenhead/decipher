@@ -22,14 +22,20 @@
             <td class="label">Title:</td>
             <td class="field">
                 @Html.TextBox("Title", Model.Title)
+                @if (Model.PageID > 0)
+                {
                 <a data-fancybox data-type="iframe" data-src="@Url.Action("Translate", new { transID = "Pages." + Model.PageID + ".Title" })" href="javascript:;" class="translate">Translate</a>
+                }
             </td>
         </tr>
         <tr>
             <td class="label">Content:</td>
             <td class="field">
                 @Html.TextArea("Content")
+                @if (Model.PageID > 0)
+                {
                 <a data-fancybox data-type="iframe" data-src="@Url.Action("Translate", new { transID = "Pages." + Model.PageID + ".Content", tinyMCE = true })" href="javascript:;" class="translate">Translate</a>
+                }
             </td>
         </tr>
         <tr>

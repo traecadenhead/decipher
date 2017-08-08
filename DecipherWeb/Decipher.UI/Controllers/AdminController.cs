@@ -326,6 +326,7 @@ namespace Decipher.UI.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateInput(false)]
         public ActionResult Translate(Translation entity)
         {
             if (db.SaveTranslation(entity))

@@ -22,16 +22,14 @@
                     $scope.customStrings[item.CustomStringID] = item.Text;
                 });
             });
-            if($scope.languages == []){
-                db.List("language").then(function (data) {
-                    $scope.languages = data;
-                    if ($scope.languages.length > 1) {
-                        // update height if language list will show
-                        $scope.height = $scope.height - 42;
-                    }
-                    $scope.user.Language = deviceSvc.GetLanguage();
-                });
-            }
+            db.List("language").then(function (data) {
+                $scope.languages = data;
+                if ($scope.languages.length > 1) {
+                    // update height if language list will show
+                    $scope.height = $scope.height - 42;
+                }
+                $scope.user.Language = deviceSvc.GetLanguage();
+            });
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     function (location) {

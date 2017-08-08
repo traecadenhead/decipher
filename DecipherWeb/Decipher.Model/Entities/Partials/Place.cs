@@ -142,6 +142,8 @@ namespace Decipher.Model.Entities
         }
 
         public string TranslatedName { get; set; }
+
+        public string Language { get; set; }
     }
 
     public class PlaceJson

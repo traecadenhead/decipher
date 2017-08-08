@@ -13,15 +13,15 @@ namespace Decipher.UI.Controllers.API
     public class CityController : BaseController
     {
         [HttpPost]
-        public City Determine(GeoCoordinate entity)
+        public City Determine(Coords entity)
         {
-            return db.DetermineNearestCity(entity);
+            return db.DetermineNearestCity(entity.Coordinates, entity.Language);
         }
 
         [HttpGet]
-        public City GetDefault()
+        public City GetDefault(string language = "en")
         {
-            return db.GetDefaultCity();
+            return db.GetDefaultCity(language);
         }
     }
 }

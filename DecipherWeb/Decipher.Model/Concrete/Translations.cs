@@ -180,6 +180,21 @@ namespace Decipher.Model.Concrete
                 string field = arr[2];
                 switch (type)
                 {
+                    case "Cities":
+                        var c = Cities.Where(n => n.CityID.ToString() == id).FirstOrDefault();
+                        if(field  == "Name")
+                        {
+                            str = c.Name;
+                        }
+                        else if (field == "DisplayName")
+                        {
+                            str = c.DisplayName;
+                        }
+                        else if(field == "ReportName")
+                        {
+                            str = c.ReportName;
+                        }
+                        break;
                     case "Questions":
                         var q = Questions.Where(n => n.QuestionID.ToString() == id).FirstOrDefault();
                         str = q.Text;
@@ -218,6 +233,21 @@ namespace Decipher.Model.Concrete
                 string field = arr[2];
                 switch (type)
                 {
+                    case "Cities":
+                        var c = Cities.Where(n => n.CityID.ToString() == id).FirstOrDefault();
+                        if (field == "Name")
+                        {
+                            c.Name = text;
+                        }
+                        else if (field == "DisplayName")
+                        {
+                            c.DisplayName = text;
+                        }
+                        else if (field == "ReportName")
+                        {
+                            c.ReportName = text;
+                        }
+                        return SaveCity(c);
                     case "Questions":
                         var q = Questions.Where(n => n.QuestionID.ToString() == id).FirstOrDefault();
                         q.Text = text;

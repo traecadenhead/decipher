@@ -22,6 +22,10 @@
             <td class="label">Question:</td>
             <td class="field">
                 @Html.TextArea("Text", new { rows = 5, cols = 50})
+                @if (Model.QuestionID > 0)
+                {
+                    <a data-fancybox data-type="iframe" data-src="@Url.Action("Translate", new { transID = "Questions." + Model.QuestionID + ".Text" })" href="javascript:;" class="translate">Translate</a>
+                }
             </td>
         </tr>
         <tr>
@@ -53,6 +57,9 @@
                     <tr>
                         <td>
                             <input type="text" value="@item.Name" descriptorID="@item.DescriptorID" class="nameChange"/>
+                        </td>
+                        <td>
+                            <a data-fancybox data-type="iframe" data-src="@Url.Action("Translate", new { transID = "Descriptors." + item.DescriptorID + ".Name" })" href="javascript:;" class="translate">Translate</a>
                         </td>
                         <td>
                             <input type="number" id="@item.DescriptorID" name="@item.DescriptorID" value="@item.PointsSafe" class="points" placeholder="# Points (optional)"/>

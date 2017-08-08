@@ -409,13 +409,14 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
-        public Review GetReviewForSubmission(int reviewID)
+        public Review GetReviewForSubmission(int reviewID, string language = "en")
         {
             try
             {
                 var entity = Reviews.Where(n => n.ReviewID == reviewID).Select(n => new { City = n.Place.City, Review = n, Place = n.Place }).FirstOrDefault();
                 var review = entity.Review;
-                review.City = entity.City;
+                review.City = TranslateCity(entity.City, language);
+                // TO DO: Convert place
                 review.CurrentPlace = entity.Place;
                 return review;
             }

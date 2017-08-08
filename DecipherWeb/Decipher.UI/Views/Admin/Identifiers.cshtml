@@ -15,6 +15,9 @@
                 <tr>
                     <td>@item.Name</td>
                     <td>
+                        <a data-fancybox data-type="iframe" data-src="@Url.Action("Translate", new { transID = "Descriptors." + item.DescriptorID + ".Name" })" href="javascript:;" class="translate">Translate</a>
+                    </td>
+                    <td>
                         @using (Html.BeginForm("DescriptorRemove", "Admin", FormMethod.Post, new { @class = "remove" }))
                         {
                             @Html.Hidden("DescriptorID", item.DescriptorID)

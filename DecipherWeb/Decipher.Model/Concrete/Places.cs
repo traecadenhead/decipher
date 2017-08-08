@@ -282,19 +282,20 @@ namespace Decipher.Model.Concrete
             };
         }
 
-        public Place GetPlaceForReview(string placeID)
+        public Place GetPlaceForReview(string placeID, string language = "en")
         {
             try
             {
                 var place = GetPlace(placeID);
                 if (place != null)
-                {                    
+                {   
                     place.Questions = Questions.Where(n => n.QuestionSetID == place.CurrentCity.QuestionSetID).OrderBy(n => n.Ordinal).ToList();
                     var descriptors = Descriptors.Where(n => n.DescriptorType == "Question").OrderBy(n => n.Name).ToList();
                     foreach(var question in place.Questions)
                     {
                         question.Descriptors = descriptors.Where(n => n.AssociatedID == question.QuestionID).OrderBy(n => n.Ordinal).ThenBy(n => n.Name).ToList();
                     }
+                    place.Questions = TranslateQuestions(place.Questions, language);
                     return place;
                 }
             }
@@ -457,7 +458,7 @@ namespace Decipher.Model.Concrete
             return null;
         }
 
-        public Place GetPlace(string placeID)
+        public Place GetPlace(string placeID, string language = "en")
         {
             try
             {
@@ -466,7 +467,8 @@ namespace Decipher.Model.Concrete
                 if(place != null)
                 {
                     var entity = place.Place;
-                    entity.CurrentCity = place.City;
+                    entity = TranslatePlace(entity, language);
+                    entity.CurrentCity = TranslateCity(place.City, language);
                     return entity;
                 }                
             }
@@ -475,6 +477,58 @@ namespace Decipher.Model.Concrete
                 HttpContext.Current.Trace.Warn(ex.ToString());
             }
             return null;
+        }
+
+        public bool SaveTranslatedPlace(Place entity)
+        {
+            try
+            {
+                // get the place from Google in English before saving
+                var enPlace = GetPlaceDetailFromGoogle(entity.PlaceID);
+                if (SavePlace(enPlace))
+                {
+                    // save the translated strings
+                    SaveTranslation(new Translation
+                    {
+                        TranslationID = "Places." + entity.PlaceID + ".Name." + entity.Language,
+                        LanguageID = entity.Language,
+                        Text = entity.Name
+                    });
+                    SaveTranslation(new Translation
+                    {
+                        TranslationID = "Places." + entity.PlaceID + ".Address." + entity.Language,
+                        LanguageID = entity.Language,
+                        Text = entity.Address
+                    });
+                    return true;
+                }
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return false;
+        }
+
+        public Place TranslatePlace(Place place, string language = "en", List<Translation> translations = null)
+        {
+            try
+            {
+                if (translations == null)
+                {
+                    translations = Translations.Where(n => n.TranslationID.IndexOf("Place." + place.PlaceID) == 0).Where(n => n.LanguageID == language).ToList();
+                }
+                var entity = new Place { PlaceID = place.PlaceID };
+                entity = (Place)UpdateObject(entity, place, "PlaceID");
+                entity.Name = TranslateString("Places", place.PlaceID, "Name", place.Name, language, translations);
+                entity.Address = TranslateString("Places", place.PlaceID, "Address", place.Address, language, translations);
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return place;
         }
 
         # endregion

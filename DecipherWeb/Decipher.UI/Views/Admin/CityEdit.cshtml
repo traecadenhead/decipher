@@ -22,12 +22,20 @@
             <td class="label">City Full Name:</td>
             <td class="field">
                 @Html.TextBox("Name", Model.Name, new { required = "required" })
+                @if (Model.CityID > 0)
+                {
+                <a data-fancybox data-type="iframe" data-src="@Url.Action("Translate", new { transID = "Cities." + Model.CityID + ".Name" })" href="javascript:;" class="translate">Translate</a>
+                }
             </td>
         </tr>
         <tr>
             <td class="label">City Display Name:</td>
             <td class="field">
                 @Html.TextBox("DisplayName", Model.DisplayName, new { required = "required" })
+                @if (Model.CityID > 0)
+                {
+                    <a data-fancybox data-type="iframe" data-src="@Url.Action("Translate", new { transID = "Cities." + Model.CityID + ".DisplayName" })" href="javascript:;" class="translate">Translate</a>
+                }
             </td>
         </tr>
         <tr>
@@ -58,6 +66,10 @@
             <td class="label">Name for Reporting Incident:</td>
             <td class="field">
                 @Html.TextBox("ReportName", Model.ReportName)
+                @if (Model.CityID > 0)
+                {
+                    <a data-fancybox data-type="iframe" data-src="@Url.Action("Translate", new { transID = "Cities." + Model.CityID + ".ReportName" })" href="javascript:;" class="translate">Translate</a>
+                }
             </td>
         </tr>
         <tr>

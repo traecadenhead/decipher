@@ -167,6 +167,7 @@
     <Compile Include="Entities\Partials\CustomString.cs" />
     <Compile Include="Entities\Partials\Descriptor.cs" />
     <Compile Include="Entities\Partials\Email.cs" />
+    <Compile Include="Entities\Partials\Coords.cs" />
     <Compile Include="Entities\Partials\Language.cs" />
     <Compile Include="Entities\Partials\ListHolder.cs" />
     <Compile Include="Entities\Partials\ListItem.cs" />

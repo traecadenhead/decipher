@@ -31,9 +31,9 @@ namespace Decipher.UI.Controllers.API
         }
 
         [HttpGet]
-        public Review GetForSubmit(int id)
+        public Review GetForSubmit(int id, string language = "en")
         {
-            return db.GetReviewForSubmission(id);
+            return db.GetReviewForSubmission(id, language);
         }
 
         [HttpPost]

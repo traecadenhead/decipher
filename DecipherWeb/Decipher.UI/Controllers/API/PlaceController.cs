@@ -33,13 +33,20 @@ namespace Decipher.UI.Controllers.API
         [HttpPut]
         public bool Save(Place entity)
         {
-            return db.SavePlace(entity);
+            if (entity.Language == GetConfig("DefaultLanguage"))
+            {
+                return db.SavePlace(entity);
+            }
+            else
+            {
+                return db.SaveTranslatedPlace(entity);
+            }
         }
 
         [HttpGet]
-        public Place GetForReview(string id)
+        public Place GetForReview(string id, string language = "en")
         {
-            return db.GetPlaceForReview(id);
+            return db.GetPlaceForReview(id, language);
         }
     }
 }

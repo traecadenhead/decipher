@@ -29,8 +29,8 @@ namespace Decipher.Model.Abstract
         bool DeleteCity(int id);
         //bool AssociateAllCityZips();
         //bool AssociateCityZips(int cityID);
-        City DetermineNearestCity(GeoCoordinate location);
-        City GetDefaultCity();
+        City DetermineNearestCity(GeoCoordinate location, string language = "en");
+        City GetDefaultCity(string language = "en");
         #endregion
 
         #region CustomStrings
@@ -98,10 +98,10 @@ namespace Decipher.Model.Abstract
         List<SelectListItem> ListPlaceDistances(string defaultValue = "", string emptyText = "");
         PlaceResult SearchPlaces(Search entity);
         PlaceResult NearbyPlaces(Search entity);
-        Place GetPlaceForReview(string placeID);
+        Place GetPlaceForReview(string placeID, string language = "en");
         bool ImportPlace(string placeID);
         bool ImportPlacesInCity(int cityID, string type = null);
-        Place GetPlace(string placeID);
+        bool SaveTranslatedPlace(Place entity);
         #endregion
 
         #region PlaceTypes
@@ -139,7 +139,7 @@ namespace Decipher.Model.Abstract
         ReviewSummary GetReviewSummary(ReviewFilter filters);
         ReviewFilter GetReviewFilters(ReviewFilter entity);
         bool RecalculateReviewScores();
-        Review GetReviewForSubmission(int reviewID);
+        Review GetReviewForSubmission(int reviewID, string language = "en");
         bool SubmitReview(Review entity);
         #endregion
 

@@ -67,6 +67,10 @@ namespace Decipher.Model.Concrete
                     // we're only looking right around where the user is - 500 meters for now
                     dict.Add("radius", 500.ToString());                    
                 }
+                if (!String.IsNullOrEmpty(search.Language))
+                {
+                    dict.Add("language", search.Language);
+                }
                 string response = GooglePlacesAPIRequest("nearbysearch", dict);
                 JObject json = JObject.Parse(response);
                 return new PlaceResult
