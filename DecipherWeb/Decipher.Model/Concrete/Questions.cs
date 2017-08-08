@@ -128,12 +128,15 @@ namespace Decipher.Model.Concrete
                     question = (Question)UpdateObject(question, q, "QuestionID");
                     question.Text = TranslateString("Questions", q.QuestionID.ToString(), "Text", q.Text, language, translations);
                     question.Descriptors = new List<Descriptor>();
-                    foreach(var d in q.Descriptors)
+                    if (q.Descriptors != null && q.Descriptors.Count > 0)
                     {
-                        var desc = new Descriptor { DescriptorID = d.DescriptorID };
-                        desc = (Descriptor)UpdateObject(desc, d, "DescriptorID");
-                        desc.Name = TranslateString("Descriptors", d.DescriptorID.ToString(), "Name", d.Name, language, translations);
-                        question.Descriptors.Add(desc);
+                        foreach (var d in q.Descriptors)
+                        {
+                            var desc = new Descriptor { DescriptorID = d.DescriptorID };
+                            desc = (Descriptor)UpdateObject(desc, d, "DescriptorID");
+                            desc.Name = TranslateString("Descriptors", d.DescriptorID.ToString(), "Name", d.Name, language, translations);
+                            question.Descriptors.Add(desc);
+                        }
                     }
                     list.Add(question);
                 }

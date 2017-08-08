@@ -112,12 +112,22 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
-        public string TranslateString(string translationID, string text, string language = "en")
+        public string TranslateString(string translationID, string text, string language = "en", string fromLanguage = "en")
         {
             try
             {
-                string[] arr = translationID.Split('.');
-                return TranslateString(arr[0], arr[1], arr[2], text, language);
+                if (language != fromLanguage)
+                {
+                    string[] arr = translationID.Split('.');
+                    string table = arr[0];
+                    string id = arr[1];
+                    string field = String.Empty;
+                    if(arr.Length > 2)
+                    {
+                        field = arr[2];
+                    }
+                    return TranslateString(table, id, field, text, language, null, fromLanguage);
+                }
             }
             catch(Exception ex)
             {
@@ -126,40 +136,47 @@ namespace Decipher.Model.Concrete
             return text;
         }
 
-        public string TranslateString(string table, string id, string field, string text, string language = "en", List<Translation> translations = null)
+        public string TranslateString(string table, string id, string field, string text, string language = "en", List<Translation> translations = null, string fromLanguage = "en")
         {
             try
             {
-                Translation trans = null;
-                if (translations != null && translations.Count > 0)
+                if (language != fromLanguage)
                 {
-                    trans = translations.Where(n => n.TranslationID == table + "." + id + "." + field + "." + language).FirstOrDefault();                    
+                    Translation trans = null;
+                    string transID = GenerateTranslationID(table, id, language, field);
+                    if (translations != null && translations.Count > 0)
+                    {
+                        trans = translations.Where(n => n.TranslationID == transID).FirstOrDefault();
+                    }
+                    else
+                    {
+                        trans = Translations.Where(n => n.TranslationID == transID).FirstOrDefault();
+                    }
+                    if (trans == null)
+                    {
+                        string translated = GoogleTranslateString(text, language, fromLanguage);
+                        if (!String.IsNullOrEmpty(translated))
+                        {
+                            trans = new Translation
+                            {
+                                TranslationID = transID,
+                                LanguageID = language,
+                                Text = translated,
+                                DateCreated = DateTime.Now,
+                                DateModified = DateTime.Now
+                            };
+                            db.Translations.Add(trans);
+                            db.SaveChanges();
+                        }
+                    }
+                    if (trans != null)
+                    {
+                        return trans.Text;
+                    }
                 }
                 else
                 {
-                    string transID = table + "." + id + "." + field + "." + language;
-                    trans = Translations.Where(n => n.TranslationID == transID).FirstOrDefault();
-                }
-                if (trans == null)
-                {
-                    string translated = GoogleTranslateString(text, language);
-                    if (!String.IsNullOrEmpty(translated))
-                    {
-                        trans = new Translation
-                        {
-                            TranslationID = table + "." + id + "." + field + "." + language,
-                            LanguageID = language,
-                            Text = translated,
-                            DateCreated = DateTime.Now,
-                            DateModified = DateTime.Now
-                        };
-                        db.Translations.Add(trans);
-                        db.SaveChanges();
-                    }
-                }
-                if (trans != null)
-                {
-                    return trans.Text;
+                    HttpContext.Current.Trace.Warn("same language: no translation needed");
                 }
             }
             catch (Exception ex)
@@ -167,6 +184,17 @@ namespace Decipher.Model.Concrete
                 HttpContext.Current.Trace.Warn(ex.ToString());
             }
             return text;
+        }
+
+        private string GenerateTranslationID(string table, string id, string language = "en", string field = null)
+        {
+            string str = table + "." + id;
+            if (!String.IsNullOrEmpty(field))
+            {
+                str += "." + field;
+            }
+            str += "." + language;
+            return str;
         }
 
         public string GetOriginalTranslation(string translationID)
@@ -202,6 +230,10 @@ namespace Decipher.Model.Concrete
                     case "Descriptors":
                         var d = Descriptors.Where(n => n.DescriptorID.ToString() == id).FirstOrDefault();
                         str = d.Name;
+                        break;
+                    case "Reviews":
+                        var r = Reviews.Where(n => n.ReviewID.ToString() == id).FirstOrDefault();
+                        str = r.Additional;
                         break;
                     case "Pages":
                         var p = Pages.Where(n => n.PageID.ToString() == id).FirstOrDefault();
@@ -256,6 +288,10 @@ namespace Decipher.Model.Concrete
                         var d = Descriptors.Where(n => n.DescriptorID.ToString() == id).FirstOrDefault();
                         d.Name = text;
                         return SaveDescriptor(d);
+                    case "Reviews":
+                        var r = Reviews.Where(n => n.ReviewID.ToString() == id).FirstOrDefault();
+                        r.Additional = text;
+                        return SaveReview(r);
                     case "Pages":
                         var p = Pages.Where(n => n.PageID.ToString() == id).FirstOrDefault();
                         if (field == "Title")

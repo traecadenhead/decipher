@@ -135,12 +135,12 @@ namespace Decipher.Model.Abstract
         IQueryable<Review> Reviews { get; }
         bool SaveReview(Review entity);
         bool DeleteReview(int id);
-        Review GetReview(int reviewID);
-        ReviewSummary GetReviewSummary(ReviewFilter filters);
-        ReviewFilter GetReviewFilters(ReviewFilter entity);
+        Review GetReview(int reviewID, string language = "en");
+        ReviewSummary GetReviewSummary(ReviewFilter filters, string language = "en");
+        ReviewFilter GetReviewFilters(ReviewFilter entity, string language = "en");
         bool RecalculateReviewScores();
         Review GetReviewForSubmission(int reviewID, string language = "en");
-        bool SubmitReview(Review entity);
+        bool SubmitReview(Review entity, string language = "en");
         #endregion
 
         #region Translations
@@ -149,7 +149,7 @@ namespace Decipher.Model.Abstract
         bool DeleteTranslation(int id);
         string GetOriginalTranslation(string translationID);
         bool SaveOriginalTranslation(string translationID, string text);
-        string TranslateString(string translationID, string text, string language = "en");
+        string TranslateString(string translationID, string text, string language = "en", string fromLanguage = "en");
         #endregion
 
         #region Types
@@ -184,7 +184,7 @@ namespace Decipher.Model.Abstract
         bool DeleteUser(int id);
         User GetIdentify(int userID, string language = "en");
         int SaveIdentify(User entity);
-        User GetUser(int userID);
+        User GetUser(int userID, string language = "en");
         #endregion
 
         #region ZipDemographics

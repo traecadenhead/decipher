@@ -21,13 +21,13 @@ namespace Decipher.UI.Controllers.API
         [HttpPut]
         public bool SaveSubmit(Review entity)
         {
-            return db.SubmitReview(entity);
+            return db.SubmitReview(entity, entity.Language);
         }
 
         [HttpGet]
-        public Review Get(int id)
+        public Review Get(int id, string language = "en")
         {
-            return db.GetReview(id);
+            return db.GetReview(id, language);
         }
 
         [HttpGet]
@@ -39,13 +39,13 @@ namespace Decipher.UI.Controllers.API
         [HttpPost]
         public ReviewSummary Summary(ReviewFilter entity)
         {
-            return db.GetReviewSummary(entity);
+            return db.GetReviewSummary(entity, entity.Language);
         }
 
         [HttpPost]
         public ReviewFilter GetFilters(ReviewFilter entity)
         {
-            return db.GetReviewFilters(entity);
+            return db.GetReviewFilters(entity, entity.Language);
         }
     }
 }

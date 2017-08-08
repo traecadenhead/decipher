@@ -48,6 +48,8 @@ namespace Decipher.Model.Entities
         }
 
         public City City{ get; set; }
+
+        public string Language { get; set; }
     }
 
     public class ReviewJson

@@ -516,7 +516,7 @@ namespace Decipher.Model.Concrete
             {
                 if (translations == null)
                 {
-                    translations = Translations.Where(n => n.TranslationID.IndexOf("Place." + place.PlaceID) == 0).Where(n => n.LanguageID == language).ToList();
+                    translations = Translations.Where(n => n.TranslationID.IndexOf("Places." + place.PlaceID) == 0).Where(n => n.LanguageID == language).ToList();
                 }
                 var entity = new Place { PlaceID = place.PlaceID };
                 entity = (Place)UpdateObject(entity, place, "PlaceID");

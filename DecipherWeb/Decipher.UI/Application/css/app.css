@@ -106,7 +106,7 @@ div.bottomNav{
 }
 
 .languageList{
-    display: none;
+    display: block;
 }
 
 div.bottomNav .languageList select{

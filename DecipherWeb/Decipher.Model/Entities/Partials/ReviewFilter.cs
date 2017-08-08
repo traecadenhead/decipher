@@ -12,5 +12,6 @@ namespace Decipher.Model.Entities
         public List<City> Cities { get; set; }
         public List<Zip> Zips { get; set; }
         public List<Place> Places { get; set; }
+        public string Language { get; set; }
     }
 }

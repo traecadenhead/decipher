@@ -113,6 +113,10 @@
     <CustomStringID>ReviewSummary-Review</CustomStringID>
     <Text>Review</Text>
   </CustomString>
+  <CustomString>
+    <CustomStringID>Server-YourReview</CustomStringID>
+    <Text>Your Review</Text>
+  </CustomString>
   <!--BEGIN: Original app strings
   <CustomString>
     <CustomStringID>Header-Decipher</CustomStringID>

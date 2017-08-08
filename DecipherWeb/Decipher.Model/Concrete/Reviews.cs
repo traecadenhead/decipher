@@ -91,7 +91,7 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
-        public Review GetReview(int reviewID)
+        public Review GetReview(int reviewID, string language = "en")
         {
             try
             {
@@ -102,10 +102,11 @@ namespace Decipher.Model.Concrete
                     HttpContext.Current.Trace.Warn(questions.Count + " questions");
                     var quesDescriptors = Descriptors.Where(n => n.DescriptorType == "Question").ToList();
                     HttpContext.Current.Trace.Warn(quesDescriptors.Count + " descriptors");
-                    var review = entity.Review;
-                    review.CurrentUser = GetUser(review.UserID);
+                    var review = TranslateReview(entity.Review, language);     
+                    // may need to translate user               
+                    review.CurrentUser = GetUser(review.UserID, language);
                     HttpContext.Current.Trace.Warn("got current user");
-                    review.CurrentPlace = GetPlace(review.PlaceID);
+                    review.CurrentPlace = GetPlace(review.PlaceID, language);
                     HttpContext.Current.Trace.Warn("got current place");
                     review.Questions = new List<Question>();
                     foreach (var q in questions)
@@ -128,6 +129,7 @@ namespace Decipher.Model.Concrete
                             review.Questions.Add(q);
                         }
                     }
+                    review.Questions = TranslateQuestions(review.Questions, language);
                     return review;
                 }
                 else
@@ -167,7 +169,7 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
-        public ReviewSummary GetReviewSummary(ReviewFilter filters)
+        public ReviewSummary GetReviewSummary(ReviewFilter filters, string language = "en")
         {
             try
             {
@@ -197,8 +199,8 @@ namespace Decipher.Model.Concrete
                         allReviews.AddRange(Reviews.Where(n => n.Place.CityID == cityItem.CityID).Select(n => new ReviewContainer { Review = n, Responses = n.ReviewResponses, User = n.User, UserDescriptors = n.User.UserDescriptors }).ToList());
                     }
                 }
-                var allDescriptors = Descriptors.Where(n => n.DescriptorType == "Question").ToList();
-                var allQuestions = Questions.OrderBy(n => n.Ordinal).ToList();
+                var allDescriptors = TranslateDescriptors(Descriptors.Where(n => n.DescriptorType == "Question").ToList(), language);
+                var allQuestions = TranslateQuestions(Questions.OrderBy(n => n.Ordinal).ToList(), language);
                 List<int> requiredDescs = new List<int>();
                 filters.Descriptors.Where(n => n.Selected == true).ToList().ForEach(n => requiredDescs.Add(n.DescriptorID));
                 // first get reviews that apply to these filters
@@ -234,17 +236,18 @@ namespace Decipher.Model.Concrete
                     Description = String.Empty,
                     Questions = new List<Question>(),
                     UserDescriptors = new List<Descriptor>(),
-                    Reviews = applyReviews.Select(n => n.Review).OrderByDescending(n => n.DateCreated).ToList(),
-                    Comments = applyReviews.Where(n => n.Review.Additional != null && n.Review.Additional != "").OrderByDescending(n => n.Review.DateCreated).Select(n => n.Review.Additional).ToList()
+                    Reviews = applyReviews.Select(n => n.Review).OrderByDescending(n => n.DateCreated).ToList()
                 };
+                summary.Comments = TranslateReviews(summary.Reviews.Where(n => n.Additional != null && n.Additional != "").OrderByDescending(n => n.DateCreated).ToList(), language).Select(n => n.Additional).ToList();
                 // specific place requested so give the name of the place
                 if(filters.Places != null && filters.Places.Count == 1)
                 {
-                    var place = GetPlace(filters.Places.Select(n => n.PlaceID).FirstOrDefault());
+                    var place = GetPlace(filters.Places.Select(n => n.PlaceID).FirstOrDefault(), language);
                     summary.Name = place.Name;
                     summary.Description = place.Address;
                 }
-                foreach (var desc in Descriptors.Where(n => n.DescriptorType == "Profile").OrderBy(n => n.Ordinal).ToList())
+                var identifiers = TranslateDescriptors(Descriptors.Where(n => n.DescriptorType == "Profile").OrderBy(n => n.Ordinal).ToList(), language);
+                foreach (var desc in identifiers)
                 {
                     if (filters.Descriptors.Where(n => n.DescriptorID == desc.DescriptorID).Where(n => n.Selected).FirstOrDefault() != null)
                     {
@@ -296,7 +299,7 @@ namespace Decipher.Model.Concrete
             return null;
         }
 
-        public ReviewFilter GetReviewFilters(ReviewFilter entity)
+        public ReviewFilter GetReviewFilters(ReviewFilter entity, string language = "en")
         {
             try
             {
@@ -365,7 +368,7 @@ namespace Decipher.Model.Concrete
                 {
                     chosenDescs.AddRange(entity.Descriptors.Where(n => n.Selected == true).ToList());
                 }
-                entity.Descriptors = Descriptors.Where(n => n.DescriptorType == "Profile").OrderBy(n => n.Ordinal).ToList();
+                entity.Descriptors = TranslateDescriptors(Descriptors.Where(n => n.DescriptorType == "Profile").OrderBy(n => n.Ordinal).ToList(), language);
                 foreach (var chosenDesc in chosenDescs)
                 {
                     var selDesc = entity.Descriptors.Where(n => n.DescriptorID == chosenDesc.DescriptorID).FirstOrDefault();
@@ -427,21 +430,35 @@ namespace Decipher.Model.Concrete
             return null;
         }
 
-        public bool SubmitReview(Review entity)
+        public bool SubmitReview(Review entity, string language = "en")
         {
             try
             {
                 entity.Submitted = true;
+                if(language != GetConfig("DefaultLanguage") && !String.IsNullOrEmpty(entity.Additional))
+                {
+                    // save the original translation
+                    SaveTranslation(new Translation
+                    {
+                        TranslationID = "Reviews." + entity.ReviewID.ToString() + ".Additional." + language,
+                        LanguageID = language,
+                        Text = entity.Additional
+                    });
+                    HttpContext.Current.Trace.Warn("translating to default language");
+                    // translate response to English
+                    entity.Additional = TranslateString("Reviews." + entity.ReviewID.ToString() + ".Additional", entity.Additional, GetConfig("DefaultLanguage"), language);
+                    HttpContext.Current.Trace.Warn("translation: " + entity.Additional);
+                }
                 if (SaveReview(entity))
                 {
-                    if (!String.IsNullOrEmpty(entity.Email))
-                    {
-                        SendReviewToUser(entity);
-                    }
                     if (entity.Reported)
                     {
                         SendReviewToCity(entity, entity.City);
                     }
+                    if (!String.IsNullOrEmpty(entity.Email))
+                    {
+                        SendReviewToUser(entity, language);
+                    }                    
                     return true;
                 }
             }
@@ -452,16 +469,21 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
-        public bool SendReviewToUser(Review entity)
+        public bool SendReviewToUser(Review entity, string language = "en")
         {
             try
             {
-                string str = GenerateReviewString(entity.ReviewID);
+                string str = GenerateReviewString(entity.ReviewID, language);
                 HttpContext.Current.Trace.Warn("generated string: " + str);
                 if (!String.IsNullOrEmpty(str))
                 {
                     HttpContext.Current.Trace.Warn("sending email");
-                    SendEmail(entity.Email, "Your Review", str);
+                    string subject = "Your Review";
+                    if(language != GetConfig("DefaultLanguage"))
+                    {
+                        subject = TranslateString("CustomString.Server-YourReview", subject, language);
+                    }
+                    SendEmail(entity.Email, subject, str);
                     return true;
                 }
             }
@@ -472,12 +494,12 @@ namespace Decipher.Model.Concrete
             return false;
         }
 
-        public string GenerateReviewString(int reviewID)
+        public string GenerateReviewString(int reviewID, string language = "en")
         {
             try
             {
                 StringBuilder sb = new StringBuilder();
-                var entity = GetReview(reviewID);
+                var entity = GetReview(reviewID, language);
                 sb.Append("<h1>" + entity.CurrentPlace.Name + "</h1>");
                 sb.Append("<h2>" + entity.CurrentPlace.Address + "</h2>");
                 sb.Append("<h4>" + entity.IdentifierList + "</h4>");
@@ -503,6 +525,49 @@ namespace Decipher.Model.Concrete
                 HttpContext.Current.Trace.Warn(ex.ToString());
             }
             return null;
+        }
+
+        public List<Review> TranslateReviews(List<Review> reviews, string language = "en", List<Translation> translations = null)
+        {
+            try
+            {
+                List<Review> list = new List<Review>();
+                if (translations == null)
+                {
+                    translations = Translations.Where(n => n.TranslationID.IndexOf("Reviews.") == 0).Where(n => n.LanguageID == language).ToList();
+                }
+                foreach (var r in reviews)
+                {
+                    var review = TranslateReview(r, language, translations);
+                    list.Add(review);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return reviews;
+        }
+
+        public Review TranslateReview(Review review, string language = "en", List<Translation> translations = null)
+        {
+            try
+            {
+                if (translations == null)
+                {
+                    translations = Translations.Where(n => n.TranslationID.IndexOf("Reviews." + review.ReviewID.ToString()) == 0).Where(n => n.LanguageID == language).ToList();
+                }
+                var entity = new Review { ReviewID = review.ReviewID };
+                entity = (Review)UpdateObject(entity, review, "ReviewID");
+                entity.Additional = TranslateString("Reviews", review.ReviewID.ToString(), "Additional", review.Additional, language, translations);
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return review;
         }
 
         # endregion

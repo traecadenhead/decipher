@@ -175,7 +175,7 @@ namespace Decipher.Model.Concrete
             return 0;
         }
 
-        public User GetUser(int userID)
+        public User GetUser(int userID, string language = "en")
         {
             try
             {
@@ -191,6 +191,7 @@ namespace Decipher.Model.Concrete
                         user.Descriptors.Add(desc);
                     }
                 }
+                user.Descriptors = TranslateDescriptors(user.Descriptors, language);
                 return user;
             }
             catch(Exception ex)
