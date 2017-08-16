@@ -207,6 +207,20 @@ namespace Decipher.Model.Concrete
             return null;
         }
 
+        public City GetCity(int cityID, string language = "en")
+        {
+            try
+            {
+                var city = Cities.Where(n => n.CityID == cityID).FirstOrDefault();
+                return TranslateCity(city, language);
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return null;
+        }
+
         public City TranslateCity(City city, string language = "en", List<Translation> translations = null)
         {
             try
@@ -227,6 +241,24 @@ namespace Decipher.Model.Concrete
                 HttpContext.Current.Trace.Warn(ex.ToString());
             }
             return city;
+        }
+
+        public City GetCityFromURL(string path)
+        {
+            try
+            {
+                var cities = Cities.ToList();
+                var city = cities.Where(n => n.DisplayName.Replace(" ", "").ToLower() == path.ToLower()).FirstOrDefault();
+                if(city != null)
+                {
+                    return city;
+                }
+            }
+            catch(Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.ToString());
+            }
+            return null;
         }
 
         # endregion

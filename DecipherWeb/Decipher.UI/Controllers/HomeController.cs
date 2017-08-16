@@ -21,6 +21,19 @@ namespace Decipher.UI.Controllers
             return View();
         }
 
+        public ActionResult City(string city)
+        {
+            var entity = db.GetCityFromURL(city);
+            if(entity != null)
+            {
+                return RedirectToAction("App", new { cityID = entity.CityID });
+            }
+            else
+            {
+                return RedirectToAction("App");
+            }
+        }
+
         public ActionResult AppOriginal()
         {
             return View();

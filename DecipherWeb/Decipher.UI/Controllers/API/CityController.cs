@@ -23,5 +23,15 @@ namespace Decipher.UI.Controllers.API
         {
             return db.GetDefaultCity(language);
         }
+
+        [HttpGet]
+        public City Get(int? id = null, string language = "en")
+        {
+            if (id.HasValue)
+            {
+                return db.GetCity(id.Value, language);
+            }
+            return null;
+        }
     }
 }

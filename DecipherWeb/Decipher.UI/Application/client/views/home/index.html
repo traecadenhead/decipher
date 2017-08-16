@@ -9,7 +9,7 @@
         <div ng-if="languages.length > 1" class="languageList">
             <select ng-options="l.LanguageID as l.Name for l in languages" ng-model="user.Language" ng-change="ChangeLanguage()"></select>
         </div>
-        <a class="navItem" ui-sref="Review">{{customStrings['Home-LeaveReview']}}</a>
-        <a ng-repeat="page in pages" class="navItem" ng-click="LoadPage(page.PageID)">{{page.Title}}</a>
+        <a ng-if="city != null && city.CityID != null" class="navItem" ui-sref="Review">{{customStrings['Home-LeaveReview']}}</a>
+        <a ng-if="city != null && city.CityID != null" ng-repeat="page in pages" class="navItem" ng-click="LoadPage(page.PageID)">{{page.Title}}</a>
     </div>
 </div>

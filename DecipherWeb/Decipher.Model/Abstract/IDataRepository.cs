@@ -31,6 +31,8 @@ namespace Decipher.Model.Abstract
         //bool AssociateCityZips(int cityID);
         City DetermineNearestCity(GeoCoordinate location, string language = "en");
         City GetDefaultCity(string language = "en");
+        City GetCityFromURL(string path);
+        City GetCity(int cityID, string language = "en");
         #endregion
 
         #region CustomStrings

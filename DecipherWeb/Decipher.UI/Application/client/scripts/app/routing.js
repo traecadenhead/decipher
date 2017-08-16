@@ -81,7 +81,7 @@
         }
     })
     .state('Home', {
-        url: '/app',
+        url: '/app?{cityID}',
         views: {
             "mainContainer": {
                 templateUrl: function ($stateParams) {
