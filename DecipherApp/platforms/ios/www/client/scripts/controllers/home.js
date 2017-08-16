@@ -1,6 +1,6 @@
 ﻿// Index
 (function (app) {
-    var HomeIndex = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $window, ga) {
+    var HomeIndex = function ($scope, db, oh, $state, root, deviceSvc, $sce, $timeout, $rootScope, $window, ga, $stateParams) {
         $scope.pages = [];
         $scope.customStrings = [];
         $scope.city = { DisplayName: "City"};
@@ -9,30 +9,31 @@
 
         var Load = function () {
             ga.TrackScreen("HomeIndex");
-            db.List("page").then(function (data) {
-                console.log("got " + data.length + " pages");
-                $scope.pages = data;
-                try {
-                    $scope.height = parseInt(window.innerHeight - ($scope.pages.length * 75) - 75);
-                }
-                catch (e) { console.log(e); }
-            });
+            try {
+                $scope.height = parseInt(window.innerHeight);
+            }
+            catch (e) { console.log(e); }            
             deviceSvc.GetCustomStrings().then(function (data) {
                 angular.forEach(data, function (item) {
                     $scope.customStrings[item.CustomStringID] = item.Text;
                 });
+            });            
+            db.List("language").then(function (data) {
+                $scope.languages = data;
+                if ($scope.languages.length > 1) {
+                    // update height if language list will show
+                    $scope.height = $scope.height - 42;
+                }
+                $scope.user.Language = deviceSvc.GetLanguage();
             });
-            if($scope.languages == []){
-                db.List("language").then(function (data) {
-                    $scope.languages = data;
-                    if ($scope.languages.length > 1) {
-                        // update height if language list will show
-                        $scope.height = $scope.height - 42;
-                    }
-                    $scope.user.Language = deviceSvc.GetLanguage();
+            if ($stateParams.cityID != undefined && $stateParams.cityID != null && $stateParams.cityID != '') {
+                db.Get("city", $stateParams.cityID).then(function (data) {
+                    $scope.city = data;
+                    amplify.store("City", data);
+                    LoadPages();
                 });
             }
-            if (navigator.geolocation) {
+            else if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     function (location) {
                         var loc = {
@@ -42,11 +43,13 @@
                         db.Post("city", "determine", loc).then(function(data){
                             $scope.city = data;
                             amplify.store("City", data);
+                            LoadPages();
                         });
                     }, function (err) {
                         db.Get("city", null, false, "default").then(function (data) {
                             $scope.city = data;
                             amplify.store("City", data);
+                            LoadPages();
                         });
                     }
                 );
@@ -55,11 +58,25 @@
                 db.Get("city", null, false, "default").then(function (data) {
                     $scope.city = data;
                     amplify.store("City", data);
+                    LoadPages();
                 });
             }
         };
 
         Load();
+
+        var LoadPages = function () {
+            if ($scope.city != null && $scope.city.CityID != null) {
+                db.List("page", "cityID=" + $scope.city.CityID).then(function (data) {
+                    console.log("got " + data.length + " pages");
+                    $scope.pages = data;
+                    try {
+                        $scope.height = parseInt(window.innerHeight - ($scope.pages.length * 75) - 75);
+                    }
+                    catch (e) { console.log(e); }
+                });
+            }
+        };
 
         $scope.LoadPage = function (pageID) {
             $state.go("Page", { "pageID": pageID });
@@ -95,7 +112,7 @@
         });
     };
 
-    HomeIndex.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$window", "ga"];
+    HomeIndex.$inject = ["$scope", "db", "oh", "$state", "root", "deviceSvc", "$sce", "$timeout", "$rootScope", "$window", "ga", "$stateParams"];
     app.controller("HomeIndex", HomeIndex);
 }(angular.module("app")));
 
