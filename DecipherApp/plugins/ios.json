@@ -283,9 +283,6 @@
         "cordova-plugin-network-information": {
             "PACKAGE_NAME": "com.deciphercity.app"
         },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.deciphercity.app"
-        },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.deciphercity.app"
         },
@@ -297,6 +294,9 @@
         },
         "phonegap-plugin-push": {
             "SENDER_ID": "40798945938",
+            "PACKAGE_NAME": "com.deciphercity.app"
+        },
+        "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.deciphercity.app"
         }
     },
