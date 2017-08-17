@@ -10,12 +10,6 @@
         "cordova-plugin-battery-status": {
             "PACKAGE_NAME": "com.deciphercity.app"
         },
-        "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.deciphercity.app"
-        },
-        "cordova-plugin-media-capture": {
-            "PACKAGE_NAME": "com.deciphercity.app"
-        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.deciphercity.app"
         },
@@ -44,9 +38,6 @@
             "PACKAGE_NAME": "com.deciphercity.app"
         },
         "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.deciphercity.app"
-        },
-        "cordova-plugin-media": {
             "PACKAGE_NAME": "com.deciphercity.app"
         },
         "cordova-plugin-network-information": {
