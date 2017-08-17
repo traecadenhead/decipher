@@ -34,8 +34,10 @@
                 });
             }
             else if (navigator.geolocation) {
+                console.log("has geolocation");
                 navigator.geolocation.getCurrentPosition(
                     function (location) {
+                        console.log("got location");
                         var loc = {
                             Latitude: location.coords.latitude,
                             Longitude: location.coords.longitude
@@ -46,15 +48,20 @@
                             LoadPages();
                         });
                     }, function (err) {
+                        console.log("couldn't get position");
                         db.Get("city", null, false, "default").then(function (data) {
                             $scope.city = data;
                             amplify.store("City", data);
                             LoadPages();
                         });
+                    },
+                    {
+                        timeout: 1000
                     }
                 );
             }
             else{
+                console.log("no geolocation");
                 db.Get("city", null, false, "default").then(function (data) {
                     $scope.city = data;
                     amplify.store("City", data);

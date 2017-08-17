@@ -55,11 +55,11 @@
                         title = "Your Choice";
                     }
                     else {
-                        title = GetRandomAdjective();
+                        title = "Decipher City";
                     }
                 }
                 else if (title == 'negative') {
-                    title = GetRandomAdjective('negative');
+                    title = "Decipher City";
                 }
                 if (type == 'confirm') {
                     if (buttons == undefined || buttons == null) {

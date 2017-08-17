@@ -200,10 +200,17 @@ var db = function ($http, oh, root, $q, $rootScope) {
 	var HasConnection = function () {
         var deviceType = amplify.store("DeviceType");
         if(deviceType == 'Web'){
-            return navigator.onLine;
+            if(navigator.onLine){
+                return true;
+            }
+            else{
+                amplify.store("WasOffline", true);
+                return false;
+            }
         }
         else{
             if(navigator.connection.type == Connection.NONE || navigator.connection.type == Connection.UNKNOWN){
+                amplify.store("WasOffline", true);
                 return false;
             }
             else{
