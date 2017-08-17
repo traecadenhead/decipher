@@ -48,7 +48,7 @@
             });
         };
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 
@@ -99,7 +99,6 @@
                             Longitude: location.coords.longitude
                         };
                         $scope.search.CurrentLocation = true;
-                        console.log("set current location");
                         Submit();
                     }, function (err) {
                         // user is not sharing location
@@ -173,6 +172,10 @@
                 deviceSvc.Alert("alert", $scope.customStrings["Review-NoPlace"]);
             }
         };
+ 
+        $rootScope.$on("IsOnline", function () {
+            Load();
+        });
 
         // move to top of screen when view is loaded
         $timeout(function () {
@@ -210,7 +213,7 @@
             $state.go("ReviewQuestions", { "placeID": $stateParams.placeID });
         };
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 
@@ -326,7 +329,7 @@
             });
         };
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 
@@ -381,7 +384,7 @@
             });
         };
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 
@@ -417,7 +420,7 @@
 
         Load();
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 
@@ -492,7 +495,7 @@
             $state.go("ReviewDetail", { "reviewID": review.ReviewID });
         };
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 

@@ -68,7 +68,6 @@
         var LoadPages = function () {
             if ($scope.city != null && $scope.city.CityID != null) {
                 db.List("page", "cityID=" + $scope.city.CityID).then(function (data) {
-                    console.log("got " + data.length + " pages");
                     $scope.pages = data;
                     try {
                         $scope.height = parseInt(window.innerHeight - ($scope.pages.length * 75) - 75);
@@ -96,7 +95,6 @@
                 db.Save("user", user, "language");
             }
             // Refresh open views so that data is loaded in correct language
-            console.log("language changed - get custom strings");
             deviceSvc.GetCustomStrings().then(function (data) {
                 // get the data first before we use these methods that refresh everything
                 console.log("refresh views");
@@ -105,6 +103,10 @@
                 Load();
             });
         };
+ 
+        $rootScope.$on("IsOnline", function () {
+                       Load();
+        });
 
         // move to top of screen when view is loaded
         $timeout(function () {
@@ -138,7 +140,7 @@
 
         Load();
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 

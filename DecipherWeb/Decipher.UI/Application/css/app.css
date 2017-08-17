@@ -216,13 +216,16 @@ h5{
     line-height: 75px;
     font-size: 24px;
     position: fixed;
-    bottom: 0px;
+    bottom: -2px;
     left: 0px;
     color: #FFFFFF;
     border: none;
     text-transform: uppercase;
     cursor: pointer;
     text-decoration: none;
+    -webkit-border-radius:0;
+    border-radius:0;
+    -webkit-appearance: none;
 }
 
 div.searchBar{
