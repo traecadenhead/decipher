@@ -25,7 +25,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>GCM_SENDER_ID</key>
 	<string>40798945938</string>
 	<key>IS_GCM_ENABLED</key>
