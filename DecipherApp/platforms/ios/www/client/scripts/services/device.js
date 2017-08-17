@@ -55,11 +55,11 @@
                         title = "Your Choice";
                     }
                     else {
-                        title = GetRandomAdjective();
+                        title = "Decipher City";
                     }
                 }
                 else if (title == 'negative') {
-                    title = GetRandomAdjective('negative');
+                    title = "Decipher City";
                 }
                 if (type == 'confirm') {
                     if (buttons == undefined || buttons == null) {
@@ -199,9 +199,9 @@
             }
         };
  
- var IsOnline = function(){
- CallAction("IsOnline");
- };
+        var IsOnline = function(){
+            CallAction("IsOnline");
+        };
 
         return {
             EstablishUser: EstablishUser,
@@ -212,7 +212,7 @@
             GetCustomString: GetCustomString,
             SetLanguage: SetLanguage,
             GetLanguage: GetLanguage,
- IsOnline: IsOnline
+            IsOnline: IsOnline
         };
     };
     deviceSvc.$inject = ["db", "$rootScope", "root", "$q", "$state", "$http", "deviceDetector"];

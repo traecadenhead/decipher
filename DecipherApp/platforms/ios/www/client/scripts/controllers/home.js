@@ -27,7 +27,6 @@
                 $scope.user.Language = deviceSvc.GetLanguage();
             });
             if ($stateParams.cityID != undefined && $stateParams.cityID != null && $stateParams.cityID != '') {
- console.log("was passed a city to use");
                 db.Get("city", $stateParams.cityID).then(function (data) {
                     $scope.city = data;
                     amplify.store("City", data);
@@ -35,11 +34,10 @@
                 });
             }
             else if (navigator.geolocation) {
-                console.log("has geolocation ability");
+                console.log("has geolocation");
                 navigator.geolocation.getCurrentPosition(
                     function (location) {
-                                                         console.log("got location");
-                                                         console.log(location);
+                        console.log("got location");
                         var loc = {
                             Latitude: location.coords.latitude,
                             Longitude: location.coords.longitude
@@ -50,18 +48,20 @@
                             LoadPages();
                         });
                     }, function (err) {
-                                                         console.log("get location error");
-                                                         console.log(err);
+                        console.log("couldn't get position");
                         db.Get("city", null, false, "default").then(function (data) {
                             $scope.city = data;
                             amplify.store("City", data);
                             LoadPages();
                         });
+                    },
+                    {
+                        timeout: 1000
                     }
                 );
             }
             else{
- console.log("no geolocation");
+                console.log("no geolocation");
                 db.Get("city", null, false, "default").then(function (data) {
                     $scope.city = data;
                     amplify.store("City", data);
@@ -75,7 +75,6 @@
         var LoadPages = function () {
             if ($scope.city != null && $scope.city.CityID != null) {
                 db.List("page", "cityID=" + $scope.city.CityID).then(function (data) {
-                    console.log("got " + data.length + " pages");
                     $scope.pages = data;
                     try {
                         $scope.height = parseInt(window.innerHeight - ($scope.pages.length * 75) - 75);
@@ -103,7 +102,6 @@
                 db.Save("user", user, "language");
             }
             // Refresh open views so that data is loaded in correct language
-            console.log("language changed - get custom strings");
             deviceSvc.GetCustomStrings().then(function (data) {
                 // get the data first before we use these methods that refresh everything
                 console.log("refresh views");

@@ -13,9 +13,6 @@
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.deciphercity.app"
         },
-        "cordova-plugin-contacts": {
-            "PACKAGE_NAME": "com.deciphercity.app"
-        },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.deciphercity.app"
         },

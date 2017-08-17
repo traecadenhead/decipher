@@ -99,11 +99,13 @@
                             Longitude: location.coords.longitude
                         };
                         $scope.search.CurrentLocation = true;
-                        console.log("set current location");
                         Submit();
                     }, function (err) {
                         // user is not sharing location
                         Submit();
+                    },
+                    {
+                        timeout: 1000
                     }
                 );
             }
@@ -174,9 +176,9 @@
             }
         };
  
- $rootScope.$on("IsOnline", function () {
-                Load();
-                });
+        $rootScope.$on("IsOnline", function () {
+            Load();
+        });
 
         // move to top of screen when view is loaded
         $timeout(function () {
