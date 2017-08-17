@@ -459,6 +459,7 @@
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 8PUVQJFPEH;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -633,7 +634,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Stephanie Webb (WP3CTNTQ3Q)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 8PUVQJFPEH;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -651,6 +652,8 @@
 					"\"$(SRCROOT)/DecipherApp/Plugins/cordova-plugin-google-analytics\"",
 				);
 				PRODUCT_NAME = DecipherApp;
+				PROVISIONING_PROFILE = "22ffce04-8406-400f-bbdb-ff48ec3b1667";
+				PROVISIONING_PROFILE_SPECIFIER = "Decipher City Development";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -664,7 +667,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Decipher City, LLC (8PUVQJFPEH)";
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 8PUVQJFPEH;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -680,6 +683,8 @@
 					"\"$(SRCROOT)/DecipherApp/Plugins/cordova-plugin-google-analytics\"",
 				);
 				PRODUCT_NAME = DecipherApp;
+				PROVISIONING_PROFILE = "9e91a1dc-fcef-4070-a311-a53e491cc6a2";
+				PROVISIONING_PROFILE_SPECIFIER = "Decipher City Distribution";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -697,6 +702,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Stephanie Webb (WP3CTNTQ3Q)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
@@ -724,6 +730,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Decipher City, LLC (8PUVQJFPEH)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
