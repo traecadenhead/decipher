@@ -198,6 +198,10 @@
                 return "en";
             }
         };
+ 
+ var IsOnline = function(){
+ CallAction("IsOnline");
+ };
 
         return {
             EstablishUser: EstablishUser,
@@ -207,7 +211,8 @@
             GetCustomStrings: GetCustomStrings,
             GetCustomString: GetCustomString,
             SetLanguage: SetLanguage,
-            GetLanguage: GetLanguage
+            GetLanguage: GetLanguage,
+ IsOnline: IsOnline
         };
     };
     deviceSvc.$inject = ["db", "$rootScope", "root", "$q", "$state", "$http", "deviceDetector"];

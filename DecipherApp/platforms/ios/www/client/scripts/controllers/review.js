@@ -48,7 +48,7 @@
             });
         };
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 
@@ -173,6 +173,10 @@
                 deviceSvc.Alert("alert", $scope.customStrings["Review-NoPlace"]);
             }
         };
+ 
+ $rootScope.$on("IsOnline", function () {
+                Load();
+                });
 
         // move to top of screen when view is loaded
         $timeout(function () {
@@ -210,7 +214,7 @@
             $state.go("ReviewQuestions", { "placeID": $stateParams.placeID });
         };
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 
@@ -326,7 +330,7 @@
             });
         };
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 
@@ -381,7 +385,7 @@
             });
         };
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 
@@ -417,7 +421,7 @@
 
         Load();
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 
@@ -492,7 +496,7 @@
             $state.go("ReviewDetail", { "reviewID": review.ReviewID });
         };
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 

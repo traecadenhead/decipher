@@ -27,6 +27,7 @@
                 $scope.user.Language = deviceSvc.GetLanguage();
             });
             if ($stateParams.cityID != undefined && $stateParams.cityID != null && $stateParams.cityID != '') {
+ console.log("was passed a city to use");
                 db.Get("city", $stateParams.cityID).then(function (data) {
                     $scope.city = data;
                     amplify.store("City", data);
@@ -34,8 +35,11 @@
                 });
             }
             else if (navigator.geolocation) {
+                console.log("has geolocation ability");
                 navigator.geolocation.getCurrentPosition(
                     function (location) {
+                                                         console.log("got location");
+                                                         console.log(location);
                         var loc = {
                             Latitude: location.coords.latitude,
                             Longitude: location.coords.longitude
@@ -46,6 +50,8 @@
                             LoadPages();
                         });
                     }, function (err) {
+                                                         console.log("get location error");
+                                                         console.log(err);
                         db.Get("city", null, false, "default").then(function (data) {
                             $scope.city = data;
                             amplify.store("City", data);
@@ -55,6 +61,7 @@
                 );
             }
             else{
+ console.log("no geolocation");
                 db.Get("city", null, false, "default").then(function (data) {
                     $scope.city = data;
                     amplify.store("City", data);
@@ -105,6 +112,10 @@
                 Load();
             });
         };
+ 
+        $rootScope.$on("IsOnline", function () {
+                       Load();
+        });
 
         // move to top of screen when view is loaded
         $timeout(function () {
@@ -138,7 +149,7 @@
 
         Load();
 
-        $rootScope.$on("Refresh", function () {
+        $rootScope.$on("IsOnline", function () {
             Load();
         });
 

@@ -75,6 +75,16 @@
         <script type="text/javascript">
             document.addEventListener("deviceready", onDeviceReady, false);
             document.addEventListener("resume", onResume, false);
+            document.addEventListener("online", onOnline, false);
+            
+            function onOnline() {
+                console.log("online");
+                var injector = angular.element(document.getElementById('app')).injector();
+                console.log('invoking');
+                injector.invoke(['deviceSvc', function(deviceSvc){
+                                 deviceSvc.IsOnline();
+                }]);
+            }
 
             function onResume(){
                 InitPush();
@@ -104,6 +114,7 @@
 					amplify.store("DeviceToken", data.registrationId);
 				});
 			}
+        
         </script>
     </body>
 </html>
