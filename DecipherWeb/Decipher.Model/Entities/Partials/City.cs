@@ -28,6 +28,14 @@ namespace Decipher.Model.Entities
         }
 
         public bool Selected { get; set; }
+
+        public double RadiusInMeters
+        {
+            get
+            {
+                return Radius * 1609.34;
+            }
+        }
     }
 
     public class CityJson

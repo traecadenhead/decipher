@@ -131,9 +131,10 @@ namespace Decipher.Model.Concrete
                 entity.City = Cities.Where(n => n.CityID == entity.User.CityID).FirstOrDefault();
                 if (entity.City != null)
                 {
+                    // if outside of city radius, use the city coordinates
                     // Search Google Places API
                     bool userLocation = false;
-                    if(entity.Location != null)
+                    if(entity.Location != null && entity.Location.GetDistanceTo(new GeoCoordinate { Latitude = entity.City.Latitude, Longitude = entity.City.Longitude }) <= entity.City.RadiusInMeters)
                     {
                         userLocation = true;
                     }
