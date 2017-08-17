@@ -103,6 +103,9 @@
                     }, function (err) {
                         // user is not sharing location
                         Submit();
+                    },
+                    {
+                        timeout: 1000
                     }
                 );
             }

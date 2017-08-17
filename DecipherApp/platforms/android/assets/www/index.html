@@ -75,16 +75,26 @@
         <script type="text/javascript">
             document.addEventListener("deviceready", onDeviceReady, false);
             document.addEventListener("resume", onResume, false);
+            document.addEventListener("online", onOnline, false);
 
             function onResume(){
-                InitPush();
-            };
+                //InitPush();
+            }
+
+            function onOnline() {
+                console.log("online");
+                if(amplify.store("WasOffline") != null && amplify.store("WasOffline") == true){
+                    var injector = angular.element(document.getElementById('app')).injector();
+                    console.log('invoking');
+                    injector.invoke(['deviceSvc', function(deviceSvc){
+                                     deviceSvc.IsOnline();
+                    }]);
+                }
+            }
 
             function onDeviceReady(){
-                console.log("device ready");
                 window.analytics.startTrackerWithId('UA-101659909-1');
                 angular.bootstrap(document, ['app']);
-                console.log("bootstrapped");
                 InitPush();
             }
 
@@ -100,7 +110,6 @@
                 });
 
                 appPush.on('registration', function(data) {
-                    console.log(data);
                     amplify.store("DeviceToken", data.registrationId);
                 });
             }
