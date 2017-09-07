@@ -36,6 +36,8 @@ namespace Decipher.Model.Entities
                 return Radius * 1609.34;
             }
         }
+
+        public double UserDistance { get; set; }
     }
 
     public class CityJson

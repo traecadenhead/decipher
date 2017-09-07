@@ -182,8 +182,11 @@ namespace Decipher.Model.Concrete
             try
             {
                 var cities = Cities.ToList();
-                HttpContext.Current.Trace.Warn(cities.Count + " cities");
-                var city = cities.OrderBy(n => new GeoCoordinate(n.Latitude, n.Longitude).GetDistanceTo(location)).FirstOrDefault();
+                foreach(var item in cities)
+                {
+                    item.UserDistance = location.GetDistanceTo(new GeoCoordinate(item.Latitude, item.Longitude));
+                }
+                var city = cities.OrderBy(n => n.UserDistance).FirstOrDefault();
                 if (city != null)
                 {
                     return TranslateCity(city, language);
